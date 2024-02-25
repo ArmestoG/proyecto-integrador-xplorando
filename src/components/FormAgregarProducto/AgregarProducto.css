@@ -1,0 +1,125 @@
+.contenedor-formulario{
+  max-width: 50rem;
+  width: 800px;
+  padding: 1.5625rem 2.5rem 0.625rem 2.5rem;
+  box-shadow: 0 0 0.625rem #273562;
+}
+.contenedor-formulario .texto{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #273562
+}
+.contenedor-formulario form{
+  padding: 1.875rem 0 0 0;
+}
+.contenedor-formulario form .fila-formulario{
+  display: flex;
+  margin: 2rem 0;
+}
+form .fila-formulario .datos-entrada{
+  width: 100%;
+  height: 3rem;
+  margin: 0 1.25rem;
+  position: relative;
+}
+form .fila-formulario .textarea{
+  height: 7rem;
+}
+.datos-entrada input,
+.textarea textarea{
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  align-self: start;
+  font-size: 1rem;
+  border-bottom: 0.125rem  solid #273562;
+}
+.datos-entrada input:focus ~ label, .textarea textarea:focus ~ label,
+.datos-entrada input:valid ~ label, .textarea textarea:valid ~ label{
+  transform: translateY(-1.25rem);
+  font-size: 0.875rem;
+  border: none;
+  color: #8799D8;
+}
+.textarea textarea{
+  resize: none;
+  padding-top: 0.625rem;  
+}
+.datos-entrada label{
+  position: absolute;
+  bottom: 0.625rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.textarea label{
+  width: 100%;
+  bottom: 2.5rem;
+}
+.datos-entrada .subrayado{
+  position: absolute;
+  bottom: 0;
+  height: 0.125rem;
+  width: 100%;
+}
+.datos-entrada .subrayado:before{
+  position: absolute;
+  content: "";
+  height: 0.125rem;
+  width: 100%;
+  background: #8799D8;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+.datos-entrada input:focus ~ .subrayado:before,
+
+.textarea textarea:focus ~ .subrayado:before{
+  transform: scale(1);
+}
+.boton-enviar .datos-entrada{
+  overflow: hidden;
+  height: 2.8125rem !important;
+  width: 25%!important;
+}
+.boton-enviar .datos-entrada{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #F38164;
+  color: #ffffff;
+  border-radius: 25px;
+}
+
+.boton-enviar .datos-entrada:hover {
+  background-color: #db5837;
+}
+.boton-enviar .datos-entrada input{
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+
+.fila-formulario-imagenes {
+  display: flex;
+  margin: 2rem 0;
+}
+
+.imagen-entrada input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 1rem;
+  border-bottom: 0.125rem solid #273562;
+}
