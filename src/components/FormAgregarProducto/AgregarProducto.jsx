@@ -37,6 +37,10 @@ const AgregarProducto = () => {
 
   const handleImagenesChange = (event) => {
     const files = Array.from(event.target.files);
+    if (files.length > 5) {
+      alert("Solo se pueden seleccionar un máximo de 5 imágenes.");
+      return;
+    }
     setImagenes(files);
   };
 
@@ -77,10 +81,10 @@ const AgregarProducto = () => {
 
   return (
     <div className="contenedor-formulario">
-      <div className="texto">Agregar Producto</div>
       <form onSubmit={handleSubmit}>
         <div className="fila-formulario">
-          <div className="datos-entrada">
+          <div className="input-container">
+            <label htmlFor="codigo">Código del Paquete:</label>
             <input
               type="text"
               id="codigo"
@@ -88,10 +92,12 @@ const AgregarProducto = () => {
               onChange={handleCodigoChange}
               required
             />
-            <div className="subrayado"></div>
-            <label htmlFor="codigo">Código del Paquete</label>
+            <p className="supporting-text">
+              Ingrese el código único asignado al paquete.
+            </p>
           </div>
-          <div className="datos-entrada">
+          <div className="input-container">
+            <label htmlFor="nombre">Nombre del Paquete:</label>
             <input
               type="text"
               id="nombre"
@@ -99,12 +105,14 @@ const AgregarProducto = () => {
               onChange={handleNombreChange}
               required
             />
-            <div className="subrayado"></div>
-            <label htmlFor="nombre">Nombre del Paquete</label>
+            <p className="supporting-text">
+              Escriba el nombre descriptivo del paquete.
+            </p>
           </div>
         </div>
         <div className="fila-formulario">
-          <div className="datos-entrada">
+          <div className="input-container">
+            <label htmlFor="direccion">Dirección:</label>
             <input
               type="text"
               id="direccion"
@@ -112,10 +120,12 @@ const AgregarProducto = () => {
               onChange={handleDireccionChange}
               required
             />
-            <div className="subrayado"></div>
-            <label htmlFor="direccion">Dirección</label>
+            <p className="supporting-text">
+              Ingrese la dirección de la estadía del paquete.
+            </p>
           </div>
-          <div className="datos-entrada">
+          <div className="input-container">
+            <label htmlFor="precio">Precio del Paquete:</label>
             <input
               type="text"
               id="precio"
@@ -123,12 +133,14 @@ const AgregarProducto = () => {
               onChange={handlePrecioChange}
               required
             />
-            <div className="subrayado"></div>
-            <label htmlFor="precio">Precio del Paquete</label>
+            <p className="supporting-text">
+              Ingrese el precio total del paquete.
+            </p>
           </div>
         </div>
         <div className="fila-formulario">
-          <div className="datos-entrada">
+          <div className="input-container">
+            <label htmlFor="categoria">Categoría:</label>
             <input
               type="text"
               id="categoria"
@@ -136,21 +148,22 @@ const AgregarProducto = () => {
               onChange={handleCategoriaChange}
               required
             />
-            <div className="subrayado"></div>
-            <label htmlFor="categoria">Categoría</label>
+            <p className="supporting-text">Ingrese la categoria del paquete.</p>
           </div>
         </div>
-        <div className="fila-formulario textarea">
-          <div className="datos-entrada">
+        <div className="fila-formulario">
+          <div className="input-container">
+            <label htmlFor="descripcion">Descripción del Paquete:</label>
             <textarea
               id="descripcion"
               value={descripcion}
               onChange={handleDescripcionChange}
               required
             ></textarea>
-            <br />
-            <div className="subrayado"></div>
-            <label htmlFor="descripcion">Descripción del Paquete</label>
+            <p className="supporting-text">
+              Ingrese una descripción detallada del paquete con las
+              características correspondientes de lo que ofrece el paquete.
+            </p>
           </div>
         </div>
         <div className="fila-formulario-imagenes">
@@ -161,14 +174,17 @@ const AgregarProducto = () => {
               accept="image/*"
               multiple
               onChange={handleImagenesChange}
+              max="5"
+              style={{ display: "none" }}
             />
-            <div className="subrayado"></div>
-            <label htmlFor="imagenes">Cargar Imágenes</label>
+            <label htmlFor="imagenes" className="boton-imagenes">
+              Cargar Imágenes
+            </label>
           </div>
         </div>
         <div className="fila-formulario boton-enviar">
-          <div className="datos-entrada">
-            <input type="submit" value="Guardar" />
+          <div className="datos-entrada" style={{ marginLeft: "auto" }}>
+            <input type="submit" value="cargar producto" />
           </div>
         </div>
       </form>
