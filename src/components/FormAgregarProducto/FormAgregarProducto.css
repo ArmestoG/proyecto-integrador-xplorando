@@ -29,7 +29,7 @@
   font-size: 12px;
   color: #273562;
   position: absolute;
-  top: -10px; /* Coloca el label justo encima del input */
+  top: -10px; /* Coloca el label encima del input */
   left: 10px;
   background-color: white; /* Color del fondo del label */
   padding: 0 5px; /* Espacio interno del label */
@@ -115,7 +115,7 @@
 
   .input-container input[type="text"],
   .input-container textarea {
-    width: 100%; /* Ocupar todo el ancho disponible */
+    width: 100%; /* Ocupar todo el ancho  */
   }
 
   .boton-enviar input[type="submit"] {

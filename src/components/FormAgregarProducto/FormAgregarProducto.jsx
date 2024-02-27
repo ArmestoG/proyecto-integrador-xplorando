@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./AgregarProducto.css";
+import "./FormAgregarProducto.css";
 import axios from "axios";
 
 const AgregarProducto = () => {
@@ -75,7 +75,6 @@ const AgregarProducto = () => {
       setImagenes([]);
     } catch (error) {
       console.error("Error al guardar el producto:", error);
-      // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
     }
   };
 
