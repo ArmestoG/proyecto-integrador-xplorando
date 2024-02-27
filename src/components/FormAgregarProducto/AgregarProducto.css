@@ -91,3 +91,34 @@
   font-size: 0.75rem; /* Tamaño de la fuente del texto de soporte */
   color: #31363f; /* Color del texto de soporte */
 }
+
+
+@media only screen and (max-width: 600px) {
+  .contenedor-formulario {
+    position: relative;
+    z-index: 1;
+    width: 90vw; /* Reducir el ancho para dispositivos móviles */
+    margin-right: 24px;
+    margin-left: 24px;
+    margin-top: 250px;
+    
+  }
+
+  .fila-formulario {
+    flex-direction: column; /* Alinear los campos uno debajo del otro */
+  }
+
+  .input-container {
+    margin-right: 0; /* Eliminar el margen derecho */
+    margin-bottom: 24px; /* Espaciado uniforme entre los campos */
+  }
+
+  .input-container input[type="text"],
+  .input-container textarea {
+    width: 100%; /* Ocupar todo el ancho disponible */
+  }
+
+  .boton-enviar input[type="submit"] {
+    margin: 0 auto; /* Centrar el botón */
+  }
+}
