@@ -7,6 +7,7 @@ import Registro from "./Routes/Registro";
 import Admin from "./Routes/Admin/Admin";
 import ListaProductos from "./Routes/Admin/ListaProductos";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
+import Categoria from "./Routes/Categoria";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/registro" element={<Registro />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route path="/categorias/:categoria" element={<Categoria />} />
       </Routes>
       <Footer />
     </Router>
