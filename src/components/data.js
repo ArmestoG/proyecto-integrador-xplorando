@@ -113,7 +113,7 @@ export const responsive = {
       imageurl1:
         "https://images.pexels.com/photos/892548/pexels-photo-892548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl2:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/18268204/pexels-photo-18268204/free-photo-of-mar-ciudad-paisaje-pajaro.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl3:
         "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl4:

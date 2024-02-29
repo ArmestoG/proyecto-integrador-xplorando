@@ -35,14 +35,18 @@ const AgregarProducto = () => {
     setDescripcion(event.target.value);
   };
 
-  const handleImagenesChange = (event) => {
+/*  const handleImagenesChange = (event) => {
     const files = Array.from(event.target.files);
     if (files.length > 5) {
       alert("Solo se pueden seleccionar un máximo de 5 imágenes.");
       return;
     }
     setImagenes(files);
-  };
+  };*/
+
+  const handleImagenesChange = (event) => {
+    setImagenes([event.target.value]);
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,20 +60,20 @@ const AgregarProducto = () => {
       descripcionProducto: descripcion,
       precioProducto: precio,
       direccion: direccion,
-      imagenes: imagenes.map((imagen) => ({
+     /* imagenes: imagenes.map((imagen) => ({
         urlImagen: URL.createObjectURL(imagen),
-      })),
+      })),*/
+      imagenes: imagenes,
       categoriaId: categoria,
     };
 
     try {
       const response = await axios.post(
-        "URL",
+        "http://localhost:8080/productos/registrar",
         nuevoProducto
       );
       console.log("Producto guardado:", response.data);
-      alert("Producto guardado:", response.data);
-   
+        alert("Paquete registrado" );
       setCodigo("");
       setNombre("");
       setDireccion("");
@@ -78,8 +82,8 @@ const AgregarProducto = () => {
       setDescripcion("");
       setImagenes([]);
     } catch (error) {
-      console.error("Error al guardar el producto:", error);
-      alert("Error al guardar el producto:", error)
+      console.error("Error al guardar el paquete:", error);
+      alert("No se ha podido registrar el paquete" )
     }
   };
 
@@ -170,7 +174,7 @@ const AgregarProducto = () => {
             </p>
           </div>
         </div>
-        <div className="fila-formulario-imagenes">
+       {/*  <div className="fila-formulario-imagenes">
           <div className="imagen-entrada">
             <input
               type="file"
@@ -185,12 +189,31 @@ const AgregarProducto = () => {
               Cargar Imágenes
             </label>
           </div>
-        </div>
-        <div className="fila-formulario boton-enviar">
-          <div className="datos-entrada" style={{ marginLeft: "auto" }}>
-            <input type="submit" value="cargar producto" />
+  </div> */}
+
+<div className="fila-formulario">
+          <div className="input-container">
+            <label htmlFor="imagenes">urlImagen:</label>
+            <input
+              type="text"
+              id="imagenes"
+              value={imagenes}
+              onChange={handleImagenesChange}
+              required
+            ></input>
+            <p className="supporting-text">
+              Ingrese una url de imagen 
+            </p>
           </div>
         </div>
+
+
+        <div className="fila-formulario boton-enviar">
+          <div className="datos-entrada" style={{ marginLeft: "auto" }}>
+            <input type="submit" value="registrar paquete" />
+          </div>
+        </div>
+         
       </form>
     </div>
   );

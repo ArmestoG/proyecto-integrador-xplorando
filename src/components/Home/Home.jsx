@@ -19,7 +19,7 @@ export default function Body() {
       id: image.id, // Usa un id diferente para evitar conflictos con categoria
       name: image.name,
       imageurl: image.imageurl1,
-      price: `$${(Math.random() * 100).toFixed(2)}`,
+      price: image.price,
       description: image.description,
     }));
 
