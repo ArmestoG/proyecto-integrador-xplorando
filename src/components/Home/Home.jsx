@@ -39,7 +39,7 @@ export default function Body() {
 
   return (
     <div className="body-container">
-      <h1>React multi carousel</h1>
+      <h1>Próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
        <div className="search-bar">
         <input type="text" placeholder="Buscar productos..." />
@@ -53,7 +53,7 @@ export default function Body() {
       </div>
       {/* Sección de productos aleatorios */}
        <div className="random-products">
-        <h2>Productos Aleatorios</h2>
+        <h2>¡Se viene el finde XL!</h2>
         <div className="row">
           {randomProducts.map((item) => (
             <Product

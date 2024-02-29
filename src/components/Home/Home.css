@@ -6,6 +6,7 @@ body {
 
 .body-container {
   max-width: 1280px;
+  width:100vw;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -105,6 +106,8 @@ input {
   font-family: arial;
   border-radius: 20px;
   max-height:500px;
+  background-color: #8799D8;
+
 }
 .carousel-card .product--image {
   
@@ -115,7 +118,7 @@ input {
   padding: 1rem; 
   text-align: start;
   font-size: 14px;
-  margin-top: -30px;
+  margin-top: -20px;
 }
 
 
@@ -126,7 +129,7 @@ input {
 
 .carousel-card .card button {
   border-radius: 20px;
-  width:70%;
+  width:65%;
   background-color: #273662;
   text-align: center;
   cursor: pointer;
@@ -159,7 +162,7 @@ input {
 
 /* Estilos para la sección de productos aleatorios */
 .random-products {
-  margin-top: 2rem;
+  margin-top: 7rem;
 }
 
 /* Estilos para la fila de productos aleatorios */
@@ -209,6 +212,7 @@ input {
   font-size: 12px;
   border-radius:20px;
   margin-left: 300px;
+  margin-bottom: 15px;
 }
 
 .random-products .card button:hover {

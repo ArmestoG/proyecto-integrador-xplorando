@@ -207,7 +207,7 @@ export const responsive = {
     {
       id: 18,
       imageurl1:
-        "https://images.pexels.com/photos/13626758/pexels-photo-13626758.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/13365795/pexels-photo-13365795.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl2:
         "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl3:
