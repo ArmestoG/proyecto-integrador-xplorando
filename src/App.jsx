@@ -22,6 +22,8 @@ const App = () => {
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
+        <Route path="/producto/undefined" element={<Categoria />} />
+        
       </Routes>
       <Footer />
     </Router>

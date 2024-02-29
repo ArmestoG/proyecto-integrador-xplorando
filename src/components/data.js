@@ -115,11 +115,11 @@ export const responsive = {
         imageurl2:
         "https://images.pexels.com/photos/18268204/pexels-photo-18268204/free-photo-of-mar-ciudad-paisaje-pajaro.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl3:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/20347385/pexels-photo-20347385/free-photo-of-pajaro-playa-arena-agua.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl4:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/13275623/pexels-photo-13275623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl5:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://media.istockphoto.com/id/854529296/es/foto/vista-a%C3%A9rea-en-el-sur-punto-pier-park.jpg?s=2048x2048&w=is&k=20&c=GHuUMaRaVCfou9fKwQ782_j0GDdkU0CmoWTLIOQ5gnk=",
       name: "Puerto Madryn",
       description: "Es una ciudad portuaria ubicada en la provincia de Chubut, en la Patagonia argentina.  Se encuentra a orillas del golfo Nuevo y es reconocida mundialmente por ser uno de los mejores lugares para avistaje de ballenas.",
       price:"$3500",
@@ -129,13 +129,13 @@ export const responsive = {
       imageurl1:
         "https://images.pexels.com/photos/18018255/pexels-photo-18018255/free-photo-of-resfriado-nieve-hombre-gente.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl2:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/13452793/pexels-photo-13452793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl3:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/13593011/pexels-photo-13593011.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl4:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/14357389/pexels-photo-14357389.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         imageurl5:
-        "https://images.pexels.com/photos/7476120/pexels-photo-7476120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/18018255/pexels-photo-18018255/free-photo-of-resfriado-nieve-hombre-gente.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       name: "Cerro Catedral - Bariloche",
       description: "Importante área de esquí y montaña ubicada a solo 10 km del centro de San Carlos de Bariloche, en la Patagonia argentina. Cuenta con variados pisos altitudinales, modernos medios de elevación y más de 50 pistas.",
       price:"$4500",
