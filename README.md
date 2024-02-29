@@ -1,8 +1,13 @@
-# React + Vite
+Front proyecto integrador CTD
+Equipo #4 - Xplrando
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dependencias: 
+npm install react-multi-carousel --save
+npm install axios
+npm install react-icons --save
+npm install react-router-dom
+npm install react-image-gallery
+(puede que falte alguna)
 
-Currently, two official plugins are available:
+Los datos para los productos por ahora los toma del archivo data.js, próximamente se actualizará para que lo tome de la base de datos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
