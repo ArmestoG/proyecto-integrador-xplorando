@@ -36,7 +36,7 @@ const Gallery = () => {
   };
 
   return (
-    <>
+    <div>
       <div className={galleryStyles.container}>
         <ImageGallery
           items={images}
@@ -47,7 +47,7 @@ const Gallery = () => {
           onScreenChange={handleScreenChange}
         />
       </div>
-    </>
+    </div>
   );
 };
 

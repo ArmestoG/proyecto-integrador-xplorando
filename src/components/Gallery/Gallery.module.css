@@ -1,0 +1,21 @@
+/* Mobile Styles (Base styles for all screen sizes) */
+.container {
+  width: 90vw; /* Adjust width based on your design */
+  max-width: 70vh; /* Set a maximum height to avoid overflow */
+  justify-content: center; /* Horizontally center the content */
+  margin: 0 auto; /* Vertically center the container (optional) */
+}
+
+/* Tablet Styles (Override for larger screens) */
+@media (min-width: 768px) {
+  .container {
+    width: 70vw; /* Adjust width for tablets */
+  }
+}
+
+/* Desktop Styles (Optional override for even larger screens) */
+@media (min-width: 1440px) {
+  .container {
+    width: 50vw; /* Adjust width for desktops (optional) */
+  }
+}
