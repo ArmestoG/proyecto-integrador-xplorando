@@ -29,7 +29,7 @@ const Header = () => {
             />
           ) : (
             <img
-              src="src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
+              src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
               alt="Logo Xplorando"
             />
           )}

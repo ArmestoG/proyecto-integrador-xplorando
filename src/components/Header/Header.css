@@ -1,41 +1,42 @@
 .header {
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    background-color: #8799D8; /* Color de fondo del header */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    display: flex;
-    justify-content: space-between; /* Alinea los elementos a los extremos */
-    align-items: center; /* Centra verticalmente los elementos */
-    padding-top: .25rem;
-    padding-bottom: .25rem;
-    padding-left: .50rem;
-    padding-right: .50rem;
-    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
-  }
-  
-  .header__logo img {
-    height: 40px;/* Altura del logo */
-    margin: .1rem
-  }
-  
-  .header__links a {
-    text-decoration: none; /* Elimina el subrayado de los enlaces */
-    color: #FFFFFF; /* Color del texto de los enlaces */
-    margin-left: 1rem;
-    margin-right: 1rem; /* Espacio entre los enlaces */
-  }
-  
-  .header__links a:first-child {
-    margin-left: 0; /* Elimina el margen izquierdo del primer enlace */
-  }
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #8799D8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  padding-left: .50rem;
+  padding-right: .50rem;
+  z-index: 1000;
+}
 
-  .header__register-button {
-    background-color: #F38164;
-    color: #ffffff;
-    border-radius: 25px;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-  }
+.header__logo img {
+  height: 40px;
+  margin: .25rem;
+}
+
+.header__links a {
+  text-decoration: none;
+  color: #FFFFFF;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.header__links a:first-child {
+  margin-left: 0;
+}
+
+.header__register-button {
+  background-color: #F38164;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  margin: .5rem;
+  text-decoration: none;
+}

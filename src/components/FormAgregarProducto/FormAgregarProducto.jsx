@@ -1,5 +1,5 @@
-import { useState } from "react";
 import "./FormAgregarProducto.css";
+import { useState } from "react";
 import axios from "axios";
 
 const AgregarProducto = () => {
@@ -7,8 +7,8 @@ const AgregarProducto = () => {
   const [nombre, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
   const [precio, setPrecio] = useState("");
-  const [categoria, setCategoria] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [categoria, setCategoria] = useState("");
   const [imagenes, setImagenes] = useState([]);
 
   const handleCodigoChange = (event) => {
@@ -46,26 +46,30 @@ const AgregarProducto = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    crearProducto();
+  };
 
-    // Crear un objeto con los datos del producto
+  const crearProducto = async () => {
     const nuevoProducto = {
-      codigo,
-      nombre,
-      direccion,
-      precio,
-      categoria,
-      descripcion,
-      imagenes,
+      codigoProducto: codigo,
+      nombreProducto: nombre,
+      descripcionProducto: descripcion,
+      precioProducto: precio,
+      direccion: direccion,
+      imagenes: imagenes.map((imagen) => ({
+        urlImagen: URL.createObjectURL(imagen),
+      })),
+      categoriaId: categoria,
     };
 
     try {
-      // Enviar los datos del producto al servidor
-      const response = await axios.post("URL_DEL_ENDPOINT", nuevoProducto);
-
-      // Manejar la respuesta del servidor
+      const response = await axios.post(
+        "URL",
+        nuevoProducto
+      );
       console.log("Producto guardado:", response.data);
-
-      // Limpiar el formulario después de guardar el producto
+      alert("Producto guardado:", response.data);
+   
       setCodigo("");
       setNombre("");
       setDireccion("");
@@ -75,6 +79,7 @@ const AgregarProducto = () => {
       setImagenes([]);
     } catch (error) {
       console.error("Error al guardar el producto:", error);
+      alert("Error al guardar el producto:", error)
     }
   };
 

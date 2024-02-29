@@ -8,6 +8,7 @@ import Admin from "./Routes/Admin/Admin";
 import ListaProductos from "./Routes/Admin/ListaProductos";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
+import ProductoDetalle from "./Routes/ProductoDetalle";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
+        <Route path="/producto/:id" element={<ProductoDetalle />} />
       </Routes>
       <Footer />
     </Router>
