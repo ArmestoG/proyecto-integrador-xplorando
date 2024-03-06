@@ -5,7 +5,6 @@ import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 import Registro from "./Routes/Registro";
 import Admin from "./Routes/Admin/Admin";
-import ListaProductos from "./Routes/Admin/ListaProductos";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
 
@@ -29,8 +28,6 @@ const App = () => {
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route index element={<ListaProductos />} />
-      <Route path="lista-productos" element={<ListaProductos />} />
       <Route path="agregar-producto" element={<AgregarProducto />} />
     </Routes>
   );
