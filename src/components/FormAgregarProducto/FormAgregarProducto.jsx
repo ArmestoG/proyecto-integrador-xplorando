@@ -89,6 +89,9 @@ const AgregarProducto = () => {
 
   return (
     <div className="contenedor-formulario">
+      <div className="mobile-message">
+        Esta página solo está disponible en la versión web. Por favor, acceda desde un dispositivo de escritorio o amplíe la ventana de su navegador.
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="fila-formulario">
           <div className="input-container">
@@ -210,7 +213,7 @@ const AgregarProducto = () => {
 
         <div className="fila-formulario boton-enviar">
           <div className="datos-entrada" style={{ marginLeft: "auto" }}>
-            <input type="submit" value="registrar paquete" />
+            <input type="submit" value="Registrar Paquete" />
           </div>
         </div>
          
