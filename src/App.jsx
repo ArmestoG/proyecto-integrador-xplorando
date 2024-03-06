@@ -7,6 +7,7 @@ import Registro from "./Routes/Registro";
 import Admin from "./Routes/Admin/Admin";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
+import ProductoDetalle from "./Routes/ProductoDetalle";
 
 const App = () => {
   return (
@@ -19,6 +20,9 @@ const App = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
+        <Route path="/producto/:id" element={<ProductoDetalle />} />
+        <Route path="/producto/undefined" element={<Categoria />} />
+        
       </Routes>
       <Footer />
     </Router>

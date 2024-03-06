@@ -1,11 +1,11 @@
-import Body from "../components/Body/Body";
+import Home from "../components/Home/Home";
 
-const Home = () => {
+const Inicio = () => {
     return (
         <div>  
-        <Body />
+        <Home />
       </div>
     );
   }
   
-  export default Home;  
+  export default Inicio;  
