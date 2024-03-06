@@ -1,0 +1,26 @@
+.panel-administracion {
+    margin: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+  }
+  
+  .tab {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+  }
+  
+  .tab label {
+    font-weight: bold;
+  }
+  
+  .tab.active {
+    background-color: #f0f0f0;
+  }
+  
+  .tab input[type="radio"] {
+    display: none;
+  }

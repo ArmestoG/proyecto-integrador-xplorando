@@ -1,11 +1,19 @@
-const ListaCategorias = () => {
-  // Lógica para mostrar la lista de categorías
+import { Link } from 'react-router-dom';
 
+const ListaCategorias = () => {
+  // Aquí podrías manejar el estado y la lógica para las categorías, si es necesario
+  
   return (
     <div>
-      {/* Contenido de la lista de categorías */}
+      <h3>Lista de Categorías</h3>
+
+      {/* Lista de categorías */}
+      {/* Aquí iría la lógica para mostrar las categorías */}
+
+      {/* Botón para agregar nueva categoría */}
+      <Link to="/admin/agregar-categoria">Agregar Categoría</Link>
     </div>
   );
-};
+}
 
 export default ListaCategorias;
