@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Product from "./Product";
+import Category from "./Category";
 import { categoria, responsive, producto } from "../../components/data";
 import "./Home.css";
 import { FaSearch } from "react-icons/fa";
@@ -28,7 +29,7 @@ export default function Body() {
 
  //Esto es para el carrusel
   const products = categoria.map((item) => (
-    <Product
+    <Category
       key={item.id}
       name={item.name}
       url={item.imageurl}
