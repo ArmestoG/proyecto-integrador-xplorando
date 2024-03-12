@@ -19,6 +19,7 @@
 }
 
 .caption{
+    font-family: 'NeueHaasDisplay';
     background: rgba(0, 0, 0, 0.03);
     width: 100%;
     position: absolute;

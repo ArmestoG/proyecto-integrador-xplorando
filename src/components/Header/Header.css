@@ -1,5 +1,5 @@
 .header {
-  width: 100%;
+  width: auto;
   position: fixed;
   top: 0;
   right: 0;
@@ -24,6 +24,8 @@
 .header__links a {
   text-decoration: none;
   color: #FFFFFF;
+  font-weight: 700;
+  font-style: normal;
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -39,4 +41,13 @@
   padding: 0.5rem 1rem;
   margin: .5rem;
   text-decoration: none;
+}
+
+.header__register-button:hover {
+  background-color: #8799D8;
+  color: #273662;
+}
+
+.header__links a:hover{
+  color: #273662;
 }

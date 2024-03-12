@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Product from "./Product";
+import Category from "./Category";
 import { categoria, responsive, producto } from "../../components/data";
 import "./Home.css";
 import { FaSearch } from "react-icons/fa";
@@ -19,7 +20,7 @@ export default function Body() {
       id: image.id, // Usa un id diferente para evitar conflictos con categoria
       name: image.name,
       imageurl: image.imageurl1,
-      price: `$${(Math.random() * 100).toFixed(2)}`,
+      price: image.price,
       description: image.description,
     }));
 
@@ -28,7 +29,7 @@ export default function Body() {
 
  //Esto es para el carrusel
   const products = categoria.map((item) => (
-    <Product
+    <Category
       key={item.id}
       name={item.name}
       url={item.imageurl}
@@ -39,7 +40,7 @@ export default function Body() {
 
   return (
     <div className="body-container">
-      <h1>React multi carousel</h1>
+      <h1>Próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
        <div className="search-bar">
         <input type="text" placeholder="Buscar productos..." />
@@ -53,7 +54,7 @@ export default function Body() {
       </div>
       {/* Sección de productos aleatorios */}
        <div className="random-products">
-        <h2>Productos Aleatorios</h2>
+        <h2>¡Se viene el finde XL!</h2>
         <div className="row">
           {randomProducts.map((item) => (
             <Product
