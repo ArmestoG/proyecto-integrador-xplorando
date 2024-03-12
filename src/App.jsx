@@ -9,6 +9,7 @@ import ListaProductos from "./Routes/Admin/ListaProductos";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
 import ProductoDetalle from "./Routes/ProductoDetalle";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
   return (

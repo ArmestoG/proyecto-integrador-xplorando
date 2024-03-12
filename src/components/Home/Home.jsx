@@ -6,6 +6,7 @@ import Category from "./Category";
 import { categoria, responsive, producto } from "../../components/data";
 import "./Home.css";
 import { FaSearch } from "react-icons/fa";
+import ProductHome from "./ProductHome";
 
 export default function Body() {
 
@@ -52,10 +53,10 @@ export default function Body() {
         {products}
       </Carousel>
       </div>
-      {/* Sección de productos aleatorios */}
+      {/* Sección de productos aleatorios 
        <div className="random-products">
         <h2>¡Se viene el finde XL!</h2>
-        <div className="row">
+        {/*<div className="row">
           {randomProducts.map((item) => (
             <Product
               key={item.id}
@@ -67,8 +68,8 @@ export default function Body() {
             />
           ))}
         </div>
-      </div>
-    
+      </div>*/}
+      <ProductHome/>
     </div>
   );
 }
