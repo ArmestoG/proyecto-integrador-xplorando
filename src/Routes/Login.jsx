@@ -49,7 +49,7 @@ const Login = () => {
             <button className={styles.primaryButton}>Iniciar sesión</button>
           </div>
           <p className="text-end mt-2">
-            Olvidaste tu<a href="">contraseña?</a>
+            <a href="">¿Olvidaste tu contraseña?</a>
             <Link to="/Registro" className="ms-2">
               Registrarse
             </Link>

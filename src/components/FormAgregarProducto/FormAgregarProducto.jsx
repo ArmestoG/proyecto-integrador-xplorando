@@ -1,6 +1,6 @@
-import "./FormAgregarProducto.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import "./FormAgregarProducto.css";
 
 const AgregarProducto = () => {
   const [codigo, setCodigo] = useState("");
@@ -10,6 +10,32 @@ const AgregarProducto = () => {
   const [descripcion, setDescripcion] = useState("");
   const [categoria, setCategoria] = useState("");
   const [imagenes, setImagenes] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [caracteristicas, setCaracteristicas] = useState([]);
+  const [selectedCaracteristicas, setSelectedCaracteristicas] = useState([]);
+
+  useEffect(() => {
+    obtenerCategorias();
+    obtenerCaracteristicas();
+  }, []);
+
+  const obtenerCategorias = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/categorias");
+      setCategorias(response.data);
+    } catch (error) {
+      console.error("Error al obtener las categorías:", error);
+    }
+  };
+
+  const obtenerCaracteristicas = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/caracteristicas");
+      setCaracteristicas(response.data);
+    } catch (error) {
+      console.error("Error al obtener las características:", error);
+    }
+  };
 
   const handleCodigoChange = (event) => {
     setCodigo(event.target.value);
@@ -35,18 +61,18 @@ const AgregarProducto = () => {
     setDescripcion(event.target.value);
   };
 
-/*  const handleImagenesChange = (event) => {
-    const files = Array.from(event.target.files);
-    if (files.length > 5) {
-      alert("Solo se pueden seleccionar un máximo de 5 imágenes.");
-      return;
-    }
-    setImagenes(files);
-  };*/
-
   const handleImagenesChange = (event) => {
     setImagenes([event.target.value]);
-  }
+  };
+
+  const handleCaracteristicaChange = (caracteristicaId) => {
+    const isSelected = selectedCaracteristicas.includes(caracteristicaId);
+    setSelectedCaracteristicas((prevSelected) =>
+      isSelected
+        ? prevSelected.filter((id) => id !== caracteristicaId)
+        : [...prevSelected, caracteristicaId]
+    );
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,11 +86,9 @@ const AgregarProducto = () => {
       descripcionProducto: descripcion,
       precioProducto: precio,
       direccion: direccion,
-     /* imagenes: imagenes.map((imagen) => ({
-        urlImagen: URL.createObjectURL(imagen),
-      })),*/
       imagenes: imagenes,
       categoriaId: categoria,
+      caracteristicas: selectedCaracteristicas,
     };
 
     try {
@@ -73,7 +97,7 @@ const AgregarProducto = () => {
         nuevoProducto
       );
       console.log("Producto guardado:", response.data);
-        alert("Paquete registrado" );
+      alert("Paquete registrado");
       setCodigo("");
       setNombre("");
       setDireccion("");
@@ -81,16 +105,18 @@ const AgregarProducto = () => {
       setCategoria("");
       setDescripcion("");
       setImagenes([]);
+      setSelectedCaracteristicas([]);
     } catch (error) {
       console.error("Error al guardar el paquete:", error);
-      alert("No se ha podido registrar el paquete" )
+      alert("No se ha podido registrar el paquete");
     }
   };
 
   return (
     <div className="contenedor-formulario">
       <div className="mobile-message">
-        Esta página solo está disponible en la versión web. Por favor, acceda desde un dispositivo de escritorio o amplíe la ventana de su navegador.
+        Esta página solo está disponible en la versión web. Por favor, acceda
+        desde un dispositivo de escritorio o amplíe la ventana de su navegador.
       </div>
       <form onSubmit={handleSubmit}>
         <div className="fila-formulario">
@@ -152,14 +178,22 @@ const AgregarProducto = () => {
         <div className="fila-formulario">
           <div className="input-container">
             <label htmlFor="categoria">Categoría:</label>
-            <input
-              type="text"
+            <select
               id="categoria"
               value={categoria}
               onChange={handleCategoriaChange}
               required
-            />
-            <p className="supporting-text">Ingrese la categoria del paquete.</p>
+            >
+              <option value="">Seleccione una categoría</option>
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.id}>
+                  {categoria.nombreCategoria}
+                </option>
+              ))}
+            </select>
+            <p className="supporting-text">
+              Seleccione la categoría del paquete.
+            </p>
           </div>
         </div>
         <div className="fila-formulario">
@@ -177,7 +211,7 @@ const AgregarProducto = () => {
             </p>
           </div>
         </div>
-       {/*  <div className="fila-formulario-imagenes">
+        {/*  <div className="fila-formulario-imagenes">
           <div className="imagen-entrada">
             <input
               type="file"
@@ -194,7 +228,7 @@ const AgregarProducto = () => {
           </div>
   </div> */}
 
-<div className="fila-formulario">
+        <div className="fila-formulario">
           <div className="input-container">
             <label htmlFor="imagenes">urlImagen:</label>
             <input
@@ -204,19 +238,29 @@ const AgregarProducto = () => {
               onChange={handleImagenesChange}
               required
             ></input>
-            <p className="supporting-text">
-              Ingrese una url de imagen 
-            </p>
+            <p className="supporting-text">Ingrese una url de imagen</p>
           </div>
         </div>
-
+        <div className="fila-formulario">
+          <p>Características:</p>
+          {caracteristicas.map((caracteristica) => (
+            <label key={caracteristica.id}>
+              <input
+                type="checkbox"
+                value={caracteristica.id}
+                checked={selectedCaracteristicas.includes(caracteristica.id)}
+                onChange={() => handleCaracteristicaChange(caracteristica.id)}
+              />
+              {caracteristica.nombreCaracteristica}
+            </label>
+          ))}
+        </div>
 
         <div className="fila-formulario boton-enviar">
           <div className="datos-entrada" style={{ marginLeft: "auto" }}>
             <input type="submit" value="Registrar Paquete" />
           </div>
         </div>
-         
       </form>
     </div>
   );
