@@ -12,22 +12,28 @@ const AgregarProducto = () => {
   const [imagenes, setImagenes] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [caracteristicas, setCaracteristicas] = useState([]);
-  const [selectedCaracteristicas, setSelectedCaracteristicas] = useState([]);
-
+  const [caracteristicaSeleccionada, setCaracteriticaSeleccionada] = useState(
+    []
+  );
+  /*
   useEffect(() => {
     obtenerCategorias();
-    obtenerCaracteristicas();
   }, []);
+*/
 
+  /*
   const obtenerCategorias = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/categorias");
+      const response = await axios.get("http://localhost:8080/categorias/listar");
       setCategorias(response.data);
     } catch (error) {
       console.error("Error al obtener las categorías:", error);
     }
   };
 
+  */
+
+  /*
   const obtenerCaracteristicas = async () => {
     try {
       const response = await axios.get("http://localhost:8080/caracteristicas");
@@ -35,7 +41,7 @@ const AgregarProducto = () => {
     } catch (error) {
       console.error("Error al obtener las características:", error);
     }
-  };
+  };*/
 
   const handleCodigoChange = (event) => {
     setCodigo(event.target.value);
@@ -61,18 +67,24 @@ const AgregarProducto = () => {
     setDescripcion(event.target.value);
   };
 
-  const handleImagenesChange = (event) => {
-    setImagenes([event.target.value]);
+  const handleImagenesChange = (e) => {
+    const value = e.target.value;
+    const imagenesArray = value.split("\n");
+    setImagenes(imagenesArray);
   };
 
-  const handleCaracteristicaChange = (caracteristicaId) => {
-    const isSelected = selectedCaracteristicas.includes(caracteristicaId);
-    setSelectedCaracteristicas((prevSelected) =>
-      isSelected
-        ? prevSelected.filter((id) => id !== caracteristicaId)
-        : [...prevSelected, caracteristicaId]
-    );
-  };
+  function handleCaracteristicaChange(event) {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCaracteriticaSeleccionada([...caracteristicaSeleccionada, value]);
+    } else {
+      setCaracteriticaSeleccionada(
+        caracteristicaSeleccionada.filter(
+          (caracteristicaId) => caracteristicaId !== value
+        )
+      );
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -87,8 +99,8 @@ const AgregarProducto = () => {
       precioProducto: precio,
       direccion: direccion,
       imagenes: imagenes,
-      categoriaId: categoria,
-      caracteristicas: selectedCaracteristicas,
+      categoria: categoria,
+      caracteristicas: caracteristicaSeleccionada,
     };
 
     try {
@@ -105,12 +117,49 @@ const AgregarProducto = () => {
       setCategoria("");
       setDescripcion("");
       setImagenes([]);
-      setSelectedCaracteristicas([]);
+      setCaracteriticaSeleccionada([]);
     } catch (error) {
       console.error("Error al guardar el paquete:", error);
       alert("No se ha podido registrar el paquete");
     }
   };
+  //CARECTERISTICAS!!
+  useEffect(() => {
+    async function fetchCaracteristicas() {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/caracteristicas/listar"
+        );
+        if (!response.ok) {
+          throw new Error("Error al cargar las categorías");
+        }
+        const data = await response.json();
+        setCaracteristicas(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchCaracteristicas();
+  }, []);
+
+  //para traer lista de categorias
+  useEffect(() => {
+    async function fetchCategorias() {
+      try {
+        const response = await fetch("http://localhost:8080/categorias/listar");
+        if (!response.ok) {
+          throw new Error("Error al cargar las categorías");
+        }
+        const data = await response.json();
+        setCategorias(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchCategorias();
+  }, []);
 
   return (
     <div className="contenedor-formulario">
@@ -241,7 +290,8 @@ const AgregarProducto = () => {
             <p className="supporting-text">Ingrese una url de imagen</p>
           </div>
         </div>
-        <div className="fila-formulario">
+        
+        {/* <div className="fila-formulario">
           <p>Características:</p>
           {caracteristicas.map((caracteristica) => (
             <label key={caracteristica.id}>
@@ -254,6 +304,25 @@ const AgregarProducto = () => {
               {caracteristica.nombreCaracteristica}
             </label>
           ))}
+        </div> */}
+
+<div className="fila-formulario">
+        <label>Características:</label>
+          
+          {Array.isArray(caracteristicas) && caracteristicas.map((caracteristica) => (
+            <div key={caracteristica.id}>
+              <input
+                type="checkbox"
+                id={caracteristica.id}
+                name={caracteristica.nombreCaracteristica}
+                value={caracteristica.nombreCaracteristica}
+                checked={caracteristicaSeleccionada.includes(caracteristica.nombreCaracteristica)}
+                onChange={handleCaracteristicaChange}
+              />
+              <label htmlFor={caracteristica.id}>{caracteristica.nombreCaracteristica}</label>
+            </div>
+          ))}
+          
         </div>
 
         <div className="fila-formulario boton-enviar">
