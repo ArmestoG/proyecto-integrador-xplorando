@@ -15,6 +15,7 @@ export default class Registro extends React.Component {
     };
 }
 
+//cambios para recordar
 onChangeHandler = (event) => {
   let name = event.target.name;
   let value = event.target.value;
