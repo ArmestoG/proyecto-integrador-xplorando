@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer";
 import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 import Registro from "./Routes/Registro";
+import Prueba from "./Routes/Prueba";
 import Admin from "./Routes/Admin/Admin";
 import ListaProductos from "./Routes/Admin/ListaProductos";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/prueba" element={<Prueba />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
