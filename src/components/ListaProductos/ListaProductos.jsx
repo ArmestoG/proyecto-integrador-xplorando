@@ -96,7 +96,7 @@ const ListaProductos = () => {
     const isConfirmed = window.confirm("¿Estás seguro de que deseas cambiar la categoría de este producto?");
     if (isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:8080/productos/${selectedProductId}/asignar-categoria/${selectedCategoryId}`, {
+        const response = await fetch(`http://localhost:8080/editar`, {
           method: "PUT",
         });
         if (!response.ok) {
