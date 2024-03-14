@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+import "./ListaCategorias.css"; // Importar estilos CSS
 
 const ListaCategorias = () => {
   // Aquí podrías manejar el estado y la lógica para las categorías, si es necesario
   
   return (
-    <div>
+    <div className="categorias">
       <h3>Lista de Categorías</h3>
 
       {/* Lista de categorías */}

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+import "./ListaCaracteristicas.css"; // Importar estilos CSS
 
 const ListaCaracteristicas = () => {
   // Aquí podrías manejar el estado y la lógica para las características, si es necesario
   
   return (
-    <div>
+    <div className='caracteristicas'>
       <h3>Lista de características</h3>
 
       {/* Lista de características */}
