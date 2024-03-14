@@ -1,13 +1,16 @@
 .card {
-  background-color: #E9ECF7;
-  border-style: none;
+  background-color: #E9ECF7 !important;
+  border-style: none !important;
   border-radius: 15px;
   box-shadow: 0px 0px 20px rgba(39, 54, 98, 0.1);
   height: 88px;
-  width: 552px;
+  width: 50vw;
   margin-bottom: 20px;
-  display: flex;
-  flex-direction: row;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .card img {
@@ -26,7 +29,7 @@
 .options-menu {
   background-color: #E9ECF7;
   display: flex;
-  justify-content: flex-end;
+  justify-content:center;
   align-items: center;
   height: 100%;
 }

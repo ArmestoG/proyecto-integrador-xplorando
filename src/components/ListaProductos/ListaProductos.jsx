@@ -81,11 +81,11 @@ const ListaProductos = () => {
         {currentProducts.map((product, index) => (
           <div key={index} className="col-md-6">
             <Card>
-              <Card.Img variant="top" src={('./assets/logofinalexplorando/logoxplorandovertical/logoxplorandovertical.png')} />
+              <Card.Img variant="top" src={('src/assets/logofinalexplorando/logoxplorandovertical/logoxplorandovertical.png')} />
               <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
+                <div><Card.Title>{product.name}</Card.Title>
                 <Card.Text>{product.description}
-                 </Card.Text>
+                 </Card.Text></div>
                  </Card.Body>
                  <div className="options-menu">
                    <SlOptionsVertical /> 

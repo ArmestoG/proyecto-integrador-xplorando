@@ -53,8 +53,8 @@ export default function Body() {
       </Carousel>
       </div>
       {/* Sección de productos aleatorios */}
+      <h2>¡Se viene el finde XL!</h2>
        <div className="random-products">
-        <h2>¡Se viene el finde XL!</h2>
         <div className="row">
           {randomProducts.map((item) => (
             <ProductHome
