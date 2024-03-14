@@ -33,6 +33,7 @@ const Header = () => {
 
   return (
     <>
+    {/* Para cuando estás logueado 
     {isLoggedIn && (
         <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top">
           <div className="container-fluid">
@@ -89,6 +90,7 @@ const Header = () => {
           </div>
         </nav>
       )}
+      */}
 
     <header className="header">
       <div className="header__logo">
