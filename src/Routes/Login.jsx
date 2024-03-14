@@ -1,63 +1,87 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Login.module.css';
+import React, { useState } from "react"
+import { loginUser } from "../components/Utils/ApiFunctions"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useAuth } from "./AuthProvider"
 
 const Login = () => {
-  
-  const [email, setEmail] = React.useState({ campo: "", error: null });
-  const [password, setPassword] = React.useState({ campo: "", error: null });
+	const [errorMessage, setErrorMessage] = useState("")
+	const [login, setLogin] = useState({
+		email: "",
+		password: ""
+	})
 
-  // Escucha cambios de los inputs
-  const onChangeEmail = (e) => { setEmail({ ...email, campo: e.target.value }); }
-  const onChangePassword = (e) => { setPassword({ ...password, campo: e.target.value }); }
+	const navigate = useNavigate()
+	const auth = useAuth()
+	const location = useLocation()
+	const redirectUrl = location.state?.path || "/"
 
-  return (
-    <div className={styles.loginContainer}>
-      <div className={styles.imageContainerLogin}>
-        <h1 className={styles.imageTextLogin}>Te ayudamos a buscar tu próximo destino.</h1>
-      </div>
+	const handleInputChange = (e) => {
+		setLogin({ ...login, [e.target.name]: e.target.value })
+	}
 
-      <div className={styles.formContainerLogin}>
-        <form>
-          <h3 className="text-center">Iniciar sesión</h3>
-          <div className="mb-2">
-            <label htmlFor="email">Correo electrónico</label>
-            <input type="email" placeholder="Ingresa tu correo" className={`${email.error ? 'hasError' : ''} form-control`} 
-             name="email"
-             value={email.campo}
-             onChange={onChangeEmail}
-             autoComplete="current-email"
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="password">Contraseña</label>
-            <input type="password" placeholder="Ingresa tu contraseña" className={`${password.error ? 'hasError' : ''} form-control`} 
-            name="password"
-            value={password.campo}
-            onChange={onChangePassword}
-            autoComplete="current-password"
-            />
-            {(email.error || password.error) && <div className='error'><small>Por favor vuelva a intentarlo, sus credenciales son inválidas</small></div>}
-          </div>
-          <div className="mb-2">
-            <input type="checkbox" className="custom-control custom-chechbox" id="check" />
-            <label htmlFor="check" className="custom-input-label ms-2">
-              Recordarme
-            </label>
-          </div>
-          <div className="d-grid">
-            <button className={styles.primaryButton}>Iniciar sesión</button>
-          </div>
-          <p className="text-end mt-2">
-            <a href="">¿Olvidaste tu contraseña?</a>
-            <Link to="/Registro" className="ms-2">
-              Registrarse
-            </Link>
-          </p>
-        </form>
-      </div>
-    </div>
-  );
-};
-  
-  export default Login;
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		const success = await loginUser(login)
+		if (success) {
+			const token = success.token
+			auth.handleLogin(token)
+			navigate(redirectUrl, { replace: true })
+		} else {
+			setErrorMessage("Invalid username or password. Please try again.")
+		}
+		setTimeout(() => {
+			setErrorMessage("")
+		}, 4000)
+	}
+
+	return (
+		<section className="container col-6 mt-5 mb-5">
+			{errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+			<h2>Login</h2>
+			<form onSubmit={handleSubmit}>
+				<div className="row mb-3">
+					<label htmlFor="email" className="col-sm-2 col-form-label">
+						Email
+					</label>
+					<div>
+						<input
+							id="email"
+							name="email"
+							type="email"
+							className="form-control"
+							value={login.email}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
+
+				<div className="row mb-3">
+					<label htmlFor="password" className="col-sm-2 col-form-label">
+						Password
+					</label>
+					<div>
+						<input
+							id="password"
+							name="password"
+							type="password"
+							className="form-control"
+							value={login.password}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
+
+				<div className="mb-3">
+					<button type="submit" className="btn btn-hotel" style={{ marginRight: "10px" }}>
+						Login
+					</button>
+					<span style={{ marginLeft: "10px" }}>
+						Don't' have an account yet?<Link to={"/register"}> Register</Link>
+					</span>
+				</div>
+			</form>
+		</section>
+	)
+}
+
+export default Login
