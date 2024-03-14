@@ -1,0 +1,42 @@
+.panel-administracion {
+    margin: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+  }
+  
+  .tab {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+  }
+  
+  .tab label {
+    font-weight: bold;
+  }
+  
+  .tab.active {
+    background-color: #f0f0f0;
+  }
+  
+  .tab input[type="radio"] {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    /* Estilos para dispositivos móviles */
+    .mobile-message {
+      display: block; /* Mostrar el mensaje solo en dispositivos móviles */
+      background-color: #f38164;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+    }
+  
+    /* Ocultar las tabs en dispositivos móviles */
+  .tabs {
+    display: none;
+  }
+  }

@@ -10,7 +10,6 @@ import Profile from "./Routes/Profile"
 import Logout from "./Routes/Logout"
 import Prueba from "./Routes/Prueba";
 import Admin from "./Routes/Admin/Admin";
-import ListaProductos from "./Routes/Admin/ListaProductos";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
 import ProductoDetalle from "./Routes/ProductoDetalle";
@@ -40,8 +39,7 @@ const App = () => {
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
-        <Route path="/producto/undefined" element={<Categoria />} />
-        
+        <Route path="/producto/undefined" element={<Categoria />} /> 
       </Routes>
       <Footer />
     </Router>
@@ -52,8 +50,6 @@ const App = () => {
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route index element={<ListaProductos />} />
-      <Route path="lista-productos" element={<ListaProductos />} />
       <Route path="agregar-producto" element={<AgregarProducto />} />
     </Routes>
   );
