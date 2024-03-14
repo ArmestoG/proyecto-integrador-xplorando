@@ -1,5 +1,5 @@
 .contenedor-formulario {
-  font-family: 'NeueHaasDisplay';
+  font-family: "NeueHaasDisplay";
   width: 100%;
   display: flex;
   justify-content: center;
@@ -73,7 +73,7 @@
 
 .boton-enviar input[type="submit"]:hover {
   background-color: #fff;
-  color: #1b2e4e ;
+  color: #1b2e4e;
   transition: background-color 0.3s;
 }
 
@@ -103,8 +103,6 @@
   display: none; /* Ocultar el mensaje por defecto */
 }
 
-
-
 @media only screen and (max-width: 768px) {
   /* Estilos para dispositivos móviles */
   .mobile-message {
@@ -119,4 +117,21 @@
   .contenedor-formulario form {
     display: none;
   }
+}
+
+.caracteristicas-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates 4 columns of equal width */
+  gap: 20px; /* Adjusts the gap between grid items */
+  margin-bottom: 20px; /* Space below each row */
+}
+
+.caracteristica {
+  display: flex;
+  align-items: center; /* Centers the checkbox and text vertically */
+  font-size: 14px;
+}
+
+.caracteristica input[type="checkbox"] {
+  margin-right: 5px; /* Space between the checkbox and the text */
 }
