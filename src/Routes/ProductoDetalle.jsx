@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { producto } from '../components/data';
+import ProductHome from '../components/Home/ProductHome';
 import Gallery from '../components/Gallery/Gallery';
 import detailStyles from './Detail.module.css';
 
 const Detail = () => {
     const { id } = useParams(); // Obtener el id del producto de la URL
-    const product = producto.find(item => item.id === parseInt(id)); // Buscar el producto en la lista por su id
+    const product = ProductHome.find(item => item.id === parseInt(id)); // Buscar el producto en la lista por su id
 
      return (
         <div className={detailStyles.detail}>

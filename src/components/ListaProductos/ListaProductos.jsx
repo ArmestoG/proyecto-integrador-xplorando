@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
+import { SlOptionsVertical } from "react-icons/sl";
+import './ListaProductos.css'; // Importar estilos CSS
 
 const ListaProductos = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
@@ -79,41 +81,46 @@ const ListaProductos = () => {
         {currentProducts.map((product, index) => (
           <div key={index} className="col-md-6">
             <Card>
+              <Card.Img variant="top" src={('./assets/logofinalexplorando/logoxplorandovertical/logoxplorandovertical.png')} />
               <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
-                <Card.Text>{product.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </div>
-        ))}
-      </div>
-
-      {/* Paginación */}
-      <ul className="pagination">
-        {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} className="page-link">
-              {number}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      {/* Botón para agregar nuevo producto */}
-      <Link to="/admin/agregar-producto">
-        <Button
-          style={{
-            backgroundColor: '#f38164',
-            borderRadius: '25px',
-            borderColor: 'transparent',
-          }}
-          className="mt-3"
-        >
-          Agregar Producto
-        </Button>
-      </Link>
-    </div>
-  );
-};
-
-export default ListaProductos;
+                <Card.Text>{product.description}
+                 </Card.Text>
+                 </Card.Body>
+                 <div className="options-menu">
+                   <SlOptionsVertical /> 
+                 </div>
+               </Card>
+             </div>
+           ))}
+         </div>
+   
+         {/* Paginación */}
+         <ul className="pagination">
+           {pageNumbers.map((number) => (
+             <li key={number} className="page-item">
+               <a onClick={() => paginate(number)} className="page-link">
+                 {number}
+               </a>
+             </li>
+           ))}
+         </ul>
+   
+         {/* Botón para agregar nuevo producto */}
+         <Link to="/admin/agregar-producto">
+           <Button
+             style={{
+               backgroundColor: '#f38164',
+               borderRadius: '25px',
+               borderColor: 'transparent',
+             }}
+             className="mt-3"
+           >
+             Agregar Producto
+           </Button>
+         </Link>
+       </div>
+     );
+   };
+   
+   export default ListaProductos;

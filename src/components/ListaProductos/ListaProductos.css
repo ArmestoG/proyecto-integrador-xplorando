@@ -1,24 +1,54 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Dos columnas */
-    gap: 20px; /* Espacio entre elementos */
-  }
-  
-  .producto {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .producto img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .producto h4 {
-    margin-top: 0;
-  }
-  
-  .producto p {
-    margin-bottom: 0;
-  }
+.card {
+  background-color: #E9ECF7;
+  border-style: none;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(39, 54, 98, 0.1);
+  height: 88px;
+  width: 552px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.card img {
+  width: 80px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: auto; /* Para mantener la proporción de aspecto */
+  float: left;
+  margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.card-body {
+  display: flex;
+  background-color: #E9ECF7;
+  align-items: center;
+}
+
+.options-menu {
+  background-color: #E9ECF7;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.page-link:hover {
+  text-decoration: none;
+}
+
+.mt-3 {
+  margin-top: 20px;
+}
