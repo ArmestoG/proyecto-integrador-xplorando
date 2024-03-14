@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { loginUser } from "../components/Utils/ApiFunctions"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "./AuthProvider"
+import "./Login.css";
 
 const Login = () => {
 	const [errorMessage, setErrorMessage] = useState("")
@@ -21,13 +22,17 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		if (!login.email || !login.password) {
+			setErrorMessage("Por favor ingrese tanto el correo electrónico como la contraseña.");
+			return;
+		}
 		const success = await loginUser(login)
 		if (success) {
 			const token = success.token
 			auth.handleLogin(token)
 			navigate(redirectUrl, { replace: true })
 		} else {
-			setErrorMessage("Invalid username or password. Please try again.")
+			setErrorMessage("Usuario o contraseña inválida. Porfavor, intente de nuevo.")
 		}
 		setTimeout(() => {
 			setErrorMessage("")
@@ -35,11 +40,16 @@ const Login = () => {
 	}
 
 	return (
-		<section className="container col-6 mt-5 mb-5">
+		<section className="loginContainer">
 			{errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
-			<h2>Login</h2>
+			<div className="imageContainerLogin">
+        <h1 className="imageTextLogin">Te ayudamos a buscar tu próximo destino.</h1>
+      </div>
+	  <div className="formContainerLogin">
+			
 			<form onSubmit={handleSubmit}>
-				<div className="row mb-3">
+			<h2 className="text-center">Iniciar sesión</h2>
+				<div className="mb-2">
 					<label htmlFor="email" className="col-sm-2 col-form-label">
 						Email
 					</label>
@@ -55,7 +65,7 @@ const Login = () => {
 					</div>
 				</div>
 
-				<div className="row mb-3">
+				<div className="mb-2">
 					<label htmlFor="password" className="col-sm-2 col-form-label">
 						Password
 					</label>
@@ -71,15 +81,16 @@ const Login = () => {
 					</div>
 				</div>
 
-				<div className="mb-3">
-					<button type="submit" className="btn btn-hotel" style={{ marginRight: "10px" }}>
-						Login
+				<div className="mb-2">
+					<button type="submit" className="primaryButtonLogin" style={{ marginRight: "10px" }}>
+						Iniciar sesión
 					</button>
 					<span style={{ marginLeft: "10px" }}>
-						Don't' have an account yet?<Link to={"/register"}> Register</Link>
+						Aún no estás registrado?<Link to={"/registro"}> Registro</Link>
 					</span>
 				</div>
 			</form>
+			</div>
 		</section>
 	)
 }

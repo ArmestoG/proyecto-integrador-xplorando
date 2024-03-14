@@ -81,7 +81,7 @@ const Registro = () => {
 	}
 };
 	return (
-		<section className="container col-6 mt-5 mb-5">
+		<section className="registerContainer">
 			<div className="imageContainerRegister">
                 <h1 className="imageTextRegister">Te ayudamos a buscar tu próximo destino.</h1>
             </div>
@@ -90,12 +90,12 @@ const Registro = () => {
 
 			< div className="formContainerRegister">
 			<form onSubmit={handleRegistration}>
-			<h2>Registro</h2>
-				<div className="mb-3 row">
+			<h2 className="text-center">Registro</h2>
+				<div className="mb-2">
 					<label htmlFor="firstName" className="col-sm-2 col-form-label">
-						first Name
+						Nombre
 					</label>
-					<div className="col-sm-10">
+					<div className="col-sm-12">
 						<input
 							id="firstName"
 							name="firstName"
@@ -108,11 +108,11 @@ const Registro = () => {
 					</div>
 				</div>
 
-				<div className="mb-3 row">
+				<div className="mb-2">
 					<label htmlFor="lastName" className="col-sm-2 col-form-label">
-						Last Name
+						Apellido
 					</label>
-					<div className="col-sm-10">
+					<div className="col-sm-12">
 						<input
 							id="lastName"
 							name="lastName"
@@ -125,11 +125,11 @@ const Registro = () => {
 					</div>
 				</div>
 
-				<div className="mb-3 row">
+				<div className="mb-2">
 					<label htmlFor="email" className="col-sm-2 col-form-label">
-						Email
+						Correo
 					</label>
-					<div className="col-sm-10">
+					<div className="col-sm-12">
 						<input
 							id="email"
 							name="email"
@@ -142,11 +142,11 @@ const Registro = () => {
 					</div>
 				</div>
 
-				<div className="mb-3 row">
+				<div className="mb-2">
 					<label htmlFor="password" className="col-sm-2 col-form-label">
-						Password
+						Contraseña
 					</label>
-					<div className="col-sm-10">
+					<div className="col-sm-12">
 						<input
 							type="password"
 							placeholder="Ingresa tu contraseña"
@@ -158,12 +158,12 @@ const Registro = () => {
 						/>
 					</div>
 				</div>
-				<div className="mb-3">
-					<button type="submit" className="btn btn-hotel" style={{ marginRight: "10px" }}>
-						Register
+				<div className="grid">
+					<button type="submit" className="primaryButtonRegistro">
+						Registrarse
 					</button>
-					<span style={{ marginLeft: "10px" }}>
-						Already have an account? <Link to={"/login"}>Login</Link>
+					<span className='spanRegistro'>
+						¿Ya estás registrado? <Link to={"/login"} className='ms-2'>Inicia sesión</Link>
 					</span>
 				</div>
 			</form>
