@@ -1,11 +1,9 @@
-/* Registro.module.css */
-
-.registerContainer {
+.loginContainer {
     display: flex;
     height: 100vh;
 }
 
-.imageContainerRegister {
+.imageContainerLogin {
     flex: 1;
     background: url('src/assets/img/fotologin.jpg') center/cover no-repeat;
     color: #fff;
@@ -17,7 +15,7 @@
     position: relative;
 }
 
-.imageContainerRegister::before {
+.imageContainerLogin::before {
     content: '';
     position: absolute;
     top: 0;
@@ -28,7 +26,8 @@
     /* Fondo semi-transparente negro */
 }
 
-.imageTextRegister {
+.imageTextLogin {
+
     text-align: left;
     /* Añade esta línea para justificar el texto */
     font-size: 70px;
@@ -36,7 +35,7 @@
     z-index: 1;
 }
 
-.formContainerRegister {
+.formContainerLogin {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -45,7 +44,7 @@
     padding: 20px;
 }
 
-.primaryButtonRegistro {
+/* Estilos para el botón */ .primaryButtonLogin {
     background-color: #f38134;
     color: #fff;
     font-size: 14px;
@@ -53,29 +52,23 @@
     padding: 10px 20px;
     border-radius: 20px;
     font-weight: bold;
-    justify-self: center;
 }
 
+/* Estilos para llevar el botón al lado derecho */
 .d-grid {
     justify-content: flex-end;
-    flex-direction: column;
-    align-items: center
+    /* Lleva el botón al lado derecho */
 }
-
-.spanRegistro {
-    justify-self: center; /* Centra el span horizontalmente */
-  }
 
 
 @media screen and (max-width: 1000px) {
-    .formContainerRegister {
+    .formContainerLogin {
         width: 60%;
     }
 }
 
 @media screen and (max-width: 700px) {
-    .formContainerRegister {
+    .formContainerLogin {
         width: 80%;
     }
 }
-
