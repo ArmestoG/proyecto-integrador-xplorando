@@ -1,111 +1,87 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './Login.module.css';
+import React, { useState } from "react"
+import { loginUser } from "../components/Utils/ApiFunctions"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useAuth } from "./AuthProvider"
 
-export default class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: { campo: '', error: null },
-      password: { campo: '', error: null }
-    };
-};
+const Login = () => {
+	const [errorMessage, setErrorMessage] = useState("")
+	const [login, setLogin] = useState({
+		email: "",
+		password: ""
+	})
 
-onChangeHandler = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-    this.setState({[name] : value});
-};
+	const navigate = useNavigate()
+	const auth = useAuth()
+	const location = useLocation()
+	const redirectUrl = location.state?.path || "/"
 
-onSubmitLogin = (e) => {
-  e.preventDefault();
-  const { login, password } = this.state;
+	const handleInputChange = (e) => {
+		setLogin({ ...login, [e.target.name]: e.target.value })
+	}
 
-  // Validación de campos vacíos
-  if (!login.campo || !password.campo) {
-    this.setState({
-      login: { ...login, error: 'El correo electrónico y la contraseña son requeridos' },
-      password: { ...password, error: 'El correo electrónico y la contraseña son requeridos' }
-    });
-    return;
-  }
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		const success = await loginUser(login)
+		if (success) {
+			const token = success.token
+			auth.handleLogin(token)
+			navigate(redirectUrl, { replace: true })
+		} else {
+			setErrorMessage("Invalid username or password. Please try again.")
+		}
+		setTimeout(() => {
+			setErrorMessage("")
+		}, 4000)
+	}
 
-  // Validación de formato de correo electrónico
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(login.campo)) {
-    this.setState({ login: { ...login, error: 'Formato de correo electrónico inválido' } });
-    return;
-  }
+	return (
+		<section className="container col-6 mt-5 mb-5">
+			{errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+			<h2>Login</h2>
+			<form onSubmit={handleSubmit}>
+				<div className="row mb-3">
+					<label htmlFor="email" className="col-sm-2 col-form-label">
+						Email
+					</label>
+					<div>
+						<input
+							id="email"
+							name="email"
+							type="email"
+							className="form-control"
+							value={login.email}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
 
-  // Validación de longitud de contraseña
-  if (password.campo.length < 6) {
-    this.setState({ password: { ...password, error: 'La contraseña debe tener al menos 6 caracteres' } });
-    return;
-  }
+				<div className="row mb-3">
+					<label htmlFor="password" className="col-sm-2 col-form-label">
+						Password
+					</label>
+					<div>
+						<input
+							id="password"
+							name="password"
+							type="password"
+							className="form-control"
+							value={login.password}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
 
-  // Si todas las validaciones pasan, enviar el formulario
-  this.props.onLogin(e, login.campo, password.campo);
-};
+				<div className="mb-3">
+					<button type="submit" className="btn btn-hotel" style={{ marginRight: "10px" }}>
+						Login
+					</button>
+					<span style={{ marginLeft: "10px" }}>
+						Don't' have an account yet?<Link to={"/register"}> Register</Link>
+					</span>
+				</div>
+			</form>
+		</section>
+	)
+}
 
-render() {
-  const { login, password } = this.state;
-  return (
-    <div className={styles.loginContainer}>
-      <div className={styles.imageContainerLogin}>
-        <h1 className={styles.imageTextLogin}>Te ayudamos a buscar tu próximo destino.</h1>
-      </div>
-
-      <div className={styles.formContainerLogin}>
-        <form onSubmit={this.onSubmitLogin}>
-          <h3 className="text-center">Iniciar sesión</h3>
-          <div className="mb-2">
-            <label htmlFor="email">Correo electrónico</label>
-            <input 
-              type="email" 
-              placeholder="Ingresa tu correo" 
-              className={`${login.error ? styles.hasError : ''} form-control`} 
-              name="login"
-              value={login.campo}
-              onChange={this.onChangeHandler}
-              autoComplete="current-email"
-            />
-            {login.error && <div className='error'><small>{login.error}</small></div>}
-          </div>
-          <div className="mb-2">
-            <label htmlFor="password">Contraseña</label>
-            <input 
-              type="password" 
-              placeholder="Ingresa tu contraseña" 
-              className={`${password.error ? styles.hasError : ''} form-control`} 
-              name="password"
-              value={password.campo}
-              onChange={this.onChangeHandler}
-              autoComplete="current-password"
-            />
-            {password.error && <div className='error'><small>{password.error}</small></div>}
-          </div>
-          <div className="mb-2">
-            <input type="checkbox" className="custom-control custom-chechbox" id="check" />
-            <label htmlFor="check" className="custom-input-label ms-2">
-              Recordarme
-            </label>
-          </div>
-          <div className="d-grid">
-            <button className={styles.primaryButton}>Iniciar sesión</button>
-          </div>
-          <p className="text-end mt-2">
-            Olvidaste tu<a href="">contraseña?</a>
-            <Link to="/Registro" className="ms-2">
-              Registrarse
-            </Link>
-          </p>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-};
-  
-  
+export default Login

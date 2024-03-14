@@ -1,147 +1,120 @@
-import React, { useState } from 'react';
-import axios from 'axios'; 
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './Registro.module.css';
+import React, { useState } from "react"
+import { registerUser } from "../components/Utils/ApiFunctions"
+import { Link } from "react-router-dom"
 
-export default class Registro extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        name: { campo: '', error: null },
-        lastName: { campo: '', error: null },
-        email: { campo: '', error: null },
-        password: { campo: '', error: null },
-        confirmPassword: { campo: '', error: null },
-    };
+const Registro = () => {
+	const [registration, setRegistration] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		password: ""
+	})
+
+	const [errorMessage, setErrorMessage] = useState("")
+	const [successMessage, setSuccessMessage] = useState("")
+
+	const handleInputChange = (e) => {
+		setRegistration({ ...registration, [e.target.name]: e.target.value })
+	}
+
+	const handleRegistration = async (e) => {
+		e.preventDefault()
+		try {
+			const result = await registerUser(registration)
+			setSuccessMessage(result)
+			setErrorMessage("")
+			setRegistration({ firstName: "", lastName: "", email: "", password: "" })
+		} catch (error) {
+			setSuccessMessage("")
+			setErrorMessage(`Registration error : ${error.message}`)
+		}
+		setTimeout(() => {
+			setErrorMessage("")
+			setSuccessMessage("")
+		}, 5000)
+	}
+
+	return (
+		<section className="container col-6 mt-5 mb-5">
+			{errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+			{successMessage && <p className="alert alert-success">{successMessage}</p>}
+
+			<h2>Register</h2>
+			<form onSubmit={handleRegistration}>
+				<div className="mb-3 row">
+					<label htmlFor="firstName" className="col-sm-2 col-form-label">
+						first Name
+					</label>
+					<div className="col-sm-10">
+						<input
+							id="firstName"
+							name="firstName"
+							type="text"
+							className="form-control"
+							value={registration.firstName}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
+
+				<div className="mb-3 row">
+					<label htmlFor="lastName" className="col-sm-2 col-form-label">
+						Last Name
+					</label>
+					<div className="col-sm-10">
+						<input
+							id="lastName"
+							name="lastName"
+							type="text"
+							className="form-control"
+							value={registration.lastName}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
+
+				<div className="mb-3 row">
+					<label htmlFor="email" className="col-sm-2 col-form-label">
+						Email
+					</label>
+					<div className="col-sm-10">
+						<input
+							id="email"
+							name="email"
+							type="email"
+							className="form-control"
+							value={registration.email}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
+
+				<div className="mb-3 row">
+					<label htmlFor="password" className="col-sm-2 col-form-label">
+						Password
+					</label>
+					<div className="col-sm-10">
+						<input
+							type="password"
+							className="form-control"
+							id="password"
+							name="password"
+							value={registration.password}
+							onChange={handleInputChange}
+						/>
+					</div>
+				</div>
+				<div className="mb-3">
+					<button type="submit" className="btn btn-hotel" style={{ marginRight: "10px" }}>
+						Register
+					</button>
+					<span style={{ marginLeft: "10px" }}>
+						Already have an account? <Link to={"/login"}>Login</Link>
+					</span>
+				</div>
+			</form>
+		</section>
+	)
 }
 
-//cambios para recordar
-onChangeHandler = (event) => {
-  let name = event.target.name;
-  let value = event.target.value;
-  this.setState({ [name]: value });
-};
-
-onSubmitRegister = (e) => {
-  e.preventDefault();
-  const { name, lastName, email, password, confirmPassword } = this.state;
-
-  // Aquí puedes realizar las validaciones necesarias antes de enviar los datos
-  // Por ejemplo, verificar si los campos están vacíos o si las contraseñas coinciden
-
-  if (!name.campo) {
-      this.setState({ name: { ...name, error: "El nombre es requerido" } });
-      return;
-  }
-
-  if (!lastName.campo) {
-      this.setState({ lastName: { ...lastName, error: "El apellido es requerido" } });
-      return;
-  }
-
-  if (!email.campo) {
-      this.setState({ email: { ...email, error: "El correo electrónico es requerido" } });
-      return;
-  }
-
-  // Validar el formato del correo electrónico usando una expresión regular
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email.campo)) {
-      this.setState({ email: { ...email, error: "Formato de correo electrónico inválido" } });
-      return;
-  }
-
-  if (!password.campo) {
-      this.setState({ password: { ...password, error: "La contraseña es requerida" } });
-      return;
-  }
-
-  if (password.campo.length < 6) {
-      this.setState({ password: { ...password, error: "La contraseña debe tener al menos 6 caracteres" } });
-      return;
-  }
-
-  if (!confirmPassword.campo) {
-      this.setState({ confirmPassword: { ...confirmPassword, error: "Confirma tu contraseña" } });
-      return;
-  }
-
-  if (password.campo !== confirmPassword.campo) {
-      this.setState({ confirmPassword: { ...confirmPassword, error: "Las contraseñas no coinciden" } });
-      return;
-  }
-
-  // Llamar a la función proporcionada en las props para manejar el registro
-  this.props.onRegister({ name: name.campo, lastName: lastName.campo, email: email.campo, password: password.campo });
-};
-
-
-render() {
-  const { name, lastName, email, password, confirmPassword } = this.state;
-    return (
-      <div className={styles.registerContainer}>
-                <div className={styles.imageContainerRegister}>
-                    <h1 className={styles.imageTextRegister}>Te ayudamos a buscar tu próximo destino.</h1>
-                </div>
-
-                <div className={styles.formContainerRegister}>
-                    <form onSubmit={this.onSubmitRegister}>
-                        <h3 className="text-center">Registrarse</h3>
-                        <div className={`mb-2 ${name.error ? 'hasError' : 'noError'}`}>
-                            <label htmlFor="nombre">Nombre</label>
-                            <input type="text" placeholder='Ingresa tu nombre' className="form-control"
-                                name="name"
-                                value={name.campo}
-                                onChange={this.onChangeHandler}
-                            />
-                            {name.error && <div className='error'><small>{name.error}</small></div>}
-                        </div>
-                        <div className={`mb-2 ${lastName.error ? 'hasError' : 'noError'}`}>
-                            <label htmlFor="apellido">Apellido</label>
-                            <input type="text" placeholder='Ingresa tu apellido' className="form-control"
-                                name="lastName"
-                                value={lastName.campo}
-                                onChange={this.onChangeHandler}
-                            />
-                            {lastName.error && <div className='error'><small>{lastName.error}</small></div>}
-                        </div>
-                        <div className={`mb-2 ${email.error ? 'hasError' : 'noError'}`}>
-                            <label htmlFor="email">Correo electrónico</label>
-                            <input type="email" placeholder="Ingresa tu correo" className="form-control"
-                                name="email"
-                                value={email.campo}
-                                onChange={this.onChangeHandler}
-                            />
-                            {email.error && <div className='error'><small>{email.error}</small></div>}
-                        </div>
-                        <div className={`mb-2 ${password.error ? 'hasError' : 'noError'}`}>
-                            <label htmlFor="password">Contraseña</label>
-                            <input type="password" placeholder="Ingresa tu contraseña" className="form-control"
-                                name="password"
-                                value={password.campo}
-                                onChange={this.onChangeHandler}
-                            />
-                            {password.error && <div className='error'><small>{password.error}</small></div>}
-                        </div>
-                        <div className={`mb-2 ${confirmPassword.error ? 'hasError' : 'noError'}`}>
-                            <label htmlFor="confirmPassword">Confirmar contraseña</label>
-                            <input type="password" placeholder='Repetir tu contraseña' className="form-control"
-                                name="confirmPassword"
-                                value={confirmPassword.campo}
-                                onChange={this.onChangeHandler}
-                            />
-                            {confirmPassword.error && <div className='error'><small>{confirmPassword.error}</small></div>}
-                        </div>
-
-                        <div className="d-grid">
-                            <button className={styles.primaryButton}>Registrarse</button>
-                        </div>
-                        <p className='text-end mt-2'>
-                            ¿Ya estás registrado?<Link to="/Login" className='ms-2'>Inicia sesión</Link>
-                        </p>
-                    </form>
-                </div>
-            </div>
-    );
-  };
-}
+export default Registro
