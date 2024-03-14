@@ -12,9 +12,6 @@ const ListaUsuarios = () => {
           {/* Mapear sobre la lista de usuarios y renderizar cada uno */}
           {/* Cada fila debe tener la información del usuario y los botones de acción */}
         </div>
-        
-        {/* Botón para agregar nuevo usuario */}
-        <button>Agregar Usuario</button>
       </div>
     );
   }

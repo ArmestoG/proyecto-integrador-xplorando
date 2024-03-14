@@ -15,6 +15,10 @@ const Admin = () => {
   return (
     <div className="panel-administracion">
       <h2>Panel de Administración</h2>
+      <div className="mobile-message">
+        Esta página solo está disponible en la versión web. Por favor, acceda
+        desde un dispositivo de escritorio o amplíe la ventana de su navegador.
+      </div>
       <div className="tabs">
         <div className={`tab ${tab === 'usuarios' ? 'active' : ''}`} onClick={() => handleTabChange('usuarios')}>
           <label htmlFor="tab-usuarios">Usuarios</label>

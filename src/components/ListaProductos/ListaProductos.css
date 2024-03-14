@@ -1,10 +1,14 @@
+.col-md-6{
+  display: flex;
+  justify-content: center;
+}
+
 .card {
   background-color: #E9ECF7 !important;
-  border-style: none !important;
+  border-style: none!important;
   border-radius: 15px;
-  box-shadow: 0px 0px 20px rgba(39, 54, 98, 0.1);
+  box-shadow: 0px 4px 10px rgb(39, 54, 98, .25);
   height: 88px;
-  width: 50vw;
   margin-bottom: 20px;
   display: flex !important;
   flex-direction: row !important;
@@ -17,7 +21,7 @@
   width: 80px; /* Ajusta el tamaño de la imagen según sea necesario */
   height: auto; /* Para mantener la proporción de aspecto */
   float: left;
-  margin-right: 10px; /* Espacio entre la imagen y el texto */
+  margin: 10px; /* Espacio entre la imagen y el texto */
 }
 
 .card-body {
@@ -26,12 +30,22 @@
   align-items: center;
 }
 
-.options-menu {
-  background-color: #E9ECF7;
+.desplegable-menu {
+  position: absolute; /* Posiciona el menú desplegable absolutamente con respecto a la card */
+  top: 50%;  /* Coloca el menú debajo del botón */
+  left: 100%;/* Alinea el menú a la derecha */
+  background-color: #fff;
+  border-radius: 10px;
+  color:#273662;
   display: flex;
   justify-content:center;
   align-items: center;
-  height: 100%;
+  z-index: 1;
+  box-shadow: 0px 4px 10px rgb(39, 54, 98, .25);
+}
+
+.btn-primary   :hover {
+  background-color: #E9ECF7 !important;
 }
 
 .pagination {
@@ -54,4 +68,30 @@
 
 .mt-3 {
   margin-top: 20px;
+}
+
+.card button {
+  background-color: #E9ECF7;
+  color: #273662;
+}
+
+.options-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.options-menu ul li {
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+.options-menu ul li:hover {
+  background-color: #E9ECF7;
+}
+
+@media only screen and (max-width: 768px) {
+  .productos{
+    display: none;
+  }
 }

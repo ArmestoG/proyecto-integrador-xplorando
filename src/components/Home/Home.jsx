@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Product from "./Product";
 import Category from "./Category";
 import { categoria, responsive, producto } from "../../components/data";
 import "./Home.css";
@@ -52,12 +53,12 @@ export default function Body() {
         {products}
       </Carousel>
       </div>
-      {/* Sección de productos aleatorios */}
-      <h2>¡Se viene el finde XL!</h2>
+      {/* Sección de productos aleatorios 
        <div className="random-products">
-        <div className="row">
+        <h2>¡Se viene el finde XL!</h2>
+        {/*<div className="row">
           {randomProducts.map((item) => (
-            <ProductHome
+            <Product
               key={item.id}
               name={item.name}
               url={item.imageurl}
@@ -67,7 +68,8 @@ export default function Body() {
             />
           ))}
         </div>
-      </div>
+      </div>*/}
+      <ProductHome/>
     </div>
   );
 }
