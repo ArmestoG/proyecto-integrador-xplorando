@@ -1,11 +1,9 @@
-/* Registro.module.css */
-
-.registerContainer {
+.loginContainer {
     display: flex;
     height: 100vh;
-}
-
-.imageContainerRegister {
+  }
+  
+  .imageContainerLogin {
     flex: 1;
     background: url('src/assets/img/fotologin.jpg') center/cover no-repeat;
     color: #fff;
@@ -15,9 +13,9 @@
     align-items: center;
     padding: 20px;
     position: relative;
-}
-
-.imageContainerRegister::before {
+  }
+  
+  .imageContainerLogin::before {
     content: '';
     position: absolute;
     top: 0;
@@ -25,27 +23,46 @@
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
-    /* Fondo semi-transparente negro */
-}
-
-.imageTextRegister {
+  }
+  
+  .imageTextLogin {
     text-align: left;
-    /* Añade esta línea para justificar el texto */
     font-size: 70px;
     justify-content: baseline;
     z-index: 1;
-}
-
-.formContainerRegister {
+  }
+  
+  .formContainerLogin {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #f2f2f2;
     padding: 20px;
-}
+  }
 
-.primaryButtonRegistro {
+  .formTitleLogin {
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
+  .inputWrapperLogin {
+    margin-bottom: 20px;
+  }
+  
+  .inputLogin {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .buttonWrapperLogin {
+    display: flex;
+    align-items: center;
+  }
+  
+  .primaryButtonLogin {
     background-color: #f38134;
     color: #fff;
     font-size: 14px;
@@ -53,29 +70,17 @@
     padding: 10px 20px;
     border-radius: 20px;
     font-weight: bold;
-    justify-self: center;
-}
-
-.d-grid {
-    justify-content: flex-end;
-    flex-direction: column;
-    align-items: center
-}
-
-.spanRegistro {
-    justify-self: center; /* Centra el span horizontalmente */
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .primaryButtonLogin:hover {
+    background-color: #d95e26;
   }
 
-
-@media screen and (max-width: 1000px) {
-    .formContainerRegister {
-        width: 60%;
-    }
+  .registroLink {
+    margin-left: 5px;
+    color: #f38134;
+    text-decoration: none;
 }
-
-@media screen and (max-width: 700px) {
-    .formContainerRegister {
-        width: 80%;
-    }
-}
-
+  

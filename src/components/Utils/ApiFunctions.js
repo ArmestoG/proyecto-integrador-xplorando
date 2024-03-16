@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const api = axios.create({
-	baseURL: "http://localhost:8080"
+	baseURL: "http://localhost:5173"
 })
 
 export const getHeader = () => {
@@ -13,15 +13,15 @@ export const getHeader = () => {
 }
 
 /* This function register a new user */
-export async function registerUser(registration) {
+export async function registerUser(registro) {
 	try {
-		const response = await api.post("/auth/register-user", registration)
+		const response = await api.post("/auth/register-user", registro)
 		return response.data
 	} catch (error) {
 		if (error.reeponse && error.response.data) {
 			throw new Error(error.response.data)
 		} else {
-			throw new Error(`User registration error : ${error.message}`)
+			throw new Error(`Error en el registro de usuario : ${error.message}`)
 		}
 	}
 }

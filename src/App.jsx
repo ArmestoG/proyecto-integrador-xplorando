@@ -2,13 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./Routes/Home";
-import Login from "./Routes/Login";
-import Registro from "./Routes/Registro";
-import RequireAuth from "./Routes/RequireAuth"
-import { AuthProvider } from "./Routes/AuthProvider"
-import Profile from "./Routes/Profile"
-import Logout from "./Routes/Logout"
-import Prueba from "./Routes/Prueba";
+import Login from "./components/Auth/Login";
+import Registro from "./components/Auth/Registro";
+import RequireAuth from "./components/Auth/RequireAuth"
+import { AuthProvider } from "./components/Auth/AuthProvider"
+import Profile from "./components/Auth/Profile"
 import Admin from "./Routes/Admin/Admin";
 import ListaProductos from "./Routes/Admin/ListaProductos";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
@@ -23,19 +21,12 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-							path="/"
-							element={
-								<RequireAuth>
-								
-								</RequireAuth>
-							}
-						/>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route path="/" element={<RequireAuth />}/>
+
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="/prueba" element={<Prueba />} />
+        <Route path="/profile" element={<Profile />} />
+      
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
@@ -43,8 +34,8 @@ const App = () => {
         <Route path="/producto/undefined" element={<Categoria />} />
         
       </Routes>
-      <Footer />
     </Router>
+    <Footer />
     </AuthProvider>
   );
 };
