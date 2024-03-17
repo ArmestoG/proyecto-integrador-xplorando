@@ -69,13 +69,21 @@
   cursor: pointer;
   font-size: 1.2rem;
   color: #ffffff;
+  position: relative; /* Para posicionar la flecha */
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
 }
 
 .header__account-dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 10px); /* Ajustar según necesidades */
   right: 0;
-  background-color: #fff;
+  background-color: #8799d8;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
@@ -86,9 +94,7 @@
   display: block;
   padding: 5px 10px;
   text-decoration: none;
-  color: #333;
+  color: white;
 }
 
-.header__account-dropdown-item:hover {
-  background-color: #f0f0f0;
-}
+

@@ -11,8 +11,8 @@ const Header = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const firstName = localStorage.getItem("firstName");
-    const lastName = localStorage.getItem("lastName");
+    const firstName = localStorage.getItem("firstName") || "";
+    const lastName = localStorage.getItem("lastName") || "";
 
     setIsLoggedIn(!!token);
     setUserName(`${firstName} ${lastName}`);
@@ -75,29 +75,31 @@ const Header = () => {
         )}
         {isLoggedIn && (
           <>
-            <span className="header__user-name">{userName}</span>
-            <div className="header__account-dropdown">
-              <button
-                className="header__account-button"
-                onClick={toggleAccountDropdown}
-              >
-                <SlUser />
-              </button>
-              {showAccountDropdown && (
-                <div className="header__account-dropdown-menu">
-                  <Link to="/perfil" className="header__account-dropdown-item">
-                    Mi perfil
-                  </Link>
-                  <div
-                    className={`dropdown-menu ${showAccountDropdown ? "show" : ""}`}
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <Logout /> {/* Renderizar el componente Logout */}
-                  </div>
+          <div className='admin-title'>Mis reservas</div>
+          <span className="header__user-name">{userName}</span>
+          <div className="header__account-dropdown">
+            <button
+              className="header__account-button"
+              onClick={toggleAccountDropdown}
+            >
+              <SlUser />
+              <span className="arrow-icon">&#9660;</span> {/* Flecha hacia abajo */}
+            </button>
+            {showAccountDropdown && (
+              <div className="header__account-dropdown-menu">
+                <Link to="/profile" className="header__account-dropdown-item">
+                  Perfil
+                </Link>
+                <div
+                  className={`dropdown-menu ${showAccountDropdown ? "show" : ""}`}
+                  aria-labelledby="navbarDropdown"
+                >
+                  <Logout /> {/* Renderizar el componente Logout */}
                 </div>
-              )}
-            </div>
-          </>
+              </div>
+            )}
+          </div>
+        </>
         )}
       </div>
     </header>

@@ -5,7 +5,7 @@ const RequireAuth = ({ children }) => {
 	const user = localStorage.getItem("userId")
 	const location = useLocation()
 	if (!user) {
-		return <Navigate to="/login" state={{ path: location.pathname }} />
+		return <Navigate to="/login" state={{ from: location.pathname }} />
 	}
 	return children
 }
