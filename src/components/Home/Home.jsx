@@ -6,8 +6,17 @@ import Category from "./Category";
 import { categoria, responsive, producto } from "../../components/data";
 import "./Home.css";
 import { FaSearch } from "react-icons/fa";
+import ProductHome from "./ProductHome";
+import { useLocation } from 'react-router-dom';
+import Slider from "../Slider/Slider";
 
 export default function Body() {
+  {/* Para cuando estás logueado */}
+  const location = useLocation()
+
+	const message = location.state && location.state.message
+	const currentUser = localStorage.getItem("userId")
+  {/* Para cuando estás logueado */}
 
   const [randomProducts, setRandomProducts] = useState([]);
 
@@ -40,6 +49,12 @@ export default function Body() {
 
   return (
     <div className="body-container">
+      {/* Para cuando estás logueado */}
+      {message && <p className="text-warning px-5">{message}</p>}
+			{currentUser && (
+				<h6 className="text-success text-center"> You are logged-In as {currentUser}</h6>
+			)}
+      {/* Para cuando estás logueado */}
       <h1>Próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
        <div className="search-bar">
@@ -47,15 +62,11 @@ export default function Body() {
         <FaSearch className="search-icon" />
       </div>
       {/* Carrusel de categorías */}
-      <div className="carousel-card">
-      <Carousel showDots={true} responsive={responsive}>
-        {products}
-      </Carousel>
-      </div>
-      {/* Sección de productos aleatorios */}
+        <Slider/>
+      {/* Sección de productos aleatorios 
        <div className="random-products">
         <h2>¡Se viene el finde XL!</h2>
-        <div className="row">
+        {/*<div className="row">
           {randomProducts.map((item) => (
             <Product
               key={item.id}
@@ -67,8 +78,8 @@ export default function Body() {
             />
           ))}
         </div>
-      </div>
-    
+      </div>*/}
+      <ProductHome/>
     </div>
   );
 }

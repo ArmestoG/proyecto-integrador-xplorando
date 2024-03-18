@@ -84,7 +84,7 @@ export const responsive = {
       description: "Lugares que se caracterizan por su atractivo.",
     },
     {
-      id: 9,
+      id: 10,
       imageurl: "https://images.pexels.com/photos/2767814/pexels-photo-2767814.jpeg",
       name: "Turismo Literario",
       description: "Explora lugares relacionados con la literatura y obras.",

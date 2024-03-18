@@ -36,11 +36,12 @@
 
 .header__register-button {
   background-color: #F38164;
-  color: #ffffff;
-  border-radius: 25px;
-  padding: 0.5rem 1rem;
-  margin: .5rem;
-  text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
 }
 
 .header__register-button:hover {

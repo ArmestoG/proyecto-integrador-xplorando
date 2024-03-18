@@ -1,45 +1,39 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import Card from '../CardCategorias/Card';
 import sliderStyles from './Slider.module.css';
-import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
-import { producto } from '../../components/data'; 
+import { categoria } from '../data';
 
 const Slider = () => {
-  const [currentImage, setCurrentImage] = useState(0);
-  const { id } = useParams();
-
-  useEffect(() => {
-    // Encuentra el índice del producto correspondiente al id del producto
-    const index = producto.findIndex((item) => item.id.toString() === id);
-    if (index !== -1) {
-      setCurrentImage(index);
-    }
-  }, [id]);
+  const [currentIndex, setCurrentIndex] = useState(1);
 
   const handleNext = () => {
-    setCurrentImage((prevImage) => (prevImage + 1) % totalSlides);
-  };
-  
-  const handlePrev = () => {
-    setCurrentImage((prevImage) => (prevImage - 1 + totalSlides) % totalSlides);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % categoria.length);
   };
 
-  const totalSlides = 5; // Update this according to the total number of slides
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + categoria.length) % categoria.length);
+  };
+
+  // Obtén las tres categorías a mostrar
+  const visibleCategories = [
+    categoria[currentIndex],
+    categoria[(currentIndex + 1) % categoria.length],
+    categoria[(currentIndex + 2) % categoria.length]
+  ];
 
   return (
     <div className={sliderStyles.container}>
-      <div className={`${sliderStyles.arrow} ${sliderStyles.left}`} onClick={handlePrev}>
-      <SlArrowLeft />
+      <div className={`${sliderStyles.leftArrow} ${sliderStyles.arrow}`}>
+        <button onClick={handlePrev}>Anterior</button>
       </div>
-      <div className={`${sliderStyles.slide} ${sliderStyles[`slide${currentImage + 1}`]}`}>
-        <div className={sliderStyles.caption}>
-        <h3>{producto[currentImage].name}</h3>
-          <p>{producto[currentImage].description}</p>
-        </div>
+      <div className={sliderStyles.grid}>
+        {/* Mapea las categorías visibles */}
+        {visibleCategories.map((category) => (
+          <Card categoria={category} key={category.id} />
+        ))}
       </div>
-      {/* Render other slides similarly */}
-      <div className={`${sliderStyles.arrow} ${sliderStyles.right}`} onClick={handleNext}>
-      <SlArrowRight />
+      <div className={`${sliderStyles.rightArrow} ${sliderStyles.arrow}`}>
+        <button onClick={handleNext}>Siguiente</button>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 .contenedor-formulario {
-  font-family: 'NeueHaasDisplay';
   width: 100%;
   display: flex;
   justify-content: center;
@@ -40,6 +39,7 @@
   z-index: 10; /* Asegura que el label esté por encima del input */
 }
 
+.input-container select,
 .input-container input[type="text"],
 .input-container textarea {
   width: 100%; /* Ocupa el 100% del ancho disponible */
@@ -104,6 +104,21 @@
 }
 
 
+.caracteristicas-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.caracteristica {
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.caracteristica label {
+  margin-left: 5px;
+}
+
+  
 
 @media only screen and (max-width: 768px) {
   /* Estilos para dispositivos móviles */
