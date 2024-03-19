@@ -4,6 +4,11 @@ import Footer from "./components/Footer/Footer";
 import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 import Registro from "./Routes/Registro";
+import RequireAuth from "./Routes/RequireAuth"
+import { AuthProvider } from "./Routes/AuthProvider"
+import Profile from "./Routes/Profile"
+import Logout from "./Routes/Logout"
+import Prueba from "./Routes/Prueba";
 import Admin from "./Routes/Admin/Admin";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
@@ -12,12 +17,24 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route
+							path="/"
+							element={
+								<RequireAuth>
+								
+								</RequireAuth>
+							}
+						/>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/prueba" element={<Prueba />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
@@ -26,6 +43,7 @@ const App = () => {
       </Routes>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 };
 

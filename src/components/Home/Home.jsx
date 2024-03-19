@@ -7,8 +7,15 @@ import { categoria, responsive, producto } from "../../components/data";
 import "./Home.css";
 import { FaSearch } from "react-icons/fa";
 import ProductHome from "./ProductHome";
+import { useLocation } from 'react-router-dom';
 
 export default function Body() {
+  {/* Para cuando estás logueado */}
+  const location = useLocation()
+
+	const message = location.state && location.state.message
+	const currentUser = localStorage.getItem("userId")
+  {/* Para cuando estás logueado */}
 
   const [randomProducts, setRandomProducts] = useState([]);
 
@@ -41,6 +48,12 @@ export default function Body() {
 
   return (
     <div className="body-container">
+      {/* Para cuando estás logueado */}
+      {message && <p className="text-warning px-5">{message}</p>}
+			{currentUser && (
+				<h6 className="text-success text-center"> You are logged-In as {currentUser}</h6>
+			)}
+      {/* Para cuando estás logueado */}
       <h1>Próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
        <div className="search-bar">

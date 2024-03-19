@@ -1,26 +1,52 @@
 .panel-administracion {
     margin: 20px;
+    color:#273662 
+  }
+
+  .panel-administracion h2 {
+    text-align: center;
   }
   
   .tabs {
     display: flex;
+    justify-content: space-around;
+    color:#273662 /* Centrar horizontalmente */
   }
-  
   .tab {
     cursor: pointer;
     padding: 10px 20px;
-    border: 1px solid #ccc;
+    border: none;
     border-bottom: none;
   }
   
-  .tab label {
+  .tab label {  
+    cursor: pointer;
     font-weight: bold;
   }
   
   .tab.active {
-    background-color: #f0f0f0;
+    background-color: #E9ECF7;
+    box-shadow: 0px 0px 5px rgb(39, 54, 98, .25);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; /* Establecer el color de fondo para la pestaña activa */
   }
   
   .tab input[type="radio"] {
     display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    /* Estilos para dispositivos móviles */
+    .mobile-message {
+      display: block; /* Mostrar el mensaje solo en dispositivos móviles */
+      background-color: #f38164;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+    }
+  
+    /* Ocultar las tabs en dispositivos móviles */
+  .tabs {
+    display: none;
+  }
   }

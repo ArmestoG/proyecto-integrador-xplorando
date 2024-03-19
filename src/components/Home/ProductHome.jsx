@@ -8,7 +8,7 @@ export default function ProductHome() {
     useEffect(() => {
         const fetchProductos = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/productos/listar');
+                const response = await axios.get('http://localhost:8080/productos/buscarProductoPorId');
                 console.log('Productos obtenidos:', response.data);
                 setProduct(response.data);
             } catch (error) {

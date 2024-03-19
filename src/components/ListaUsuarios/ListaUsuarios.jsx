@@ -1,8 +1,10 @@
+import "./ListaUsuarios.css"; // Importar estilos CSS
+
 const ListaUsuarios = () => {
     // Aquí deberías tener un estado para almacenar la lista de usuarios y manejar su búsqueda, etc.
   
     return (
-      <div>
+      <div className="usuarios">
         <h3>Lista de Usuarios</h3>
         {/* Barra de búsqueda */}
         <input type="text" placeholder="Buscar usuarios..." />
@@ -12,9 +14,6 @@ const ListaUsuarios = () => {
           {/* Mapear sobre la lista de usuarios y renderizar cada uno */}
           {/* Cada fila debe tener la información del usuario y los botones de acción */}
         </div>
-        
-        {/* Botón para agregar nuevo usuario */}
-        <button>Agregar Usuario</button>
       </div>
     );
   }
