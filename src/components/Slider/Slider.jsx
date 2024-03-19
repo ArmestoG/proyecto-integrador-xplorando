@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import Card from '../CardCategorias/Card';
 import sliderStyles from './Slider.module.css';
 import { categoria } from '../data';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 const Slider = () => {
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % categoria.length);
@@ -14,7 +18,7 @@ const Slider = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + categoria.length) % categoria.length);
   };
 
-  // Obtén las tres categorías a mostrar
+  // categorías a mostrar
   const visibleCategories = [
     categoria[currentIndex],
     categoria[(currentIndex + 1) % categoria.length],
@@ -24,16 +28,17 @@ const Slider = () => {
   return (
     <div className={sliderStyles.container}>
       <div className={`${sliderStyles.leftArrow} ${sliderStyles.arrow}`}>
-        <button onClick={handlePrev}>Anterior</button>
+        <FontAwesomeIcon onClick={handlePrev} icon= {faAngleLeft}/>
       </div>
+      
       <div className={sliderStyles.grid}>
-        {/* Mapea las categorías visibles */}
-        {visibleCategories.map((category) => (
-          <Card categoria={category} key={category.id} />
+        {/* Map categorías*/}
+        {visibleCategories.map((category, index) => (
+          <Card categoria={category} key={index} />
         ))}
       </div>
       <div className={`${sliderStyles.rightArrow} ${sliderStyles.arrow}`}>
-        <button onClick={handleNext}>Siguiente</button>
+        <FontAwesomeIcon onClick={handleNext} icon= {faAngleRight} />
       </div>
     </div>
   );

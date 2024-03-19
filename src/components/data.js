@@ -53,7 +53,7 @@ export const responsive = {
       imageurl:
         "https://images.pexels.com/photos/1267700/pexels-photo-1267700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       name: "Beer Tasting",
-      description: "Degustación de cervezas elaboradas.",
+      description: "Degustación de cervezas elaboradas y artesanales.",
     },
     {
       id: 6,
