@@ -77,6 +77,7 @@
   top: 50%;
   right: 5px;
   transform: translateY(-50%);
+  
 }
 
 .header__account-dropdown-menu {
@@ -88,6 +89,20 @@
   border-radius: 4px;
   padding: 10px;
   z-index: 1;
+  width: 9%;
+  
+  
+}
+
+.header__account-dropdown-menu ul {
+  list-style-type: none;
+  
+  
+}
+
+.header__account-dropdown-menu ul li {
+  margin-bottom: 15px;
+  
 }
 
 .header__account-dropdown-item {
@@ -95,6 +110,7 @@
   padding: 5px 10px;
   text-decoration: none;
   color: white;
+  width: 9%;
 }
 
 

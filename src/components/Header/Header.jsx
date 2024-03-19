@@ -87,15 +87,10 @@ const Header = () => {
             </button>
             {showAccountDropdown && (
               <div className="header__account-dropdown-menu">
-                <Link to="/profile" className="header__account-dropdown-item">
-                  Perfil
-                </Link>
-                <div
-                  className={`dropdown-menu ${showAccountDropdown ? "show" : ""}`}
-                  aria-labelledby="navbarDropdown"
-                >
-                  <Logout /> {/* Renderizar el componente Logout */}
-                </div>
+                <ul>
+                <li><Link to={"/profile"} className="header__account-dropdown-item"></Link></li>
+                <li><Logout /> {/* Renderizar el componente Logout */}</li>
+                </ul>
               </div>
             )}
           </div>

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const api = axios.create({
-	baseURL: "http://localhost:5173"
+	baseURL: "http://localhost:8080"
 })
 
 export const getHeader = () => {
@@ -42,9 +42,9 @@ export async function loginUser(login) {
 }
 
 /*  This is function to get the user profile */
-export async function getUserProfile(userId, token) {
+export async function getUserProfile(email, token) {
 	try {
-		const response = await api.get(`users/profile/${userId}`, {
+		const response = await api.get(`users/profile/${email}`, {
 			headers: getHeader()
 		})
 		return response.data
@@ -66,9 +66,9 @@ export async function deleteUser(userId) {
 }
 
 /* This is the function to get a single user */
-export async function getUser(userId, token) {
+export async function getUser(email, token) {
 	try {
-		const response = await api.get(`/users/${userId}`, {
+		const response = await api.get(`/users/${email}`, {
 			headers: getHeader()
 		})
 		return response.data
