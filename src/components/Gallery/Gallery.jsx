@@ -6,9 +6,10 @@ import galleryStyles from './Gallery.module.css';
 const Gallery = ({ id }) => {
     const [images, setImages] = useState([]);
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/productos/${id}/imagenes`)
-            .then(response => {
+   useEffect(() => {
+        fetch(`http://localhost:8080/productos/${id}`)
+            .then(response => { 
+                
                 if (!response.ok) {
                     throw new Error('Error al obtener las imágenes del producto');
                 }
@@ -16,14 +17,19 @@ const Gallery = ({ id }) => {
             })
             .then(data => {
                 // Convertir los datos de las imágenes a un formato adecuado para la galería de imágenes
-                const productImages = data.map(image => ({
-                    original: image.url,
-                    thumbnail: image.url
-                }));
+             
+
+
                 setImages(productImages);
             })
             .catch(error => console.error('Error fetching product images:', error));
     }, [id]);
+
+        /* const productImages = data.map(image => ({
+                    original: image.url,
+                    thumbnail: image.url
+                }));
+*/
 
     const [showThumbnails, setShowThumbnails] = useState(true);
 
