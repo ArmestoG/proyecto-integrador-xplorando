@@ -1,19 +1,35 @@
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { producto } from '../components/data';
 import Gallery from '../components/Gallery/Gallery';
 import detailStyles from './Detail.module.css';
 
 const Detail = () => {
     const { id } = useParams(); // Obtener el id del producto de la URL
-    const product = producto.find(item => item.id === parseInt(id)); // Buscar el producto en la lista por su id
+    const [product, setProduct] = useState(null);
 
-     return (
+    useEffect(() => {
+        fetch(`http://localhost:8080/productos/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al obtener el producto');
+                }
+                return response.json();
+            })
+            .then(data => setProduct(data))
+            .catch(error => console.error('Error fetching product details:', error));
+    }, [id]);
+
+    if (!product) {
+        return <div>Cargando...</div>;
+    }
+
+    return (
         <div className={detailStyles.detail}>
             <main className={detailStyles.content}>
-                <Gallery />
+                <Gallery id={id} />
                 <div className={detailStyles.detailInfoContainer}>
                     <div className={detailStyles.detailInfo}>
-                        <h2>{product.name}</h2> {/* Mostrar el nombre del producto */}
+                        <h2>{product.nombreProducto}</h2>
                         <div className={detailStyles.stars}>
                             <span className={detailStyles.star}>&#9733;</span>
                             <span className={detailStyles.star}>&#9733;</span>
@@ -23,18 +39,18 @@ const Detail = () => {
                         </div>
                         <div className={detailStyles.detailText}>
                             <h4>Detalle producto</h4>
-                            <p>{product.description}</p> {/* Mostrar la descripción del producto */}
+                            <p>{product.descripcionProducto}</p>
                         </div>
                         <hr />
                         <div className={detailStyles.detailPrice}>
-                            <h3>{product.price}</h3> {/* Mostrar el precio del producto */}
+                            <h3>{product.precioProducto}</h3>
                         </div>
                         <button className={detailStyles.btn}>INICIAR RESERVA</button>
                     </div>
                 </div>
             </main>
         </div>
-    )
+    );
 }
 
 export default Detail;
