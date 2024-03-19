@@ -21,19 +21,15 @@ const AgregarProducto = () => {
 */
 
   /*
-  /*
   const obtenerCategorias = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/categorias/listar/listar");
+      const response = await axios.get("http://localhost:8080/categorias/listar");
       setCategorias(response.data);
     } catch (error) {
       console.error("Error al obtener las categorías:", error);
     }
   };
 
-  */
-
-  /*
   */
 
   /*
@@ -73,19 +69,17 @@ const AgregarProducto = () => {
 
   const handleImagenesChange = (e) => {
     const value = e.target.value;
-    const imagenesArray = value.split("\n");
+    const imagenesArray = value.split('\n');
     setImagenes(imagenesArray);
   };
 
   function handleCaracteristicaChange(event) {
     const { value, checked } = event.target;
     if (checked) {
-      setCaracteriticaSeleccionada([...caracteristicaSeleccionada, value]);
+      setCaracteriticaSeleccionada([...caracteristicaSeleccionada, value]); 
     } else {
       setCaracteriticaSeleccionada(
-        caracteristicaSeleccionada.filter(
-          (caracteristicaId) => caracteristicaId !== value
-        )
+        caracteristicaSeleccionada.filter((caracteristicaId) => caracteristicaId !== value)
       );
     }
   }
@@ -158,43 +152,6 @@ const AgregarProducto = () => {
         setCategorias(data);
       } catch (error) {
         console.error('Error:', error);
-      }
-    }
-
-    fetchCategorias();
-  }, []);
-  //CARECTERISTICAS!!
-  useEffect(() => {
-    async function fetchCaracteristicas() {
-      try {
-        const response = await fetch(
-          "http://localhost:8080/caracteristicas/listar"
-        );
-        if (!response.ok) {
-          throw new Error("Error al cargar las categorías");
-        }
-        const data = await response.json();
-        setCaracteristicas(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    fetchCaracteristicas();
-  }, []);
-
-  //para traer lista de categorias
-  useEffect(() => {
-    async function fetchCategorias() {
-      try {
-        const response = await fetch("http://localhost:8080/categorias/listar");
-        if (!response.ok) {
-          throw new Error("Error al cargar las categorías");
-        }
-        const data = await response.json();
-        setCategorias(data);
-      } catch (error) {
-        console.error("Error:", error);
       }
     }
 
@@ -346,25 +303,6 @@ const AgregarProducto = () => {
                 onChange={handleCaracteristicaChange}
               />
               <label htmlFor={`caracteristica-${caracteristica.id}`}>{caracteristica.nombreCaracteristica}</label>
-            </div>
-          ))}
-          
-        </div> 
-
-<div className="fila-formulario">
-        <label>Características:</label>
-          
-          {Array.isArray(caracteristicas) && caracteristicas.map((caracteristica) => (
-            <div key={caracteristica.id}>
-              <input
-                type="checkbox"
-                id={caracteristica.id}
-                name={caracteristica.nombreCaracteristica}
-                value={caracteristica.nombreCaracteristica}
-                checked={caracteristicaSeleccionada.includes(caracteristica.nombreCaracteristica)}
-                onChange={handleCaracteristicaChange}
-              />
-              <label htmlFor={caracteristica.id}>{caracteristica.nombreCaracteristica}</label>
             </div>
           ))}
           
