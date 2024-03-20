@@ -9,9 +9,11 @@ import { FaSearch } from "react-icons/fa";
 import ProductHome from "./ProductHome";
 import { useLocation } from 'react-router-dom';
 
+
 export default function Body() {
   {/* Para cuando estás logueado */}
   const location = useLocation()
+
 
 	const message = location.state && location.state.message
 	const currentUser = localStorage.getItem("userId")

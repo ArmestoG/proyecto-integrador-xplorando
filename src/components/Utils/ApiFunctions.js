@@ -13,15 +13,15 @@ export const getHeader = () => {
 }
 
 /* This function register a new user */
-export async function registerUser(registration) {
+export async function registerUser(registro) {
 	try {
-		const response = await api.post("/auth/register-user", registration)
+		const response = await api.post("/auth/register-user", registro)
 		return response.data
 	} catch (error) {
 		if (error.reeponse && error.response.data) {
 			throw new Error(error.response.data)
 		} else {
-			throw new Error(`User registration error : ${error.message}`)
+			throw new Error(`Error en el registro de usuario : ${error.message}`)
 		}
 	}
 }
@@ -42,9 +42,9 @@ export async function loginUser(login) {
 }
 
 /*  This is function to get the user profile */
-export async function getUserProfile(userId, token) {
+export async function getUserProfile(email, token) {
 	try {
-		const response = await api.get(`users/profile/${userId}`, {
+		const response = await api.get(`users/profile/${email}`, {
 			headers: getHeader()
 		})
 		return response.data
@@ -66,9 +66,9 @@ export async function deleteUser(userId) {
 }
 
 /* This is the function to get a single user */
-export async function getUser(userId, token) {
+export async function getUser(email, token) {
 	try {
-		const response = await api.get(`/users/${userId}`, {
+		const response = await api.get(`/users/${email}`, {
 			headers: getHeader()
 		})
 		return response.data
