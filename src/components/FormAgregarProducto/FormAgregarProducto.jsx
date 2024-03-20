@@ -12,37 +12,10 @@ const AgregarProducto = () => {
   const [imagenes, setImagenes] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [caracteristicas, setCaracteristicas] = useState([]);
-  const [caracteristicaSeleccionada, setCaracteriticaSeleccionada] = useState([]);
+  const [caracteristicaSeleccionada, setCaracteriticaSeleccionada] = useState(
+    []
+  );
 
-  /*
-  useEffect(() => {
-    obtenerCategorias();
-  }, []);
-*/
-
-  /*
-  const obtenerCategorias = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/categorias/listar");
-      setCategorias(response.data);
-    } catch (error) {
-      console.error("Error al obtener las categorías:", error);
-    }
-  };
-
-  */
-
-  /*
-  const obtenerCaracteristicas = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/caracteristicas");
-      setCaracteristicas(response.data);
-    } catch (error) {
-      console.error("Error al obtener las características:", error);
-    }
-  };*/
-
-  
   const handleCodigoChange = (event) => {
     setCodigo(event.target.value);
   };
@@ -69,17 +42,19 @@ const AgregarProducto = () => {
 
   const handleImagenesChange = (e) => {
     const value = e.target.value;
-    const imagenesArray = value.split('\n');
+    const imagenesArray = value.split("\n");
     setImagenes(imagenesArray);
   };
 
   function handleCaracteristicaChange(event) {
     const { value, checked } = event.target;
     if (checked) {
-      setCaracteriticaSeleccionada([...caracteristicaSeleccionada, value]); 
+      setCaracteriticaSeleccionada([...caracteristicaSeleccionada, value]);
     } else {
       setCaracteriticaSeleccionada(
-        caracteristicaSeleccionada.filter((caracteristicaId) => caracteristicaId !== value)
+        caracteristicaSeleccionada.filter(
+          (caracteristicaId) => caracteristicaId !== value
+        )
       );
     }
   }
@@ -101,10 +76,20 @@ const AgregarProducto = () => {
       caracteristicas: caracteristicaSeleccionada,
     };
 
+    // Obtener el token de autenticación del usuario del localStorage
+    const token = localStorage.getItem("token");
+    //para pasar el token en el head  del POST
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     try {
       const response = await axios.post(
         "http://localhost:8080/productos/registrar",
-        nuevoProducto
+        nuevoProducto,
+        config
       );
       console.log("Producto guardado:", response.data);
       alert("Paquete registrado");
@@ -126,32 +111,34 @@ const AgregarProducto = () => {
   useEffect(() => {
     async function fetchCaracteristicas() {
       try {
-        const response = await fetch('http://localhost:8080/caracteristicas/listar');
+        const response = await fetch(
+          "http://localhost:8080/caracteristicas/listar"
+        );
         if (!response.ok) {
-          throw new Error('Error al cargar las categorías');
+          throw new Error("Error al cargar las categorías");
         }
         const data = await response.json();
         setCaracteristicas(data);
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
 
     fetchCaracteristicas();
   }, []);
 
-  //para traer lista de categorias 
+  //para traer lista de categorias
   useEffect(() => {
     async function fetchCategorias() {
       try {
-        const response = await fetch('http://localhost:8080/categorias/listar');
+        const response = await fetch("http://localhost:8080/categorias/listar");
         if (!response.ok) {
-          throw new Error('Error al cargar las categorías');
+          throw new Error("Error al cargar las categorías");
         }
         const data = await response.json();
         setCategorias(data);
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
 
@@ -222,27 +209,24 @@ const AgregarProducto = () => {
           </div>
         </div>
 
-
         <div className="fila-formulario">
           <div className="input-container">
-          <label>Categoria:</label>
-          <select
-            id="categoria"
-            name="categoria"
-            value={categoria}
-            onChange={handleCategoriaChange}
-          >
-            <option value="">Selecciona una categoría</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.nombreCategoria}>
-                {categoria.nombreCategoria}
-              </option>
-            ))}
-          </select>
+            <label>Categoria:</label>
+            <select
+              id="categoria"
+              name="categoria"
+              value={categoria}
+              onChange={handleCategoriaChange}
+            >
+              <option value="">Selecciona una categoría</option>
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.nombreCategoria}>
+                  {categoria.nombreCategoria}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
-
-
 
         <div className="fila-formulario">
           <div className="input-container">
@@ -276,38 +260,43 @@ const AgregarProducto = () => {
           </div>
   </div> */}
 
-<div className="fila-formulario">
-  <div className="input-container">
-    <label htmlFor="imagenes">URLs de Imágenes:</label>
-    <textarea
-      id="imagenes"
-      value={imagenes}
-      onChange={handleImagenesChange}
-      required
-    ></textarea>
-    <p className="supporting-text">Ingrese las URLs de las imágenes separadas por un salto de línea</p>
-  </div>
-</div>
-
         <div className="fila-formulario">
-        <label>Características:</label>
-          
-          {Array.isArray(caracteristicas) && caracteristicas.map((caracteristica) => (
-            <div key={caracteristica.id}>
-              <input
-                type="checkbox"
-                id={`caracteristica-${caracteristica.id}`}
-                name={`caracteristica-${caracteristica.nombreCaracteristica}`}
-                value={caracteristica.nombreCaracteristica}
-                checked={caracteristicaSeleccionada.includes(caracteristica.nombreCaracteristica)}
-                onChange={handleCaracteristicaChange}
-              />
-              <label htmlFor={`caracteristica-${caracteristica.id}`}>{caracteristica.nombreCaracteristica}</label>
-            </div>
-          ))}
-          
+          <div className="input-container">
+            <label htmlFor="imagenes">URLs de Imágenes:</label>
+            <textarea
+              id="imagenes"
+              value={imagenes}
+              onChange={handleImagenesChange}
+              required
+            ></textarea>
+            <p className="supporting-text">
+              Ingrese las URLs de las imágenes separadas por un salto de línea
+            </p>
+          </div>
         </div>
 
+        <div className="fila-formulario">
+          <label>Características:</label>
+
+          {Array.isArray(caracteristicas) &&
+            caracteristicas.map((caracteristica) => (
+              <div key={caracteristica.id}>
+                <input
+                  type="checkbox"
+                  id={`caracteristica-${caracteristica.id}`}
+                  name={`caracteristica-${caracteristica.nombreCaracteristica}`}
+                  value={caracteristica.nombreCaracteristica}
+                  checked={caracteristicaSeleccionada.includes(
+                    caracteristica.nombreCaracteristica
+                  )}
+                  onChange={handleCaracteristicaChange}
+                />
+                <label htmlFor={`caracteristica-${caracteristica.id}`}>
+                  {caracteristica.nombreCaracteristica}
+                </label>
+              </div>
+            ))}
+        </div>
 
         <div className="fila-formulario boton-enviar">
           <div className="datos-entrada" style={{ marginLeft: "auto" }}>
