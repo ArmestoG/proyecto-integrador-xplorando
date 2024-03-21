@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -6,30 +7,25 @@ import galleryStyles from './Gallery.module.css';
 const Gallery = ({ id }) => {
     const [images, setImages] = useState([]);
 
-   useEffect(() => {
+    useEffect(() => {
         fetch(`http://localhost:8080/productos/${id}`)
-            .then(response => { 
-                
+            .then(response => {
                 if (!response.ok) {
-                    throw new Error('Error al obtener las imágenes del producto');
+                    throw new Error('Error al obtener el producto');
                 }
                 return response.json();
             })
             .then(data => {
-                // Convertir los datos de las imágenes a un formato adecuado para la galería de imágenes
-             
-
-
-                setImages(productImages);
-            })
-            .catch(error => console.error('Error fetching product images:', error));
-    }, [id]);
-
-        /* const productImages = data.map(image => ({
-                    original: image.url,
-                    thumbnail: image.url
+                console.log(data)
+                const productImages = data.imagenSalidaDtoList.map(image => ({
+                    original: image.urlImagen,
+                    thumbnail: image.urlImagen
                 }));
-*/
+                setImages(productImages);
+                console.log(images);
+            })
+            .catch(error => console.error('Error fetching product details:', error));
+    }, [id]);
 
     const [showThumbnails, setShowThumbnails] = useState(true);
 

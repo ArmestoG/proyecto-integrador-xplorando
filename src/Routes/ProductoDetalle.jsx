@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Gallery from "../components/Gallery/Gallery";
@@ -35,7 +36,7 @@ const Detail = () => {
         <div className={detailStyles.detailInfoContainer}>
           <div className={detailStyles.detailInfo}>
             <h2>{product.nombreProducto}</h2>
-            <img src={product.imagenSalidaDtoList[0].urlImagen} />
+       
             <div className={detailStyles.stars}>
               <span className={detailStyles.star}>&#9733;</span>
               <span className={detailStyles.star}>&#9733;</span>
@@ -44,6 +45,7 @@ const Detail = () => {
               <span className={detailStyles.star}>&#9733;</span>
             </div>
             <div>
+              
               <h4>Detalle producto</h4>
               <p>{product.descripcionProducto}</p>
             </div>
