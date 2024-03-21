@@ -1,46 +1,94 @@
-import { useState } from 'react';
-import ListaUsuarios from '../../components/ListaUsuarios/ListaUsuarios';
-import ListaProductos from '../../components/ListaProductos/ListaProductos';
-import ListaCategorias from '../../components/ListaCategorias/ListaCategorias';
-import ListaCaracteristicas from '../../components/ListaCaracteristicas/ListaCaracteristicas';
-import './Admin.css';
+import { useState, useEffect } from "react";
+import Nav from "react-bootstrap/Nav";
+import ListaUsuarios from "../../components/ListaUsuarios/ListaUsuarios";
+import ListaProductos from "../../components/ListaProductos/ListaProductos";
+import ListaCategorias from "../../components/ListaCategorias/ListaCategorias";
+import ListaCaracteristicas from "../../components/ListaCaracteristicas/ListaCaracteristicas";
+import "./Admin.css";
 
 const Admin = () => {
-  const [tab, setTab] = useState('usuarios');
+  const [tab, setTab] = useState("productos");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleTabChange = (tabName) => {
     setTab(tabName);
   };
 
-  return (
-    <div className="panel-administracion">
-      <h2>Panel de Administración</h2>
+  // Verificar si el usuario está autenticado y tiene el rol adecuado
+  const isAuthenticated = sessionStorage.getItem("isAuthenticated") === "true";
+  const userRole = sessionStorage.getItem("userRole");
+  console.log(!isAuthenticated || userRole !== "ROLE_ADMIN");
+
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  if (windowWidth < 768) {
+    return (
       <div className="mobile-message">
         Esta página solo está disponible en la versión web. Por favor, acceda
         desde un dispositivo de escritorio o amplíe la ventana de su navegador.
       </div>
-      <div className="tabs">
-        <div className={`tab ${tab === 'usuarios' ? 'active' : ''}`} onClick={() => handleTabChange('usuarios')}>
-          <label htmlFor="tab-usuarios">Usuarios</label>
-          <input type="radio" id="tab-usuarios" name="tab-group" defaultChecked />
-        </div>
-        <div className={`tab ${tab === 'productos' ? 'active' : ''}`} onClick={() => handleTabChange('productos')}>
-          <label htmlFor="tab-productos">Productos</label>
-          <input type="radio" id="tab-productos" name="tab-group" />
-        </div>
-        <div className={`tab ${tab === 'categorias' ? 'active' : ''}`} onClick={() => handleTabChange('categorias')}>
-          <label htmlFor="tab-categorias">Categorías</label>
-          <input type="radio" id="tab-categorias" name="tab-group" />
-        </div>
-        <div className={`tab ${tab === 'caracteristicas' ? 'active' : ''}`} onClick={() => handleTabChange('caracteristicas')}>
-          <label htmlFor="tab-caracteristicas">Características</label>
-          <input type="radio" id="tab-caracteristicas" name="tab-group" />
-        </div>
-      </div>
-      {tab === 'usuarios' && <ListaUsuarios />}
-      {tab === 'productos' && <ListaProductos />}
-      {tab === 'categorias' && <ListaCategorias />}
-      {tab === 'caracteristicas' && <ListaCaracteristicas />}
+    );
+  }
+
+  return (
+    <div className="panel-administracion">
+      <h2 style={{display:"flex", justifyContent:"center", alignItems:"center", margin:"25px"}}>Panel de Administración</h2>
+
+      <Nav justify variant="tabs" defaultActiveKey="productos">
+        <Nav.Item>
+          <Nav.Link
+            eventKey="productos"
+            active={tab === "productos"}
+            onClick={() => handleTabChange("productos")}
+          >
+            Productos
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            disabled
+            eventKey="usuarios"
+            active={tab === "usuarios"}
+            onClick={() => handleTabChange("usuarios")}
+          >
+            Usuarios
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            disabled
+            eventKey="categorias"
+            active={tab === "categorias"}
+            onClick={() => handleTabChange("categorias")}
+          >
+            Categorías
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            disabled
+            eventKey="caracteristicas"
+            active={tab === "caracteristicas"}
+            onClick={() => handleTabChange("caracteristicas")}
+          >
+            Características
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      {tab === "usuarios" && <ListaUsuarios />}
+      {tab === "productos" && <ListaProductos />}
+      {tab === "categorias" && <ListaCategorias />}
+      {tab === "caracteristicas" && <ListaCaracteristicas />}
     </div>
   );
 };
