@@ -1,22 +1,35 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { SlHome, SlLogin, SlUserFollow } from "react-icons/sl";
+import { SlHome, SlLogin, SlUserFollow, SlLogout, SlUser } from "react-icons/sl";
+import Logout from "../Auth/Logout"; // Importar el componente Logout
 import "./Header.css";
 
 const Header = () => {
-  {/* Para cuando estás logueado */}
-  const [showAccount, setShowAccount] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showAccountDropdown, setShowAccountDropdown] = useState(false);
+  const [userName, setUserName] = useState("");
 
-	const handleAccountClick = () => {
-		setShowAccount(!showAccount)
-	}
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const firstName = localStorage.getItem("firstName") || "";
+    const lastName = localStorage.getItem("lastName") || "";
 
-	const isLoggedIn = localStorage.getItem("token")
-	const userRole = localStorage.getItem("userRole")
+    setIsLoggedIn(!!token);
+    setUserName(`${firstName} ${lastName}`);
+  }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("lastName");
+    setIsLoggedIn(false);
+    setUserName("");
+  };
 
-  {/* Para cuando está logueado */}
-  
+  const toggleAccountDropdown = () => {
+    setShowAccountDropdown(!showAccountDropdown);
+  };
+
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 600);
 
   useEffect(() => {
@@ -32,66 +45,6 @@ const Header = () => {
   }, []);
 
   return (
-    <>
-    {/* Para cuando estás logueado 
-    {isLoggedIn && (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top">
-          <div className="container-fluid">
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarScroll"
-              aria-controls="navbarScroll"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="collapse navbar-collapse" id="navbarScroll">
-              <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
-                {isLoggedIn && userRole === "ROLE_ADMIN" && (
-                  <li className="nav-item">
-                    <NavLink className="nav-link" aria-current="page" to={"/admin"}>
-                      Admin
-                    </NavLink>
-                  </li>
-                )}
-              </ul>
-
-              <ul className="d-flex navbar-nav">
-                <li className="nav-item dropdown">
-                  <a
-                    className={`nav-link dropdown-toggle ${showAccount ? "show" : ""}`}
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    onClick={handleAccountClick}
-                  >
-                    Account
-                  </a>
-
-                  <ul className={`dropdown-menu ${showAccount ? "show" : ""}`} aria-labelledby="navbarDropdown">
-                    {isLoggedIn ? (
-                      <Logout />
-                    ) : (
-                      <li>
-                        <Link className="dropdown-item" to={"/login"}>
-                          Login
-                        </Link>
-                      </li>
-                    )}
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      )}
-      */}
-
     <header className="header">
       <div className="header__logo">
         <Link to="/">
@@ -109,16 +62,42 @@ const Header = () => {
         </Link>
       </div>
       <div className="header__links">
-        <Link to="/">{isSmallScreen ? <SlHome /> : "Home"}</Link>
-        <Link to="/login">
-          {isSmallScreen ? <SlLogin /> : "Iniciar sesión"}
-        </Link>
-        <Link to="/registro" className="header__register-button">
-          {isSmallScreen ? <SlUserFollow /> : "Registrarse"}
-        </Link>
+        {!isLoggedIn && (
+          <>
+            <Link to="/">{isSmallScreen ? <SlHome /> : "Home"}</Link>
+            <Link to="/login">
+              {isSmallScreen ? <SlLogin /> : "Iniciar sesión"}
+            </Link>
+            <Link to="/registro" className="header__register-button">
+              {isSmallScreen ? <SlUserFollow /> : "Registrarse"}
+            </Link>
+          </>
+        )}
+        {isLoggedIn && (
+          <>
+          <div className='admin-title'>Mis reservas</div>
+          <span className="header__user-name">{userName}</span>
+          <div className="header__account-dropdown">
+            <button
+              className="header__account-button"
+              onClick={toggleAccountDropdown}
+            >
+              <SlUser />
+              <span className="arrow-icon">&#9660;</span> {/* Flecha hacia abajo */}
+            </button>
+            {showAccountDropdown && (
+              <div className="header__account-dropdown-menu">
+                <ul>
+                <li><Link to={"/profile"} className="header__account-dropdown-item"></Link></li>
+                <li><Logout /> {/* Renderizar el componente Logout */}</li>
+                </ul>
+              </div>
+            )}
+          </div>
+        </>
+        )}
       </div>
     </header>
-    </>
   );
 };
 

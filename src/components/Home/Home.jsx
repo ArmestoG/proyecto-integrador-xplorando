@@ -10,9 +10,11 @@ import ProductHome from "./ProductHome";
 import { useLocation } from 'react-router-dom';
 import Slider from "../Slider/Slider";
 
+
 export default function Body() {
   {/* Para cuando estás logueado */}
   const location = useLocation()
+
 
 	const message = location.state && location.state.message
 	const currentUser = localStorage.getItem("userId")

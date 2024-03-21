@@ -4,26 +4,31 @@
   top: 0;
   right: 0;
   left: 0;
-  background-color: #8799D8;
+  background-color: #8799d8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-  padding-left: .50rem;
-  padding-right: .50rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   z-index: 1000;
 }
 
 .header__logo img {
   height: 40px;
-  margin: .25rem;
+  margin: 0.25rem;
+}
+
+.header__links {
+  display: flex;
+  align-items: center;
 }
 
 .header__links a {
   text-decoration: none;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 700;
   font-style: normal;
   margin-left: 1rem;
@@ -35,20 +40,77 @@
 }
 
 .header__register-button {
-  background-color: #F38164;
-    color: #fff;
-    font-size: 14px;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: bold;
+  background-color: #f38164;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  text-decoration: none;
 }
 
 .header__register-button:hover {
-  background-color: #8799D8;
+  background-color: #8799d8;
   color: #273662;
 }
 
-.header__links a:hover{
+.header__links a:hover {
   color: #273662;
 }
+
+.header__user-name {
+  margin-right: 10px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.header__account-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #ffffff;
+  position: relative; /* Para posicionar la flecha */
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  
+}
+
+.header__account-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px); /* Ajustar según necesidades */
+  right: 0;
+  background-color: #8799d8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 1;
+  width: 9%;
+  
+  
+}
+
+.header__account-dropdown-menu ul {
+  list-style-type: none;
+  
+  
+}
+
+.header__account-dropdown-menu ul li {
+  margin-bottom: 15px;
+  
+}
+
+.header__account-dropdown-item {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: white;
+  width: 9%;
+}
+
+

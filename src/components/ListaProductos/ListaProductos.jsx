@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
-import { SlOptionsVertical } from "react-icons/sl";
-import "./ListaProductos.css"; // Importar estilos CSS
+import ListGroup from "react-bootstrap/ListGroup";
+import Dropdown from "react-bootstrap/Dropdown";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
-const ListaProductos = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(8);
+function ListaProductos() {
+  const [showModal, setShowModal] = useState(false);
   const [products, setProducts] = useState([]);
-  const [openMenus, setOpenMenus] = useState(Array(8).fill(false)); // Estado para controlar la visibilidad de los menús desplegables
-  const [categories, setCategories] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   // Función para obtener la lista de productos desde la base de datos
   const fetchProducts = async () => {
@@ -27,178 +26,58 @@ const ListaProductos = () => {
     }
   };
 
-  // Función para obtener la lista de categorías desde la base de datos
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/categorias/listar");
-      if (!response.ok) {
-        throw new Error("Error al cargar las categorías");
-      }
-      const data = await response.json();
-      setCategories(data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-    fetchCategories();
-  }, []);
-
-  // Lógica para obtener los productos paginados
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-
-  // Generar números de página
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  // Cambiar de página
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // Función para manejar el toggle del menú desplegable
-  const toggleMenu = (index) => {
-    const updatedMenus = [...openMenus];
-    updatedMenus[index] = !updatedMenus[index];
-    setOpenMenus(updatedMenus);
-  };
-
-  // Función para manejar la eliminación de un producto
-  const handleDelete = async (productId) => {
-    const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
-    if (isConfirmed) {
-      try {
-        const response = await fetch(`http://localhost:8080/productos/${productId}`, {
-          method: "DELETE",
-        });
-        if (!response.ok) {
-          throw new Error("Error al eliminar el producto");
-        }
-        setProducts(products.filter((product) => product.id !== productId));
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-  };
-
-  // Función para manejar el cambio de categoría de un producto
-  const handleCategoryChange = async (categoryId, productId) => {
-    setSelectedCategoryId(categoryId);
-    setSelectedProductId(productId);
-  };
-
-  // Función para confirmar el cambio de categoría de un producto
-  const confirmCategoryChange = async () => {
-    const isConfirmed = window.confirm("¿Estás seguro de que deseas cambiar la categoría de este producto?");
-    if (isConfirmed) {
-      try {
-        const response = await fetch(`http://localhost:8080/editar`, {
-          method: "PUT",
-        });
-        if (!response.ok) {
-          throw new Error("Error al cambiar la categoría del producto");
-        }
-        // Actualizar el estado de productos después de cambiar la categoría
-        fetchProducts();
-        // Reiniciar los estados de categoría y producto seleccionados
-        setSelectedCategoryId(null);
-        setSelectedProductId(null);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    } else {
-      // Reiniciar los estados de categoría y producto seleccionados si se cancela la acción
-      setSelectedCategoryId(null);
-      setSelectedProductId(null);
-    }
-  };
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
 
   return (
-    <div className="productos">
-      <h3>Lista de Productos</h3>
+    <>
+      <ListGroup>
+        {products.map((product) => (
+          <ListGroup key={product.id} as="li" horizontal style={{ width: "100%" }}>
+            <ListGroup.Item style={{ width: "15%" }}>{product.img}</ListGroup.Item>
+            <ListGroup.Item style={{ width: "25%" }}>{product.nombreProducto}</ListGroup.Item>
+            <ListGroup.Item style={{ width: "50%" }}>{product.descripcionProducto}</ListGroup.Item>
+            <ListGroup.Item style={{ width: "10%" }}>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id={`dropdown-${product.id}`}>
+                  ***
+                </Dropdown.Toggle>
 
-      {/* Lista de productos */}
-      <div className="row">
-        {currentProducts.map((product, index) => (
-          <div key={index} className="col-md-6">
-            <Card>
-              <Card.Img variant="top" src={"src/assets/logofinalexplorando/logoxplorandovertical/logoxplorandovertical.png"} />
-              <Card.Body>
-                <div>
-                  <Card.Title>{product.nombreProducto}</Card.Title>
-                  <Card.Text>{product.descripcionProducto}</Card.Text>
-                </div>
-              </Card.Body>
-              <div className="options-menu">
-                {/* Botón para mostrar/ocultar el menú desplegable */}
-                <Button onClick={() => toggleMenu(index)} className="options-menu-button">
-                  <SlOptionsVertical />
-                </Button>
-                {/* Menú desplegable */}
-                {openMenus[index] && (
-                  <div className="desplegable-menu">
-                    {/* Contenido del menú desplegable */}
-                    <ul>
-                      <Link to={`/admin/editarProducto/${product.id}`}>Editar</Link>
-                      <li onClick={() => handleDelete(product.id)}>Eliminar</li>
-                      <li>
-                        {/* Submenú para seleccionar categoría */}
-                        <div className="sub-menu">
-                          <ul>
-                            {categories.map((category) => (
-                              <li key={category.id} onClick={() => handleCategoryChange(category.id, product.id)}>
-                                {category.nombreCategoria}
-                              </li>
-                            ))}
-                          </ul>
-                          {/* Confirmación de cambio de categoría */}
-                          {selectedProductId === product.id && (
-                            <div className="confirmacion-cambio">
-                              <button onClick={confirmCategoryChange}>Confirmar</button>
-                              <button onClick={() => setSelectedProductId(null)}>Cancelar</button>
-                            </div>
-                          )}
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </Card>
-          </div>
+                <Dropdown.Menu>
+                  <Dropdown.Item>Editar</Dropdown.Item>
+                  <Dropdown.Item>Eliminar</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleShowModal}>
+                    Asignar Categoria
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </ListGroup.Item>
+          </ListGroup>
         ))}
-      </div>
+      </ListGroup>
 
-      {/* Paginación */}
-      <ul className="pagination">
-        {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} className="page-link">
-              {number}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      {/* Botón para agregar nuevo producto */}
-      <Link to="/admin/agregar-producto">
-        <Button
-          style={{
-            backgroundColor: "#f38164",
-            borderRadius: "25px",
-            borderColor: "transparent",
-          }}
-          className="mt-3"
-        >
-          Agregar Producto
-        </Button>
-      </Link>
-    </div>
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Asignar Categoria</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Acá va el menu drop para seleccionar la categoria
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+          <Button variant="primary">Guardar Cambios</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
-};
+}
 
 export default ListaProductos;
