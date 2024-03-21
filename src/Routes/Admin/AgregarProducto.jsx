@@ -4,7 +4,7 @@ const AgregarProducto = () => {
 
 
 // Verificar si el usuario tiene el rol adecuado
-const userRole = sessionStorage.getItem("userRole");
+/*const userRole = sessionStorage.getItem("userRole");
 if (userRole !== "ROLE_ADMIN") {
   return (
     <div
@@ -19,6 +19,7 @@ if (userRole !== "ROLE_ADMIN") {
     </div>
   );
 }
+*/
   return (
     <div>   
       <FormAgregarProducto />
