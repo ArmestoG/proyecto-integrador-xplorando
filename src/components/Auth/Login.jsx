@@ -3,8 +3,6 @@ import { loginUser } from "../Utils/ApiFunctions";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 import styles from "./Login.module.css";
-console.log(styles);
-
 
 
 const Login = () => {
@@ -35,7 +33,7 @@ const Login = () => {
     if (success) {
       const token = success.token;
       auth.handleLogin(token);
-      navigate(redirectUrl, { replace: true });
+      navigate(redirectUrl, {state: "isLogin"});
     } else {
       setErrorMessage(
         "Usuario o contraseña inválida. Porfavor, intente de nuevo."

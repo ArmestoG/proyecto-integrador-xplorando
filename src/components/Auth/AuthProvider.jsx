@@ -15,13 +15,13 @@ export const AuthProvider = ({ children }) => {
 		localStorage.setItem("userId", decodedUser.sub)
 		localStorage.setItem("userRole", decodedUser.roles)
 		localStorage.setItem("token", token)
+		localStorage.setItem("firstName", decodedUser.firstName) // Añadir esta línea
+        localStorage.setItem("lastName", decodedUser.lastName)
 		setUser(decodedUser)
 	}
 
 	const handleLogout = () => {
-		localStorage.removeItem("userId")
-		localStorage.removeItem("userRole")
-		localStorage.removeItem("token")
+		localStorage.clear()
 		setUser(null)
 	}
 

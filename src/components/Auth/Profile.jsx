@@ -3,9 +3,11 @@ import { getUser } from "../Utils/ApiFunctions";
 import { useNavigate } from "react-router-dom"
 import styles from "./Profile.module.css";
 import { FaPencilAlt } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 console.log(styles);
 
 const Profile = () => {
+  const location = useLocation();
 	const [user, setUser] = useState({
 		id: "",
 		email: "",
@@ -13,6 +15,8 @@ const Profile = () => {
 		lastName: "",
 		roles: [{ id: "", name: "" }]
 	})
+
+  
 
 	
 	const [message, setMessage] = useState("")

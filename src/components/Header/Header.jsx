@@ -1,29 +1,51 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { SlHome, SlLogin, SlUserFollow, SlLogout, SlUser } from "react-icons/sl";
+import { useLocation } from "react-router-dom";
 import Logout from "../Auth/Logout"; // Importar el componente Logout
 import "./Header.css";
 
+
+
 const Header = () => {
+  
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [showAccountDropdown, setShowAccountDropdown] = useState(false);
   const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const firstName = localStorage.getItem("firstName") || "";
-    const lastName = localStorage.getItem("lastName") || "";
+    if(location.state !== null)
+    {
+      const token = localStorage.getItem("token");
+      const userRole = localStorage.getItem("userRole");
+      const firstName = localStorage.getItem("firstName") || "";
+      const lastName = localStorage.getItem("lastName") || "";
+      setIsLoggedIn(!!token);
+      setIsAdmin(userRole === "ROLE_ADMIN");
+      setUserName(`${firstName} ${lastName}`);
+      setFirstName(firstName);
+      setLastName(lastName);
+    }
+  }, [location.state]);
 
-    setIsLoggedIn(!!token);
-    setUserName(`${firstName} ${lastName}`);
-  }, []);
+// esto es una mala practica pero es lo que hay asi funciona :c
+useEffect(() =>{
+  toggleAccountDropdown();
+},[location.state])
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("firstName");
-    localStorage.removeItem("lastName");
+    localStorage.clear();
     setIsLoggedIn(false);
+    setIsAdmin(false);
     setUserName("");
+    setFirstName("");
+    setLastName("");
   };
 
   const toggleAccountDropdown = () => {
@@ -44,38 +66,48 @@ const Header = () => {
     };
   }, []);
 
+  const getInitials = (firstName, lastName) => {
+    if (!firstName || !lastName) {
+      return '';
+    }
+  
+    let initials = firstName[0] + lastName[0];
+    console.log('initials:', initials);
+    return initials.toUpperCase();
+  }
+
   return (
     <header className="header">
-      <div className="header__logo">
-        <Link to="/">
-          {isSmallScreen ? (
-            <img
-              src="/src/assets/logofinalexplorando/logoxplorando/logoxplorando.png"
-              alt="Isologotipo Xplorando"
-            />
-          ) : (
-            <img
-              src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
-              alt="Logo Xplorando"
-            />
-          )}
-        </Link>
-      </div>
-      <div className="header__links">
-        {!isLoggedIn && (
-          <>
-            <Link to="/">{isSmallScreen ? <SlHome /> : "Home"}</Link>
-            <Link to="/login">
-              {isSmallScreen ? <SlLogin /> : "Iniciar sesión"}
-            </Link>
-            <Link to="/registro" className="header__register-button">
-              {isSmallScreen ? <SlUserFollow /> : "Registrarse"}
-            </Link>
-          </>
+    <div className="header__logo">
+      <Link to="/">
+        {isSmallScreen ? (
+          <img
+            src="/src/assets/logofinalexplorando/logoxplorando/logoxplorando.png"
+            alt="Isologotipo Xplorando"
+          />
+        ) : (
+          <img
+            src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
+            alt="Logo Xplorando"
+          />
         )}
-        {isLoggedIn && (
-          <>
-          <div className='admin-title'>Mis reservas</div>
+      </Link>
+    </div>
+    <div className="header__links">
+      {!isLoggedIn && (
+        <>
+          <Link to="/">{isSmallScreen ? <SlHome /> : "Home"}</Link>
+          <Link to="/login">
+            {isSmallScreen ? <SlLogin /> : "Iniciar sesión"}
+          </Link>
+          <Link to="/registro" className="header__register-button">
+            {isSmallScreen ? <SlUserFollow /> : "Registrarse"}
+          </Link>
+        </>
+      )}
+      {isLoggedIn && (
+        <>
+          <div className='admin-title'>Mis reservas - {getInitials(firstName, lastName)}</div>
           <span className="header__user-name">{userName}</span>
           <div className="header__account-dropdown">
             <button
@@ -88,16 +120,17 @@ const Header = () => {
             {showAccountDropdown && (
               <div className="header__account-dropdown-menu">
                 <ul>
-                <li><Link to={"/profile"} className="header__account-dropdown-item"></Link></li>
-                <li><Logout /> {/* Renderizar el componente Logout */}</li>
+                  <li><Link to={"/profile"} className="header__account-dropdown-item"></Link></li>
+                  <li><Logout /> {/* Renderizar el componente Logout */}</li>
                 </ul>
               </div>
             )}
           </div>
         </>
-        )}
-      </div>
-    </header>
+      )}
+      
+    </div>
+  </header>
   );
 };
 

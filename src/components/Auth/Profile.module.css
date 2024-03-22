@@ -65,3 +65,42 @@
 right: 0.5rem; /* Ajusta la distancia del icono al borde derecho */
 cursor: pointer;
 }
+
+/* Para tablets */
+@media (max-width: 1024px) {
+  .profileContainer {
+    padding: 1rem;
+  }
+
+  .userInfo {
+    max-width: 600px;
+  }
+}
+
+/* Para dispositivos móviles */
+@media (max-width: 767px) {
+  .profileContainer {
+    padding: 0.5rem;
+  }
+
+  .userInfo {
+    max-width: 100%;
+  }
+
+  .fieldContainer {
+    gap: 0.5rem;
+  }
+
+  .field {
+    margin-bottom: 0.5rem;
+  }
+
+  .value,
+  .rolesList li {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .icon {
+    right: 0.25rem;
+  }
+}
