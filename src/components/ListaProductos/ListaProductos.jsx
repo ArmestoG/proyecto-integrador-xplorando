@@ -3,7 +3,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import { Stack, Image, Row, Col } from "react-bootstrap";
 import { SlOptionsVertical } from "react-icons/sl";
 import axios from "axios";
@@ -175,11 +174,20 @@ function ListaProductos() {
                       style={{
                         color: "#E6E0E9",
                         fontSize: "16px",
-                        fontWeight: "500",
-                        justifyContent: "left",
+                        fontWeight: "500"
+                        
                       }}
                     >
+                      <div style={{
+                        fontSize: "12px",
+                        fontWeight: "300",
+                      }}>{product.categoria.nombreCategoria}</div>
+                      <div style={{
+                        fontSize: "21px",
+                        fontWeight: "500",
+                      }}>
                       {product.nombreProducto}
+                </div>
                     </Row>
                     <Row
                       style={{
@@ -192,9 +200,7 @@ function ListaProductos() {
                     </Row>
                   </Col>
                 </div>
-                <Badge pill bg="primary">
-                  {product.categoria.id}
-                </Badge>
+
               </div>
               <div className="p-2">
                 <Dropdown>
