@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Gallery from "../components/Gallery/Gallery";
 import detailStyles from "./Detail.module.css";
+import CounterButton from "../components/CounterButton/CounterButton";
 
 const Detail = () => {
   const { id } = useParams(); // Obtener el id del producto de la URL
@@ -46,33 +47,39 @@ const Detail = () => {
             </div>
             <div>
               
-              <h4>Detalle producto</h4>
+              <h5>Detalle producto</h5>
               <p>{product.descripcionProducto}</p>
             </div>
-
-            <div className={detailStyles}>
-              <h3>
-                {product.caracteristicas.map((caracteristica) => {
-                  return (
-                    <div> 
-                    <h3 key={caracteristica.id}>
-                      {caracteristica.nombreCaracteristica}
-                    </h3>
-                    <img src={caracteristica.icono}/>
-                    </div>
-                  );
-                })}
-              </h3>
-            </div>
-
             <hr />
+            <h5>PRECIO CON IMPUESTO DESDE</h5>
             <div className={detailStyles.detailPrice}>
-              <h3>{product.precioProducto}</h3>
+              <h3 className={detailStyles.h5}>{product.precioProducto}</h3>
             </div>
-            <button className={detailStyles.btn}>INICIAR RESERVA</button>
+            <h7>(hasta 6 cuotas sin interés con tarjeta de Santander)</h7>
+            <div className={detailStyles.init}>
+            <CounterButton/>
+            <button className={detailStyles.btn}>INICIAR RESERVA</button> </div>
           </div>
         </div>
       </main>
+      <div className={detailStyles.container}>
+        
+              <h3 className={detailStyles.complejo}>
+                <div className={detailStyles["caracteristicas-container"]}>
+                {product.caracteristicas.map((caracteristica) => {
+                  return (
+                    <div className={detailStyles["caracteristicas"]}> 
+                    <img src={caracteristica.icono}/>
+                    <h3 key={caracteristica.id}>
+                      {caracteristica.nombreCaracteristica}
+                    </h3>
+
+                    </div>
+                  );
+                })}
+              </div></h3>
+              
+            </div>
     </div>
   );
 };
