@@ -14,6 +14,8 @@ function ListaProductos() {
   const [categories, setCategories] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -116,6 +118,26 @@ function ListaProductos() {
     };
   }, []);
 
+  const handleDeleteConfirmation = (productId) => {
+    setProductToDelete(productId);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteProduct = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:8080/productos/eliminar/${productToDelete}`
+      );
+
+      await fetchProducts();
+
+      console.log("producto eliminado");
+      setShowDeleteModal(false);
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error);
+    }
+  };
+
   if (windowWidth < 768) {
     return null;
   }
@@ -174,20 +196,25 @@ function ListaProductos() {
                       style={{
                         color: "#E6E0E9",
                         fontSize: "16px",
-                        fontWeight: "500"
-                        
+                        fontWeight: "500",
                       }}
                     >
-                      <div style={{
-                        fontSize: "12px",
-                        fontWeight: "300",
-                      }}>{product.categoria.nombreCategoria}</div>
-                      <div style={{
-                        fontSize: "21px",
-                        fontWeight: "500",
-                      }}>
-                      {product.nombreProducto}
-                </div>
+                      <div
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "300",
+                        }}
+                      >
+                        {product.categoria.nombreCategoria}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "21px",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {product.nombreProducto}
+                      </div>
                     </Row>
                     <Row
                       style={{
@@ -200,7 +227,6 @@ function ListaProductos() {
                     </Row>
                   </Col>
                 </div>
-
               </div>
               <div className="p-2">
                 <Dropdown>
@@ -214,8 +240,12 @@ function ListaProductos() {
                     <SlOptionsVertical />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item>Editar</Dropdown.Item>
-                    <Dropdown.Item>Eliminar</Dropdown.Item>
+                    <Dropdown.Item disabled>Editar</Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => handleDeleteConfirmation(product.id)}
+                    >
+                      Eliminar
+                    </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() =>
                         handleShowModal(product.id, product.categoria.id)
@@ -260,6 +290,28 @@ function ListaProductos() {
           </Button>
           <Button variant="primary" onClick={handleSaveChanges}>
             Guardar Cambios
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Está seguro de que desea eliminar este producto?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleDeleteProduct}>
+            Eliminar
           </Button>
         </Modal.Footer>
       </Modal>

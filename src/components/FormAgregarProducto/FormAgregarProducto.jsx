@@ -13,6 +13,7 @@ const AgregarProducto = () => {
   const [categorias, setCategorias] = useState([]);
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [caracteristicaSeleccionada, setCaracteriticaSeleccionada] = useState([]);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   const [token,setToken] = useState("");
 
@@ -179,6 +180,28 @@ const AgregarProducto = () => {
 
     fetchCategorias();
   }, []);
+
+
+  useEffect(() => {
+    // Obtener el rol del usuario desde el almacenamiento local
+    const userRole = localStorage.getItem("userRole");
+  
+    // Verificar si el usuario tiene el rol necesario para acceder a la sección de administración
+    setIsAuthorized(userRole === "ROLE_ADMIN");
+  }, []);
+
+
+
+  if (!isAuthorized) {
+    return (
+      <div style={{height:"80vh", display:"flex", justifyContent:"center",alignItems:"center"}}>
+        No tienes autorización para acceder a esta sección. Por favor, inicia
+        sesión como administrador.
+      </div>
+    );
+  }
+
+
 
   return (
     <div className="contenedor-formulario">
