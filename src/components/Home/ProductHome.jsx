@@ -21,9 +21,9 @@ export default function ProductHome() {
 
     return (
         <>
-            <div className="random-products">
+            <div class="random-products">
                 <h2>¡Se viene el finde XL!</h2>
-                <div className="row">
+                <div class="row">
                     {product !== null && product.map((item) => (
                         <Product
                             key={item.id}

@@ -56,22 +56,25 @@ export default function Body() {
 				<h6 className="text-success text-center"> You are logged-In as {currentUser}</h6>
 			)}
       {/* Para cuando estás logueado */}
-      <h1>Próximo destino</h1>
+      <h1 class="titulo">  Próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
        <div className="search-bar">
         <input type="text" placeholder="Buscar productos..." />
         <FaSearch className="search-icon" />
       </div>
+      
       {/* Carrusel de categorías */}
       <div className="carousel-card">
       <Carousel showDots={true} responsive={responsive}>
         {products}
       </Carousel>
       </div>
-      {/* Sección de productos aleatorios 
-       <div className="random-products">
+      {
+      
+      /* Sección de productos aleatorios */
+       <div class="random-products">
         <h2>¡Se viene el finde XL!</h2>
-        {/*<div className="row">
+        <div class="row">
           {randomProducts.map((item) => (
             <Product
               key={item.id}
@@ -83,8 +86,10 @@ export default function Body() {
             />
           ))}
         </div>
-      </div>*/}
+      </div>
+      
+      }
       <ProductHome/>
     </div>
   );
-}
+};
