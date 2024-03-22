@@ -14,10 +14,6 @@ const Admin = () => {
     setTab(tabName);
   };
 
-  // Verificar si el usuario está autenticado y tiene el rol adecuado
-  const isAuthenticated = sessionStorage.getItem("isAuthenticated") === "true";
-  const userRole = sessionStorage.getItem("userRole");
-  console.log(!isAuthenticated || userRole !== "ROLE_ADMIN");
 
 
 
