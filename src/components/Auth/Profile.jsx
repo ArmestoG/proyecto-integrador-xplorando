@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import { getUser } from "../Utils/ApiFunctions";
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./Profile.module.css";
 import { FaPencilAlt } from "react-icons/fa";
@@ -23,21 +22,6 @@ const Profile = () => {
 	const [errorMessage, setErrorMessage] = useState("")
 	const navigate = useNavigate()
 
-	const userId = localStorage.getItem("userId")
-	const token = localStorage.getItem("token")
-
-	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const userData = await getUser(userId, token)
-				setUser(userData)
-			} catch (error) {
-				console.error(error)
-			}
-		}
-
-		fetchUser()
-	}, [userId])
 
 
 	return (

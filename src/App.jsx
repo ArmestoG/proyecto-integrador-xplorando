@@ -14,11 +14,14 @@ import Categoria from "./Routes/Categoria";
 import ProductoDetalle from "./Routes/ProductoDetalle";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+
 const App = () => {
+
   return (
     <AuthProvider>
     <Router>
       <Header />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/" element={<RequireAuth />}/>
@@ -32,8 +35,10 @@ const App = () => {
         <Route path="/categorias/:categoria" element={<Categoria />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route path="/producto/undefined" element={<Categoria />} />
+
         
       </Routes>
+      
     </Router>
     <Footer />
     </AuthProvider>

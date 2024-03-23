@@ -8,7 +8,7 @@ import "./Header.css";
 
 
 const Header = () => {
-  
+  const [initialName, setInitialName] = useState("");
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -26,11 +26,13 @@ const Header = () => {
       const userRole = localStorage.getItem("userRole");
       const firstName = localStorage.getItem("firstName") || "";
       const lastName = localStorage.getItem("lastName") || "";
+      console.log(firstName, lastName);
       setIsLoggedIn(!!token);
       setIsAdmin(userRole === "ROLE_ADMIN");
       setUserName(`${firstName} ${lastName}`);
       setFirstName(firstName);
       setLastName(lastName);
+      setInitialName(getInitials(firstName, lastName));
     }
   }, [location.state]);
 
@@ -107,7 +109,7 @@ useEffect(() =>{
       )}
       {isLoggedIn && (
         <>
-          <div className='admin-title'>Mis reservas - {getInitials(firstName, lastName)}</div>
+          <div className='admin-title'>Mis reservas - {initialName}</div>
           <span className="header__user-name">{userName}</span>
           <div className="header__account-dropdown">
             <button
