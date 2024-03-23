@@ -19,12 +19,32 @@
 .arrow{
   cursor: pointer;
   color: #273662;
-  font-size: 6rem;
-}
-.leftArrow{
-  
+  font-size: 2rem;
 }
 
-.rightArrow{
-
+@media only screen and (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Propiedad necesaria para un desplazamiento suave en iOS Safari */
+    scrollbar-width: none; /* Ocultar la barra de desplazamiento en Firefox */
+    -ms-overflow-style: none; /* Ocultar la barra de desplazamiento en Internet Explorer y Edge */
+  }
+  .grid::-webkit-scrollbar {
+    display: none; /* Ocultar la barra de desplazamiento en Chrome, Safari y Edge */
+  }
+  .grid > div {
+    flex: 0 0 auto;
+    width: 100%;
+    scroll-snap-align: start;
+  }
+  .leftArrow,
+  .rightArrow {
+    display: none; /* Ocultar flechas en dispositivos móviles */
+  }
 }

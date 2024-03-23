@@ -28,9 +28,9 @@ const Slider = () => {
   return (
     <div className={sliderStyles.container}>
       <div className={`${sliderStyles.leftArrow} ${sliderStyles.arrow}`}>
-        <FontAwesomeIcon onClick={handlePrev} icon= {faAngleLeft}/>
+        <FontAwesomeIcon onClick={handlePrev} icon={faAngleLeft} />
       </div>
-      
+
       <div className={sliderStyles.grid}>
         {/* Map categorías*/}
         {visibleCategories.map((category, index) => (
@@ -38,7 +38,7 @@ const Slider = () => {
         ))}
       </div>
       <div className={`${sliderStyles.rightArrow} ${sliderStyles.arrow}`}>
-        <FontAwesomeIcon onClick={handleNext} icon= {faAngleRight} />
+        <FontAwesomeIcon onClick={handleNext} icon={faAngleRight} />
       </div>
     </div>
   );
