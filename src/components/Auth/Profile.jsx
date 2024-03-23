@@ -1,9 +1,10 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { getUser } from "../Utils/ApiFunctions";
 import { useNavigate } from "react-router-dom"
 import styles from "./Profile.module.css";
 import { FaPencilAlt } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-console.log(styles);
+
 
 const Profile = () => {
   const location = useLocation();
@@ -15,13 +16,28 @@ const Profile = () => {
 		roles: [{ id: "", name: "" }]
 	})
 
-  
+  console.log("xxxxxxxxxx");
 
 	
 	const [message, setMessage] = useState("")
 	const [errorMessage, setErrorMessage] = useState("")
 	const navigate = useNavigate()
 
+  const userId = localStorage.getItem("userId")
+	const token = localStorage.getItem("token")
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const userData = await getUser(userId, token)
+				setUser(userData)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchUser()
+	}, [userId])
 
 
 	return (
