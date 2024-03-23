@@ -5,7 +5,7 @@ export const api = axios.create({
 })
 
 export const getHeader = () => {
-	const token = localStorage.getItem("token")
+	const token = sessionStorage.getItem("token")
 	return {
 		Authorization: `Bearer ${token}`,
 		"Content-Type": "application/json"
@@ -41,8 +41,34 @@ export async function loginUser(login) {
 	}
 }
 
+/* This is the function to get a single user */
+export async function getUser(email, token) {
+	console.log('Calling getUser'); 
+	try {
+		const response = await api.get(`/users/${email}`, {
+			headers: getHeader()
+		})
+		// Print the API response to the console
+		console.log("Aaaaaaaaaaa");
+		console.log(response.data);
+		// Check if firstName and lastName exist in the response
+		if (response.data.firstName && response.data.lastName) {
+			console.log('Por favor salga algo')
+			// Store the first name and last name in local storage
+			sessionStorage.setItem('firstName', response.data.firstName);
+			sessionStorage.setItem('lastName', response.data.lastName);
+		  } else {
+			console.log('firstName and lastName are not included in the API response');
+		  }
+		return response.data
+	} catch (error) {
+		throw error
+	}
+}
+
 /*  This is function to get the user profile */
 export async function getUserProfile(email, token) {
+	// Add this line
 	try {
 		const response = await api.get(`users/profile/${email}`, {
 			headers: getHeader()
@@ -64,19 +90,3 @@ export async function deleteUser(userId) {
 		return error.message
 	}
 }
-
-/* This is the function to get a single user */
-export async function getUser(email, token) {
-	try {
-		const response = await api.get(`/users/${email}`, {
-			headers: getHeader()
-		})
-		return response.data
-	} catch (error) {
-		throw error
-	}
-}
-
-
-
-

@@ -73,7 +73,7 @@ function ListaProductos() {
           nombreProducto: productToUpdate.nombreProducto,
           descripcionProducto: productToUpdate.descripcionProducto,
           precioProducto: productToUpdate.precioProducto,
-          direccion: productToUpdate.direccion,
+          ubicacion: productToUpdate.ubicacion,
           imagenes: productToUpdate.imagenes,
           categoria: categoriaSeleccionada,
           caracteristicas: productToUpdate.caracteristicas,
@@ -96,7 +96,7 @@ function ListaProductos() {
         productToUpdate.nombreProducto,
         productToUpdate.descripcionProducto,
         productToUpdate.precioProducto,
-        productToUpdate.direccion,
+        productToUpdate.ubicacion,
         productToUpdate.imagenes,
         categoriaSeleccionada,
         productToUpdate.caracteristicas
@@ -118,16 +118,25 @@ function ListaProductos() {
     };
   }, []);
 
+
   const handleDeleteConfirmation = (productId) => {
     setProductToDelete(productId);
     setShowDeleteModal(true);
   };
 
+
+  console.log("HAAAAAAAAAAAALASFJNJKJSD" + setProductToDelete);
   const handleDeleteProduct = async () => {
     try {
       await axios.delete(
-        `http://localhost:8080/productos/eliminar/${productToDelete}`
+        `http://localhost:8080/productos/eliminar/${productToDelete}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
 
       await fetchProducts();
 

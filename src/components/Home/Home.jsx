@@ -7,6 +7,7 @@ import { categoria, responsive, producto } from "../../components/data";
 import "./Home.css";
 import { FaSearch } from "react-icons/fa";
 import ProductHome from "./ProductHome";
+import axios from "axios";
 import { useLocation } from 'react-router-dom';
 
 
@@ -20,6 +21,7 @@ export default function Body() {
   {/* Para cuando estás logueado */}
 
   const [randomProducts, setRandomProducts] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
     // Obtener una lista aleatoria de imágenes
@@ -37,14 +39,30 @@ export default function Body() {
     setRandomProducts(randomProductsList);
   }, []);
 
+ 
+
+  useEffect(() => {
+    const fetchCategorias = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/categorias/listar"
+        );
+        console.log("Categorias obtenidas:", response.data);
+        setCategorias(response.data);
+      } catch (error) {
+        console.error("Error al obtener categorias:", error);
+      }
+    };
+
+    fetchCategorias();
+  }, []);
+
  //Esto es para el carrusel
-  const products = categoria.map((item) => (
+  const products = categorias.map((item) => (
     <Category
       key={item.id}
-      name={item.name}
-      url={item.imageurl}
-      price={item.price}
-      description={item.description}
+      name={item.nombreCategoria}
+      url={item.imagenCategoria}
     />
   ));
 
