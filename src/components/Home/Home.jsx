@@ -16,7 +16,7 @@ export default function Body() {
 
 
 	const message = location.state && location.state.message
-	const currentUser = localStorage.getItem("userId")
+	const currentUser = sessionStorage.getItem("userId")
   {/* Para cuando estás logueado */}
 
   const [randomProducts, setRandomProducts] = useState([]);

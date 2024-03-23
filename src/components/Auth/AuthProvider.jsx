@@ -12,16 +12,16 @@ export const AuthProvider = ({ children }) => {
 
 	const handleLogin = (token) => {
 		const decodedUser = jwt_decode(token)
-		localStorage.setItem("userId", decodedUser.sub)
-		localStorage.setItem("userRole", decodedUser.roles)
-		localStorage.setItem("token", token)
-		localStorage.setItem("firstName", decodedUser.firstName) // Añadir esta línea
-        localStorage.setItem("lastName", decodedUser.lastName)
+		sessionStorage.setItem("userId", decodedUser.sub)
+		sessionStorage.setItem("userRole", decodedUser.roles)
+		sessionStorage.setItem("token", token)
+		sessionStorage.setItem("firstName", decodedUser.firstName) // Añadir esta línea
+        sessionStorage.setItem("lastName", decodedUser.lastName)
 		setUser(decodedUser)
 	}
 
 	const handleLogout = () => {
-		localStorage.clear()
+		sessionStorage.clear()
 		setUser(null)
 	}
 

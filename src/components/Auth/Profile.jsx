@@ -16,15 +16,12 @@ const Profile = () => {
 		roles: [{ id: "", name: "" }]
 	})
 
-  console.log("xxxxxxxxxx");
-
-	
 	const [message, setMessage] = useState("")
 	const [errorMessage, setErrorMessage] = useState("")
 	const navigate = useNavigate()
 
-  const userId = localStorage.getItem("userId")
-	const token = localStorage.getItem("token")
+  const userId = sessionStorage.getItem("userId")
+	const token = sessionStorage.getItem("token")
 
 	useEffect(() => {
 		const fetchUser = async () => {

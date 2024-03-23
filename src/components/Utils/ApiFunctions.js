@@ -5,7 +5,7 @@ export const api = axios.create({
 })
 
 export const getHeader = () => {
-	const token = localStorage.getItem("token")
+	const token = sessionStorage.getItem("token")
 	return {
 		Authorization: `Bearer ${token}`,
 		"Content-Type": "application/json"
@@ -55,9 +55,8 @@ export async function getUser(email, token) {
 		if (response.data.firstName && response.data.lastName) {
 			console.log('Por favor salga algo')
 			// Store the first name and last name in local storage
-			localStorage.setItem('firstName', response.data.firstName);
-			localStorage.setItem('lastName', response.data.lastName);
-			
+			sessionStorage.setItem('firstName', response.data.firstName);
+			sessionStorage.setItem('lastName', response.data.lastName);
 		  } else {
 			console.log('firstName and lastName are not included in the API response');
 		  }
@@ -91,13 +90,3 @@ export async function deleteUser(userId) {
 		return error.message
 	}
 }
-
-
-
-
-
-
-
-
-
-

@@ -5,8 +5,6 @@ import { useLocation } from "react-router-dom";
 import Logout from "../Auth/Logout"; // Importar el componente Logout
 import "./Header.css";
 
-
-
 const Header = () => {
   const [initialName, setInitialName] = useState("");
   const location = useLocation();
@@ -17,32 +15,36 @@ const Header = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  
-
   useEffect(() => {
-    if(location.state !== null)
-    {
-      const token = localStorage.getItem("token");
-      const userRole = localStorage.getItem("userRole");
-      const firstName = localStorage.getItem("firstName") || "";
-      const lastName = localStorage.getItem("lastName") || "";
-      console.log(firstName, lastName);
-      setIsLoggedIn(!!token);
-      setIsAdmin(userRole === "ROLE_ADMIN");
-      setUserName(`${firstName} ${lastName}`);
-      setFirstName(firstName);
-      setLastName(lastName);
-      setInitialName(getInitials(firstName, lastName));
-    }
+    if(sessionStorage.getItem("token") !== null)
+      setData();
+    else
+      handleLogout();
+
   }, [location.state]);
 
 // esto es una mala practica pero es lo que hay asi funciona :c
-useEffect(() =>{
-  toggleAccountDropdown();
-},[location.state])
+  useEffect(() =>{
+    toggleAccountDropdown();
+  },[location.state])
+
+
+  const setData = () => {
+    const token = sessionStorage.getItem("token");
+    const userRole = sessionStorage.getItem("userRole");
+    const firstName = sessionStorage.getItem("firstName") || "";
+    const lastName = sessionStorage.getItem("lastName") || "";
+    console.log(firstName, lastName);
+    setIsLoggedIn(token);
+    setIsAdmin(userRole === "ROLE_ADMIN");
+    setUserName(`${firstName} ${lastName}`);
+    setFirstName(firstName);
+    setLastName(lastName);
+    setInitialName(getInitials(firstName, lastName));
+  }
 
   const handleLogout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     setIsLoggedIn(false);
     setIsAdmin(false);
     setUserName("");
@@ -130,7 +132,6 @@ useEffect(() =>{
           </div>
         </>
       )}
-      
     </div>
   </header>
   );
