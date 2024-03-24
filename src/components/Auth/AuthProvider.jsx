@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react"
+import React, { createContext, useState, useContext } from "react"
 import jwt_decode from "jwt-decode"
 
 export const AuthContext = createContext({
@@ -12,16 +12,16 @@ export const AuthProvider = ({ children }) => {
 
 	const handleLogin = (token) => {
 		const decodedUser = jwt_decode(token)
-		localStorage.setItem("userId", decodedUser.sub)
-		localStorage.setItem("userRole", decodedUser.roles)
-		localStorage.setItem("token", token)
+		sessionStorage.setItem("userId", decodedUser.sub)
+		sessionStorage.setItem("userRole", decodedUser.roles)
+		sessionStorage.setItem("token", token)
+		sessionStorage.setItem("firstName", decodedUser.firstName) // Añadir esta línea
+        sessionStorage.setItem("lastName", decodedUser.lastName)
 		setUser(decodedUser)
 	}
 
 	const handleLogout = () => {
-		localStorage.removeItem("userId")
-		localStorage.removeItem("userRole")
-		localStorage.removeItem("token")
+		sessionStorage.clear()
 		setUser(null)
 	}
 

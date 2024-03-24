@@ -8,7 +8,7 @@ const Logout = () => {
 
 	const handleLogout = () => {
 		auth.handleLogout()
-		navigate("/", { state: { message: " You have been logged out!" } })
+		navigate("/", {state: "refresh"})
 	}
 
 	return (
@@ -22,7 +22,7 @@ const Logout = () => {
 				<hr className="dropdown-divider" />
 			</li>
 			<button className="dropdown-item" onClick={handleLogout}>
-				Logout
+			Logout
 			</button>
 		</>
 	)

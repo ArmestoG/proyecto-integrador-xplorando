@@ -5,7 +5,7 @@ import "./FormAgregarProducto.css";
 const AgregarProducto = () => {
   const [codigo, setCodigo] = useState("");
   const [nombre, setNombre] = useState("");
-  const [direccion, setDireccion] = useState("");
+  const [ubicacion, setUbicacion] = useState("");
   const [precio, setPrecio] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -64,8 +64,8 @@ const AgregarProducto = () => {
     setNombre(event.target.value);
   };
 
-  const handleDireccionChange = (event) => {
-    setDireccion(event.target.value);
+  const handleUbicacionChange = (event) => {
+    setUbicacion(event.target.value);
   };
 
   const handlePrecioChange = (event) => {
@@ -110,7 +110,7 @@ const AgregarProducto = () => {
       nombreProducto: nombre,
       descripcionProducto: descripcion,
       precioProducto: precio,
-      direccion: direccion,
+      ubicacion: ubicacion,
       imagenes: imagenes,
       categoria: categoria,
       caracteristicas: caracteristicaSeleccionada,
@@ -133,7 +133,7 @@ const AgregarProducto = () => {
       alert("Paquete registrado");
       setCodigo("");
       setNombre("");
-      setDireccion("");
+      setUbicacion("");
       setPrecio("");
       setCategoria("");
       setDescripcion("");
@@ -240,12 +240,12 @@ const AgregarProducto = () => {
         </div>
         <div className="fila-formulario">
           <div className="input-container">
-            <label htmlFor="direccion">Dirección:</label>
+            <label htmlFor="ubicacion">Ubicación:</label>
             <input
               type="text"
-              id="direccion"
-              value={direccion}
-              onChange={handleDireccionChange}
+              id="ubicacion"
+              value={ubicacion}
+              onChange={handleUbicacionChange}
               required
             />
             <p className="supporting-text">
