@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Gallery from "../components/Gallery/Gallery";
 import detailStyles from "./Detail.module.css";
 import CounterButton from "../components/CounterButton/CounterButton";
+import DatePicker from "react-datepicker";
 
 const Detail = () => {
   const { id } = useParams(); // Obtener el id del producto de la URL

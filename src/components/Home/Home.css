@@ -15,20 +15,6 @@ h1 {
   margin: 1rem auto 4rem;
 }
 
-/* Estilos para la barra de búsqueda */
-
-
-
-.search-bar {
-  display: flex;
-  background-color: #e2dada;
-  border: 1px solid #001f3f;
-  border-radius: 8px; 
-  overflow: hidden;
-  width: 800px; 
-  margin: 0 auto 2rem;
-}
-
 input {
   flex: 1;
   padding: 0.8rem;

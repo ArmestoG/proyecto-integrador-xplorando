@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Carousel from "react-multi-carousel";
+import Carousel from "react-multi-carousel";2
 import "react-multi-carousel/lib/styles.css";
 import Product from "./Product";
 import Category from "./Category";
@@ -9,12 +9,16 @@ import { FaSearch } from "react-icons/fa";
 import ProductHome from "./ProductHome";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
+import DatePicker from "react-datepicker";
+import Busqueda from "../Busqueda/Busqueda";
+
 
 
 export default function Body() {
   {/* Para cuando estás logueado */}
   const location = useLocation()
-
+  const [startDate, setStartDate] = useState(new Date());
+  const [startDate1, setStartDate1] = useState(new Date());
 
 	const message = location.state && location.state.message
 	const currentUser = localStorage.getItem("userId")
@@ -76,10 +80,7 @@ export default function Body() {
       {/* Para cuando estás logueado */}
       <h1>Próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
-       <div className="search-bar">
-        <input type="text" placeholder="Buscar productos..." />
-        <FaSearch className="search-icon" />
-      </div>
+       <Busqueda/>
       {/* Carrusel de categorías */}
       <div className="carousel-card">
       <Carousel showDots={true} responsive={responsive}>
