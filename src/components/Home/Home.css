@@ -80,7 +80,9 @@ input {
   margin: auto 1rem;
   text-align: start;
   font-family: arial;
-  max-height: 600px; 
+  max-height: 600px;
+  box-shadow: none;
+  border:#8799D8;
 }
 
 .carousel-card .card {
@@ -92,18 +94,32 @@ input {
   border-radius: 20px;
   max-height:500px;
   background-color: #8799D8;
+  border:none
 
 }
 .carousel-card .product--image {
   
   object-fit: cover;
+  border-top-left-radius:20px ;
+  border-top-right-radius: 20px;
+ 
 }
 
 .carousel-card .text-container{
   padding: 1rem; 
   text-align: start;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
   margin-top: -20px;
+  height: 150px;
+  background-color: #8799D8;
+  color: #f3f4f5;
+  padding:24px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -163,8 +179,12 @@ input {
   max-width: calc(50% - 1rem); /* 50% del ancho del contenedor con un margen de 1rem entre productos */
   margin-bottom: 2rem;
   text-align:start;
-  font-family: arial;
+  font-family: Arial, Helvetica, sans-serif;
   border-radius: 20px;
+  padding: 0px;
+  border:none;
+  background-color: #C7D2F9;
+  color:#273662
 }
 
 .random-products .text-container {
@@ -173,7 +193,7 @@ input {
 }
 
 .random-products .price {
-  color: grey;
+  color: #49454F;
   font-size: 22px;
 }
 
@@ -190,11 +210,12 @@ input {
   outline: 0;
   padding: 12px;
   color: white;
-  background-color: #6750a4;
+  background-color: #273662;
   text-align: center;
   cursor: pointer;
   width: 30%;
   font-size: 12px;
+  font-weight: 600;
   border-radius:20px;
   margin-left: 300px;
   margin-bottom: 15px;

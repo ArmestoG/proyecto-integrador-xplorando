@@ -5,8 +5,6 @@ import CarruselBuscador from "./Components/CarruselBuscador";
 import axios from "axios";
 import Slider from "react-slick";
 
-import { categoria, responsive, producto } from "../../components/data";
-
 import "./Busqueda.css";
 
 import Carousel from "react-multi-carousel";

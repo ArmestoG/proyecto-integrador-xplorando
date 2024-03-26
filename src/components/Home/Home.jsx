@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";2
 import "react-multi-carousel/lib/styles.css";
 import Category from "./Category";
-import { responsive, producto } from "../../components/data";
+import { responsive } from "../../components/data";
 import "./Home.css";
 import ProductHome from "./ProductHome";
 import axios from "axios";
@@ -14,29 +14,16 @@ import Busqueda from "../Busqueda/Busqueda";
 export default function Body() {
   {/* Para cuando estás logueado */}
   const location = useLocation()
+  const [startDate, setStartDate] = useState(new Date());
+  const [startDate1, setStartDate1] = useState(new Date());
 
 	const message = location.state && location.state.message
 	const currentUser = localStorage.getItem("userId")
   {/* Para cuando estás logueado */}
 
-  const [randomProducts, setRandomProducts] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
-  useEffect(() => {
-    // Obtener una lista aleatoria de imágenes
-    const shuffledImages = producto.sort(() => Math.random() - 0.5).slice(0, 10);
 
-    // Crear productos aleatorios utilizando las imágenes
-    const randomProductsList = shuffledImages.map((image) => ({
-      id: image.id, // Usa un id diferente para evitar conflictos con categoria
-      name: image.name,
-      imageurl: image.imageurl1,
-      price: image.price,
-      description: image.description,
-    }));
-
-    setRandomProducts(randomProductsList);
-  }, []);
 
  
 
@@ -57,7 +44,7 @@ export default function Body() {
   }, []);
 
  //Esto es para el carrusel
-  const products = categorias.map((item) => (
+  const cats = categorias.map((item) => (
     <Category
       key={item.id}
       name={item.nombreCategoria}
@@ -78,8 +65,8 @@ export default function Body() {
        <Busqueda/>
       {/* Carrusel de categorías */}
       <div className="carousel-card">
-      <Carousel showDots={true} responsive={responsive}>
-        {products}
+      <Carousel showDots={false} responsive={responsive} ssr={true} infinite={true} containerClass="carousel-container" >
+        {cats}
       </Carousel>
       </div>
       {/* Sección de productos aleatorios 

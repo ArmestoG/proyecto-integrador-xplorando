@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUser } from "../Utils/ApiFunctions";
 import { useNavigate } from "react-router-dom";
 import styles from "./Profile.module.css";
-import { FaPencilAlt } from "react-icons/fa";
+import { SlPencil } from "react-icons/sl";
 import { useLocation } from "react-router-dom";
 
 const Profile = () => {
@@ -40,22 +40,22 @@ const Profile = () => {
       {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
       {user && (
         <div className={styles.userInfo}>
-          <h2>User Information</h2>
+          <h2>Perfil de Usuario</h2>
           <div className={styles.fieldContainer}>
             <div className={styles.field}>
-              <p className={styles.label}>First Name:</p>
+              <p className={styles.label}>Nombre:</p>
               <p className={styles.value}>{user.firstName}</p>
-              <FaPencilAlt className={styles.icon} />
+              <SlPencil  className={styles.icon} />
             </div>
             <div className={styles.field}>
-              <p className={styles.label}>Last Name:</p>
+              <p className={styles.label}>Apellido:</p>
               <p className={styles.value}>{user.lastName}</p>
-              <FaPencilAlt className={styles.icon} />
+              <SlPencil  className={styles.icon} />
             </div>
             <div className={styles.field}>
               <p className={styles.label}>Email:</p>
               <p className={styles.value}>{user.email}</p>
-              <FaPencilAlt className={styles.icon} />
+              <SlPencil  className={styles.icon} />
             </div>
             <div className={styles.field}>
               <p className={styles.label}>Roles:</p>
@@ -70,7 +70,7 @@ const Profile = () => {
                   <li>No roles assigned</li>
                 )}
               </ul>
-              <FaPencilAlt className={styles.icon} />
+              <SlPencil  className={styles.icon} />
             </div>
           </div>
         </div>

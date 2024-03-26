@@ -187,12 +187,12 @@ function ListaProductos() {
                 >
                   <Image
                     src={product.imagenSalidaDtoList[0].urlImagen}
-                    style={{ maxHeight: "88px", maxWidth: "100%" }}
+                    style={{ maxHeight: "102px", maxWidth: "100%" }}
                   />
                 </div>
                 <div
                   className="p-2"
-                  style={{ width: "50vw", maxHeight: "88px" }}
+                  style={{ width: "50vw", maxHeight: "102px" }}
                 >
                   <Col
                     style={{
