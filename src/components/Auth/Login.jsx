@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { loginUser } from "../Utils/ApiFunctions";
+import { loginUser, getUser } from "../Utils/ApiFunctions";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 import styles from "./Login.module.css";
-console.log(styles);
-
 
 
 const Login = () => {
@@ -23,6 +21,15 @@ const Login = () => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
 
+  const getInfoUser = async (email, token) => {
+    try {
+      await getUser(email, token);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!login.email || !login.password) {
@@ -35,7 +42,8 @@ const Login = () => {
     if (success) {
       const token = success.token;
       auth.handleLogin(token);
-      navigate(redirectUrl, { replace: true });
+      const user = await getInfoUser(login.email, token);
+      navigate(redirectUrl, {state: "isLogin"});
     } else {
       setErrorMessage(
         "Usuario o contraseña inválida. Porfavor, intente de nuevo."

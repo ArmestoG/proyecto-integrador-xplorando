@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";2
 import "react-multi-carousel/lib/styles.css";
-import Product from "./Product";
 import Category from "./Category";
-import { categoria, responsive, producto } from "../../components/data";
+import { responsive, producto } from "../../components/data";
 import "./Home.css";
-import { FaSearch } from "react-icons/fa";
 import ProductHome from "./ProductHome";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
-import DatePicker from "react-datepicker";
 import Busqueda from "../Busqueda/Busqueda";
 
 
@@ -17,8 +14,6 @@ import Busqueda from "../Busqueda/Busqueda";
 export default function Body() {
   {/* Para cuando estás logueado */}
   const location = useLocation()
-  const [startDate, setStartDate] = useState(new Date());
-  const [startDate1, setStartDate1] = useState(new Date());
 
 	const message = location.state && location.state.message
 	const currentUser = localStorage.getItem("userId")
