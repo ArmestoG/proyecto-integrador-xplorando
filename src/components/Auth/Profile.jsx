@@ -1,43 +1,41 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { getUser } from "../Utils/ApiFunctions";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { FaPencilAlt } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 
-
 const Profile = () => {
   const location = useLocation();
-	const [user, setUser] = useState({
-		id: "",
-		email: "",
-		firstName: "",
-		lastName: "",
-		roles: [{ id: "", name: "" }]
-	})
+  const [user, setUser] = useState({
+    id: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    roles: [{ id: "", name: "" }],
+  });
 
-	const [message, setMessage] = useState("")
-	const [errorMessage, setErrorMessage] = useState("")
-	const navigate = useNavigate()
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
-  const userId = sessionStorage.getItem("userId")
-	const token = sessionStorage.getItem("token")
+  const userId = sessionStorage.getItem("userId");
+  const token = sessionStorage.getItem("token");
 
-	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const userData = await getUser(userId, token)
-				setUser(userData)
-			} catch (error) {
-				console.error(error)
-			}
-		}
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await getUser(userId, token);
+        setUser(userData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-		fetchUser()
-	}, [userId])
+    fetchUser();
+  }, [userId]);
 
-
-	return (
+  return (
     <div className={styles.profileContainer}>
       {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
       {user && (
@@ -79,6 +77,6 @@ const Profile = () => {
       )}
     </div>
   );
-}
+};
 
-export default Profile
+export default Profile;

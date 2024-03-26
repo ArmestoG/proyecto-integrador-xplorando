@@ -156,7 +156,7 @@ function ListaProductos() {
       <h3 style={{ textAlign: "center", margin: "4px" }}>Lista de Productos</h3>
       <ListGroup
         style={{
-          height: `${88 * products.length}px`,
+          height: `${102 * products.length}px`,
           overflowY: "auto",
           alignItems: "center",
         }}
@@ -269,6 +269,19 @@ function ListaProductos() {
           </ListGroup.Item>
         ))}
       </ListGroup>
+
+      <Button style={{ backgroundColor: "#f38164", 
+  height: "fit-content",
+  color: "#ffffff",
+  border: "none",
+  borderRadius: "25px",
+  padding: "10px 20px",
+  fontSize: "1rem",
+  cursor: "pointer",
+  position: "relative",
+  alignSelf: "flex-end",
+  fontWeight: 700,
+  fontStyle: "normal"} } href="/admin/agregar-producto" >Agregar Paquete</Button>
 
       <Modal
         show={showModal}

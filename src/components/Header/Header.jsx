@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { SlHome, SlLogin, SlUserFollow, SlLogout, SlUser } from "react-icons/sl";
+import {
+  SlHome,
+  SlLogin,
+  SlUserFollow,
+  SlLogout,
+  SlUser,
+} from "react-icons/sl";
 import { useLocation } from "react-router-dom";
 import Logout from "../Auth/Logout"; // Importar el componente Logout
 import "./Header.css";
@@ -16,18 +22,14 @@ const Header = () => {
   const [lastName, setLastName] = useState("");
 
   useEffect(() => {
-    if(sessionStorage.getItem("token") !== null)
-      setData();
-    else
-      handleLogout();
-
+    if (sessionStorage.getItem("token") !== null) setData();
+    else handleLogout();
   }, [location.state]);
 
-// esto es una mala practica pero es lo que hay asi funciona :c
-  useEffect(() =>{
+  // esto es una mala practica pero es lo que hay asi funciona :c
+  useEffect(() => {
     toggleAccountDropdown();
-  },[location.state])
-
+  }, [location.state]);
 
   const setData = () => {
     const token = sessionStorage.getItem("token");
@@ -41,7 +43,7 @@ const Header = () => {
     setFirstName(firstName);
     setLastName(lastName);
     setInitialName(getInitials(firstName, lastName));
-  }
+  };
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -72,68 +74,76 @@ const Header = () => {
 
   const getInitials = (firstName, lastName) => {
     if (!firstName || !lastName) {
-      return '';
+      return "";
     }
-  
+
     let initials = firstName[0] + lastName[0];
-    console.log('initials:', initials);
+    console.log("initials:", initials);
     return initials.toUpperCase();
-  }
+  };
 
   return (
     <header className="header">
-    <div className="header__logo">
-      <Link to="/">
-        {isSmallScreen ? (
-          <img
-            src="/src/assets/logofinalexplorando/logoxplorando/logoxplorando.png"
-            alt="Isologotipo Xplorando"
-          />
-        ) : (
-          <img
-            src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
-            alt="Logo Xplorando"
-          />
+      <div className="header__logo">
+        <Link to="/">
+          {isSmallScreen ? (
+            <img
+              src="/src/assets/logofinalexplorando/logoxplorando/logoxplorando.png"
+              alt="Isologotipo Xplorando"
+            />
+          ) : (
+            <img
+              src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
+              alt="Logo Xplorando"
+            />
+          )}
+        </Link>
+      </div>
+      <div className="header__links">
+        {!isLoggedIn && (
+          <>
+            <Link to="/">{isSmallScreen ? <SlHome /> : "Home"}</Link>
+            <Link to="/login">
+              {isSmallScreen ? <SlLogin /> : "Iniciar sesión"}
+            </Link>
+            <Link to="/registro" className="header__register-button">
+              {isSmallScreen ? <SlUserFollow /> : "Registrarse"}
+            </Link>
+          </>
         )}
-      </Link>
-    </div>
-    <div className="header__links">
-      {!isLoggedIn && (
-        <>
-          <Link to="/">{isSmallScreen ? <SlHome /> : "Home"}</Link>
-          <Link to="/login">
-            {isSmallScreen ? <SlLogin /> : "Iniciar sesión"}
-          </Link>
-          <Link to="/registro" className="header__register-button">
-            {isSmallScreen ? <SlUserFollow /> : "Registrarse"}
-          </Link>
-        </>
-      )}
-      {isLoggedIn && (
-        <>
-          <div className='admin-title'>Mis reservas - {initialName}</div>
-          <span className="header__user-name">{userName}</span>
-          <div className="header__account-dropdown">
-            <button
-              className="header__account-button"
-              onClick={toggleAccountDropdown}
-            >
-              <SlUser />
-              <span className="arrow-icon">&#9660;</span> {/* Flecha hacia abajo */}
-            </button>
-            {showAccountDropdown && (
-              <div className="header__account-dropdown-menu">
-                <ul>
-                  <li><Link to={"/profile"} className="header__account-dropdown-item"></Link></li>
-                  <li><Logout /> {/* Renderizar el componente Logout */}</li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </>
-      )}
-    </div>
-  </header>
+        {isLoggedIn && (
+          <>
+            <div className="admin-title">Mis reservas - {initialName}</div>
+            <span className="header__user-name">{userName}</span>
+            <div className="header__account-dropdown">
+              <button
+                className="header__account-button"
+                onClick={toggleAccountDropdown}
+              >
+                <SlUser />
+                <span className="arrow-icon">&#9660;</span>{" "}
+                {/* Flecha hacia abajo */}
+              </button>
+              {showAccountDropdown && (
+                <div className="header__account-dropdown-menu">
+                  <ul>
+                    <li>
+                      <Link
+                        to={"/profile"}
+                        className="header__account-dropdown-item"
+                      ></Link>
+                    </li>
+                    <li>
+                      <Logout /> {/* Renderizar el componente Logout */}
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </header>
   );
 };
 
