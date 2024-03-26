@@ -26,34 +26,6 @@ const AgregarProducto = () => {
     }
   }, []);
 
-  console.log("tokEEEEEEEN: " + token);
-  /*
-  useEffect(() => {
-    obtenerCategorias();
-  }, []);
-*/
-
-  /*
-  const obtenerCategorias = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/categorias/listar");
-      setCategorias(response.data);
-    } catch (error) {
-      console.error("Error al obtener las categorías:", error);
-    }
-  };
-
-  */
-
-  /*
-  const obtenerCaracteristicas = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/caracteristicas");
-      setCaracteristicas(response.data);
-    } catch (error) {
-      console.error("Error al obtener las características:", error);
-    }
-  };*/
 
   const handleCodigoChange = (event) => {
     setCodigo(event.target.value);

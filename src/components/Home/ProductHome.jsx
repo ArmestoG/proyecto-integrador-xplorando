@@ -3,14 +3,17 @@ import axios from "axios";
 import Product from "./Product";
 
 export default function ProductHome() {
-    const [product, setProduct] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(8);
 
     useEffect(() => {
         const fetchProductos = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/productos/listar');
                 console.log('Productos obtenidos:', response.data);
-                setProduct(response.data);
+                const randomizedProducts = response.data.sort(() => Math.random() - 0.5);
+                setProducts(randomizedProducts);
             } catch (error) {
                 console.error('Error al obtener productos:', error);
             }
@@ -19,12 +22,20 @@ export default function ProductHome() {
         fetchProductos();
     }, []);
 
+    // Obtener los índices de los productos a mostrar en la página actual
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    // Cambiar a la siguiente página
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <>
             <div className="random-products">
                 <h2>¡Se viene el finde XL!</h2>
                 <div className="row">
-                    {product !== null && product.map((item) => (
+                    {currentProducts !== null && currentProducts.map((item) => (
                         <Product
                             key={item.id}
                             name={item.nombreProducto}
@@ -36,6 +47,17 @@ export default function ProductHome() {
                     ))}
                 </div>
             </div>
+            <nav>
+                <ul className="pagination justify-content-center">
+                    {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+                        <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                            <button style={{margin:"4px", backgroundColor:"#ECE6F0", color:"#273662"}} onClick={() => paginate(index + 1)} className="page-link">
+                                {index + 1}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
         </>
     );
 }

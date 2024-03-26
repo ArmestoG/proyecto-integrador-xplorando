@@ -6,20 +6,17 @@ import { responsive } from "../../components/data";
 import "./Home.css";
 import ProductHome from "./ProductHome";
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
 import Busqueda from "../Busqueda/Busqueda";
 
 
 
 export default function Body() {
   {/* Para cuando estás logueado */}
-  const location = useLocation()
+
   const [startDate, setStartDate] = useState(new Date());
   const [startDate1, setStartDate1] = useState(new Date());
 
-	const message = location.state && location.state.message
-	const currentUser = localStorage.getItem("userId")
-  {/* Para cuando estás logueado */}
+
 
   const [categorias, setCategorias] = useState([]);
 
@@ -55,11 +52,6 @@ export default function Body() {
   return (
     <div className="body-container">
       {/* Para cuando estás logueado */}
-      {message && <p className="text-warning px-5">{message}</p>}
-			{currentUser && (
-				<h6 className="text-success text-center"> You are logged-In as {currentUser}</h6>
-			)}
-      {/* Para cuando estás logueado */}
       <h1>Próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
        <Busqueda/>
@@ -69,22 +61,6 @@ export default function Body() {
         {cats}
       </Carousel>
       </div>
-      {/* Sección de productos aleatorios 
-       <div className="random-products">
-        <h2>¡Se viene el finde XL!</h2>
-        {/*<div className="row">
-          {randomProducts.map((item) => (
-            <Product
-              key={item.id}
-              name={item.name}
-              url={item.imageurl}
-              price={item.price}
-              description={item.description}
-              id={item.id}
-            />
-          ))}
-        </div>
-      </div>*/}
       <ProductHome/>
     </div>
   );
