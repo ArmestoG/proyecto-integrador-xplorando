@@ -1,5 +1,6 @@
 .search {
   display: flex;
+  justify-content: space-between  ;
 }
 .search-bar {
   display: flex;
@@ -15,7 +16,6 @@
   border: 1px solid #001f3f;
   border-radius: 8px;
   height: 52px;
-  margin-right: 1.9rem;
 }
 
 .sugerencias {
@@ -40,7 +40,7 @@
   padding: 0.5rem 1rem;
   margin: 0.5rem;
   text-decoration: none;
-  width: 250px;
+  width: auto;
 }
 
 .done-date {

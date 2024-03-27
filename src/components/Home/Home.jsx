@@ -11,13 +11,9 @@ import Busqueda from "../Busqueda/Busqueda";
 
 
 export default function Body() {
-  {/* Para cuando estás logueado */}
-
+  const [textoBusqueda, setTextoBusqueda] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [startDate1, setStartDate1] = useState(new Date());
-
-
-
   const [categorias, setCategorias] = useState([]);
 
 
@@ -52,10 +48,9 @@ export default function Body() {
   
   return (
     <div className="body-container">
-      {/* Para cuando estás logueado */}
-      <h1>Próximo destino</h1>
+      <h1 style={{justifyContent:"center", color:"#273662", fontWeight:"500", margin:"12px"}}>Encuentra tu próximo destino</h1>
        {/* Barra de búsqueda con icono de lupa */}
-       <Busqueda/>
+       <Busqueda textoBusqueda={textoBusqueda} />
       {/* Carrusel de categorías */}
       <div className="carousel-card">
         <h2 style={{justifyContent:"center", color:"#273662", fontWeight:"500"}}>Categorias para elegir</h2>

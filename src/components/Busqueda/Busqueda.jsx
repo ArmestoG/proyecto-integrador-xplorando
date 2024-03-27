@@ -1,26 +1,33 @@
 import { useState, useEffect, useMemo } from "react";
 import DatePicker from "react-datepicker";
-import { FaSearch } from "react-icons/fa";
 import CarruselBuscador from "./Components/CarruselBuscador";
-import axios from "axios";import "./Busqueda.css";
+import axios from "axios";
+import "./Busqueda.css";
 import "react-multi-carousel/lib/styles.css";
-
 
 export default function Search() {
   const [startDate, setStartDate] = useState(new Date());
   const [startDate1, setStartDate1] = useState(new Date());
   const [textoBusqueda, setTextoBusqueda] = useState("");
-
   const [arrayBusqueda, setArrayBusqueda] = useState([]);
   const [elUsuarioAFiltrado, setelUsuarioAFiltrado] = useState(false);
 
   const productoFiltrados = useMemo(() => {
     const textoMinusculas = textoBusqueda.toLowerCase();
-    return arrayBusqueda.filter((producto) =>
-      producto.nombreProducto.toLowerCase().includes(textoMinusculas) ||
-      producto.ubicacion.toLowerCase().includes(textoMinusculas)
+    return arrayBusqueda.filter(
+      (producto) =>
+        producto.nombreProducto.toLowerCase().includes(textoMinusculas) ||
+        producto.ubicacion.toLowerCase().includes(textoMinusculas)
     );
-}, [textoBusqueda, arrayBusqueda]);
+  }, [textoBusqueda, arrayBusqueda]);
+
+  const ubicacionesUnicas = useMemo(() => {
+    const ubicacionesSet = new Set();
+    arrayBusqueda.forEach((producto) => {
+      ubicacionesSet.add(producto.ubicacion);
+    });
+    return Array.from(ubicacionesSet);
+  }, [arrayBusqueda]);
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -58,15 +65,17 @@ export default function Search() {
             value={textoBusqueda}
             onChange={handleChange}
           />
-          {productoFiltrados.length > 0 && textoBusqueda.length>0 && (
+          {productoFiltrados.length > 0 && textoBusqueda.length > 0 && (
             <datalist id="opciones">
               {productoFiltrados.map((producto, index) => (
                 <option key={index} value={producto.nombreProducto}></option>
               ))}
+              {ubicacionesUnicas.map((ubicacion, index) => (
+                <option key={index} value={ubicacion}></option>
+              ))}
             </datalist>
           )}
         </div>
-        <FaSearch className="search-icon" />
         <div className="init-date">
           <DatePicker
             selected={startDate}
@@ -86,7 +95,7 @@ export default function Search() {
         </button>{" "}
       </div>
       <div className="resultados-obtenidos">
-        <h2>RESULTADOS OBTENIDOS</h2>
+        <h2>Resultados de la búsqueda</h2>
       </div>
       {elUsuarioAFiltrado ? (
         productoFiltrados.length ? (
