@@ -10,9 +10,9 @@ import Profile from "./components/Auth/Profile"
 import Admin from "./Routes/Admin/Admin";
 import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
-import ProductoDetalle from "./Routes/ProductoDetalle";
+import ProductoDetalle from "./components/Home/ProductoDetalle";
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import "react-datepicker/dist/react-datepicker.css";
 const App = () => {
   return (
     <AuthProvider>

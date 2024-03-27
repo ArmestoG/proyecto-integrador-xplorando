@@ -12,50 +12,21 @@ const AgregarProducto = () => {
   const [imagenes, setImagenes] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [caracteristicas, setCaracteristicas] = useState([]);
-  const [caracteristicaSeleccionada, setCaracteriticaSeleccionada] = useState([]);
+  const [caracteristicaSeleccionada, setCaracteriticaSeleccionada] = useState(
+    []
+  );
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  const [token,setToken] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    const tokenGuardado = localStorage.getItem('token');
+    const tokenGuardado = sessionStorage.getItem("token");
     if (tokenGuardado) {
       setToken(tokenGuardado);
     }
-    
   }, []);
 
 
-  console.log("tokEEEEEEEN: " +token)
-  /*
-  useEffect(() => {
-    obtenerCategorias();
-  }, []);
-*/
-
-  /*
-  const obtenerCategorias = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/categorias/listar");
-      setCategorias(response.data);
-    } catch (error) {
-      console.error("Error al obtener las categorías:", error);
-    }
-  };
-
-  */
-
-  /*
-  const obtenerCaracteristicas = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/caracteristicas");
-      setCaracteristicas(response.data);
-    } catch (error) {
-      console.error("Error al obtener las características:", error);
-    }
-  };*/
-
-  
   const handleCodigoChange = (event) => {
     setCodigo(event.target.value);
   };
@@ -82,19 +53,21 @@ const AgregarProducto = () => {
 
   const handleImagenesChange = (e) => {
     const value = e.target.value;
-    const imagenesArray = value.split('\n').map(url => ({ urlImagen: url.trim() }));
+    const imagenesArray = value
+      .split("\n")
+      .map((url) => ({ urlImagen: url.trim() }));
     setImagenes(imagenesArray);
   };
-
-
 
   function handleCaracteristicaChange(event) {
     const { value, checked } = event.target;
     if (checked) {
-      setCaracteriticaSeleccionada([...caracteristicaSeleccionada, value]); 
+      setCaracteriticaSeleccionada([...caracteristicaSeleccionada, value]);
     } else {
       setCaracteriticaSeleccionada(
-        caracteristicaSeleccionada.filter((caracteristicaId) => caracteristicaId !== value)
+        caracteristicaSeleccionada.filter(
+          (caracteristicaId) => caracteristicaId !== value
+        )
       );
     }
   }
@@ -102,6 +75,7 @@ const AgregarProducto = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     crearProducto();
+    console.log(crearProducto)
   };
 
   const crearProducto = async () => {
@@ -118,15 +92,14 @@ const AgregarProducto = () => {
 
     //CADA VEZ QUE INICIE SESION CON ADMIN PASAR TOKEN
 
-    
     try {
       const response = await axios.post(
         "http://localhost:8080/productos/registrar",
         nuevoProducto,
         {
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       console.log("Producto guardado:", response.data);
@@ -149,59 +122,63 @@ const AgregarProducto = () => {
   useEffect(() => {
     async function fetchCaracteristicas() {
       try {
-        const response = await fetch('http://localhost:8080/caracteristicas/listar');
+        const response = await fetch(
+          "http://localhost:8080/caracteristicas/listar"
+        );
         if (!response.ok) {
-          throw new Error('Error al cargar las categorías');
+          throw new Error("Error al cargar las categorías");
         }
         const data = await response.json();
         setCaracteristicas(data);
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
 
     fetchCaracteristicas();
   }, []);
 
-  //para traer lista de categorias 
+  //para traer lista de categorias
   useEffect(() => {
     async function fetchCategorias() {
       try {
-        const response = await fetch('http://localhost:8080/categorias/listar');
+        const response = await fetch("http://localhost:8080/categorias/listar");
         if (!response.ok) {
-          throw new Error('Error al cargar las categorías');
+          throw new Error("Error al cargar las categorías");
         }
         const data = await response.json();
         setCategorias(data);
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
 
     fetchCategorias();
   }, []);
 
-
   useEffect(() => {
     // Obtener el rol del usuario desde el almacenamiento local
-    const userRole = localStorage.getItem("userRole");
-  
+    const userRole = sessionStorage.getItem("userRole");
+
     // Verificar si el usuario tiene el rol necesario para acceder a la sección de administración
     setIsAuthorized(userRole === "ROLE_ADMIN");
   }, []);
 
-
-
   if (!isAuthorized) {
     return (
-      <div style={{height:"80vh", display:"flex", justifyContent:"center",alignItems:"center"}}>
+      <div
+        style={{
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         No tienes autorización para acceder a esta sección. Por favor, inicia
         sesión como administrador.
       </div>
     );
   }
-
-
 
   return (
     <div className="contenedor-formulario">
@@ -267,27 +244,24 @@ const AgregarProducto = () => {
           </div>
         </div>
 
-
         <div className="fila-formulario">
           <div className="input-container">
-          <label>Categoria:</label>
-          <select
-            id="categoria"
-            name="categoria"
-            value={categoria}
-            onChange={handleCategoriaChange}
-          >
-            <option value="">Selecciona una categoría</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.nombreCategoria}>
-                {categoria.nombreCategoria}
-              </option>
-            ))}
-          </select>
+            <label>Categoria:</label>
+            <select
+              id="categoria"
+              name="categoria"
+              value={categoria}
+              onChange={handleCategoriaChange}
+            >
+              <option value="">Selecciona una categoría</option>
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.nombreCategoria}>
+                  {categoria.nombreCategoria}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
-
-
 
         <div className="fila-formulario">
           <div className="input-container">
@@ -320,39 +294,39 @@ const AgregarProducto = () => {
             </label>
           </div>
   </div> */}
-<div className="fila-formulario">
+        <div className="fila-formulario">
           <div className="input-container">
             <label htmlFor="imagenes">URLs de Imágenes:</label>
             <textarea
               id="imagenes"
-              value={imagenes.map(img => img.urlImagen).join('\n')}
+              value={imagenes.map((img) => img.urlImagen).join("\n")}
               onChange={handleImagenesChange}
               required
             ></textarea>
-            <p className="supporting-text">Ingrese las URLs de las imágenes separadas por un salto de línea</p>
+            <p className="supporting-text">
+              Ingrese las URLs de las imágenes separadas por un salto de línea
+            </p>
           </div>
         </div>
 
-        <div className="fila-formulario">
-        <label>Características:</label>
-          
-          {Array.isArray(caracteristicas) && caracteristicas.map((caracteristica) => (
-            <div key={caracteristica.id}>
-              <input
-                type="checkbox"
-                id={`caracteristica-${caracteristica.id}`}
-                name={`caracteristica-${caracteristica.nombreCaracteristica}`}
-                value={caracteristica.nombreCaracteristica}
-                checked={caracteristicaSeleccionada.includes(caracteristica.nombreCaracteristica)}
-                onChange={handleCaracteristicaChange}
-              />
-              <label htmlFor={`caracteristica-${caracteristica.id}`}>{caracteristica.nombreCaracteristica}</label>
-            </div>
-          ))}
-          
-        </div>
-
-
+        <div className="caracteristica">
+  <label>Características:</label>
+  <div className="checkbox-container">
+    {Array.isArray(caracteristicas) && caracteristicas.map((caracteristica, index) => (
+      <div className="checkbox-group" key={index}>
+        <input
+          type="checkbox"
+          id={`caracteristica-${caracteristica.id}`}
+          name={`caracteristica-${caracteristica.nombreCaracteristica}`}
+          value={caracteristica.nombreCaracteristica}
+          checked={caracteristicaSeleccionada.includes(caracteristica.nombreCaracteristica)}
+          onChange={handleCaracteristicaChange}
+        />
+        <label htmlFor={`caracteristica-${caracteristica.id}`}>{caracteristica.nombreCaracteristica}</label>
+      </div>
+    ))}
+  </div>
+</div>
         <div className="fila-formulario boton-enviar">
           <div className="datos-entrada" style={{ marginLeft: "auto" }}>
             <input type="submit" value="Registrar Paquete" />

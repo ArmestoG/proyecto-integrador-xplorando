@@ -1,139 +1,147 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { SlHome, SlLogin, SlUserFollow, SlLogout, SlUser } from "react-icons/sl";
-import { useLocation } from "react-router-dom";
-import Logout from "../Auth/Logout"; // Importar el componente Logout
+import { useState, useEffect, useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { AuthContext } from "../Auth/AuthProvider"; // Importar el contexto de autenticación
 import "./Header.css";
 
+
 const Header = () => {
-  const [initialName, setInitialName] = useState("");
-  const location = useLocation();
+  const auth = useContext(AuthContext); // Obtener el contexto de autenticación
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [showAccountDropdown, setShowAccountDropdown] = useState(false);
   const [userName, setUserName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [initialName, setInitialName] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
-    if(sessionStorage.getItem("token") !== null)
-      setData();
-    else
-      handleLogout();
-
+    if (sessionStorage.getItem("token") !== null) setData();
+    else handleLogout();
   }, [location.state]);
-
-// esto es una mala practica pero es lo que hay asi funciona :c
-  useEffect(() =>{
-    toggleAccountDropdown();
-  },[location.state])
-
 
   const setData = () => {
     const token = sessionStorage.getItem("token");
     const userRole = sessionStorage.getItem("userRole");
     const firstName = sessionStorage.getItem("firstName") || "";
     const lastName = sessionStorage.getItem("lastName") || "";
-    console.log(firstName, lastName);
     setIsLoggedIn(token);
     setIsAdmin(userRole === "ROLE_ADMIN");
     setUserName(`${firstName} ${lastName}`);
-    setFirstName(firstName);
-    setLastName(lastName);
     setInitialName(getInitials(firstName, lastName));
-  }
+  };
 
   const handleLogout = () => {
     sessionStorage.clear();
     setIsLoggedIn(false);
     setIsAdmin(false);
     setUserName("");
-    setFirstName("");
-    setLastName("");
+    setInitialName("");
+    auth.handleLogout(); // Llamar a la función handleLogout del contexto de autenticación
   };
-
-  const toggleAccountDropdown = () => {
-    setShowAccountDropdown(!showAccountDropdown);
-  };
-
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 600);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 600);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const getInitials = (firstName, lastName) => {
     if (!firstName || !lastName) {
-      return '';
+      return "";
     }
-  
-    let initials = firstName[0] + lastName[0];
-    console.log('initials:', initials);
-    return initials.toUpperCase();
-  }
+    return `${firstName[0]}${lastName[0]}`.toUpperCase();
+  };
 
   return (
     <header className="header">
-    <div className="header__logo">
-      <Link to="/">
-        {isSmallScreen ? (
-          <img
-            src="/src/assets/logofinalexplorando/logoxplorando/logoxplorando.png"
-            alt="Isologotipo Xplorando"
-          />
-        ) : (
-          <img
-            src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
-            alt="Logo Xplorando"
-          />
-        )}
-      </Link>
-    </div>
-    <div className="header__links">
-      {!isLoggedIn && (
-        <>
-          <Link to="/">{isSmallScreen ? <SlHome /> : "Home"}</Link>
-          <Link to="/login">
-            {isSmallScreen ? <SlLogin /> : "Iniciar sesión"}
-          </Link>
-          <Link to="/registro" className="header__register-button">
-            {isSmallScreen ? <SlUserFollow /> : "Registrarse"}
-          </Link>
-        </>
-      )}
-      {isLoggedIn && (
-        <>
-          <div className='admin-title'>Mis reservas - {initialName}</div>
-          <span className="header__user-name">{userName}</span>
-          <div className="header__account-dropdown">
-            <button
-              className="header__account-button"
-              onClick={toggleAccountDropdown}
-            >
-              <SlUser />
-              <span className="arrow-icon">&#9660;</span> {/* Flecha hacia abajo */}
-            </button>
-            {showAccountDropdown && (
-              <div className="header__account-dropdown-menu">
-                <ul>
-                  <li><Link to={"/profile"} className="header__account-dropdown-item"></Link></li>
-                  <li><Logout /> {/* Renderizar el componente Logout */}</li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </>
-      )}
-    </div>
-  </header>
+      <Navbar
+        style={{
+          backgroundColor: "#8799d8",
+          fontWeight: "700"
+        }}
+        expand="lg"
+        fixed="top"
+      >
+        <Container>
+          <Navbar.Brand as={Link} to="/">
+            <img
+              src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
+              width="auto"
+              height="48px"
+              className="d-inline-block align-top"
+              alt="Logo Xplorando"
+            />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
+              {!isLoggedIn && (
+                <>
+                  <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF" }}>
+                    Home
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/login" style={{ color: "#FFFFFF" }}>
+                    Iniciar sesión
+                  </Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    to="/registro"
+                    style={{
+                      textAlign: "center",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#f38164",
+                      color: "#ffffff",
+                      borderRadius: "25px",
+                      padding: ".5rem",
+                      margin: "0.75rem",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Registrarse
+                  </Nav.Link>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
+                  <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF" }}>
+                    Home
+                  </Nav.Link>
+                  <Navbar.Text
+                    style={{ alignContent: "center", justifyContent: "center",  color: "#FFFFFF" } }  
+                  >
+                    {userName}
+                  </Navbar.Text>
+                  <NavDropdown 
+                    title={<span style={{ color: "#FFFFFF" }}>{initialName}</span>} 
+                    style={{
+                      color: "#FFFFFF",
+                      height: "60px",
+                      width: "60px",
+                      boxSizing:"content-box",
+                      borderRadius: "50%", 
+                      backgroundColor: "#D9D9D9",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      left:"25px",
+                      fontSize:"30px"       
+                    }}
+                  >
+                    <NavDropdown.Item as={Link} to="/profile">
+                      Mi Perfil
+                    </NavDropdown.Item>
+                    {isAdmin && (
+                      <NavDropdown.Item as={Link} to="/admin">
+                        Administración
+                      </NavDropdown.Item>
+                    )}
+                    {!isAdmin && <Nav.Link disabled>Mis reservas </Nav.Link>}
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={handleLogout}>
+                      Cerrar Sesión
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
   );
 };
 

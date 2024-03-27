@@ -16,7 +16,7 @@ function ListaProductos() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     fetchProducts();
@@ -118,25 +118,22 @@ function ListaProductos() {
     };
   }, []);
 
-
   const handleDeleteConfirmation = (productId) => {
     setProductToDelete(productId);
     setShowDeleteModal(true);
   };
 
-
-  console.log("HAAAAAAAAAAAALASFJNJKJSD" + setProductToDelete);
   const handleDeleteProduct = async () => {
     try {
       await axios.delete(
-        `http://localhost:8080/productos/eliminar/${productToDelete}`, {
+        `http://localhost:8080/productos/eliminar/${productToDelete}`,
+        {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
       );
-
 
       await fetchProducts();
 
@@ -153,10 +150,10 @@ function ListaProductos() {
 
   return (
     <>
-      <h3 style={{ textAlign: "center", margin: "4px" }}>Lista de Productos</h3>
+      <h3 style={{ textAlign: "center", margin: "12px" }}>Lista de Productos</h3>
       <ListGroup
         style={{
-          height: `${88 * products.length}px`,
+          height: `${102 * products.length}px`,
           overflowY: "auto",
           alignItems: "center",
         }}
@@ -180,24 +177,25 @@ function ListaProductos() {
               gap={5}
               style={{ justifyContent: "space-between", alignItems: "center" }}
             >
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div
                   className="p-2"
                   style={{ width: "25vw", maxWidth: "88px" }}
                 >
                   <Image
                     src={product.imagenSalidaDtoList[0].urlImagen}
-                    style={{ maxHeight: "88px", maxWidth: "100%" }}
+                    style={{ maxHeight: "102px" }}
                   />
                 </div>
                 <div
                   className="p-2"
-                  style={{ width: "50vw", maxHeight: "88px" }}
+                  style={{ width: "50vw", maxHeight: "102px" }}
                 >
                   <Col
                     style={{
                       height: "100%",
                       display: "flex",
+                      marginLeft: "102px",
                       flexDirection: "column",
                     }}
                   >
@@ -269,6 +267,26 @@ function ListaProductos() {
           </ListGroup.Item>
         ))}
       </ListGroup>
+
+      <Button
+        style={{
+          backgroundColor: "#f38164",
+          height: "fit-content",
+          color: "#ffffff",
+          border: "none",
+          borderRadius: "25px",
+          padding: "10px 20px",
+          fontSize: "1rem",
+          cursor: "pointer",
+          position: "relative",
+          fontWeight: 700,
+          fontStyle: "normal",
+          left:"80vw"
+        }}
+        href="/admin/agregar-producto"
+      >
+        Agregar Paquete
+      </Button>
 
       <Modal
         show={showModal}

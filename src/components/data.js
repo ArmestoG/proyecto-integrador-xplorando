@@ -2,12 +2,13 @@ export const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 1024 },
-      items: 5,
-      slidesToSlide: 2,
+      items: 3,
+      slidesToSlide: 1,
     },
     desktop: {
       breakpoint: { max: 1024, min: 800 },
-      items: 4,
+      items: 3,
+      slidesToSlide:1
     },
     tablet: {
       breakpoint: { max: 800, min: 464 },
@@ -18,6 +19,7 @@ export const responsive = {
       items: 1,
     },
   };
+<<<<<<< HEAD
   
   export const categoria = [
     {
@@ -252,3 +254,6 @@ export const responsive = {
       price:"$6500",
     },
   ];
+=======
+  
+>>>>>>> d542b2446eb46de0eb10a0aae76d064931028b36

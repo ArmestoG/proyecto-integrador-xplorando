@@ -29,7 +29,7 @@ const Admin = () => {
 
   useEffect(() => {
     // Obtener el rol del usuario desde el almacenamiento local
-    const userRole = localStorage.getItem("userRole");
+    const userRole = sessionStorage.getItem("userRole");
   
     // Verificar si el usuario tiene el rol necesario para acceder a la sección de administración
     setIsAuthorized(userRole === "ROLE_ADMIN");
@@ -56,7 +56,7 @@ const Admin = () => {
 
 
   return (
-    <div className="panel-administracion">
+    <div className="panel-administracion" style={{margin:"48px auto"}}>
       <h2 style={{display:"flex", justifyContent:"center", alignItems:"center", margin:"25px"}}>Panel de Administración</h2>
 
       <Nav justify variant="tabs" defaultActiveKey="productos">
