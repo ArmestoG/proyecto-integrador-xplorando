@@ -10,6 +10,10 @@ npm install react-image-gallery
 npm install react-bootstrap bootstrap
 npm install jwt-decode
 npm install react-datepicker --save
+npm install formik
+npm install dateformat
+npm install react-select
+npm install sweetalert
 
 (puede que falte alguna)
 

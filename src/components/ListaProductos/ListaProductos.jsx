@@ -150,7 +150,7 @@ function ListaProductos() {
 
   return (
     <>
-      <h3 style={{ textAlign: "center", margin: "4px" }}>Lista de Productos</h3>
+      <h3 style={{ textAlign: "center", margin: "12px" }}>Lista de Productos</h3>
       <ListGroup
         style={{
           height: `${102 * products.length}px`,

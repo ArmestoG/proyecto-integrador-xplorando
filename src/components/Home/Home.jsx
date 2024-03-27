@@ -49,6 +49,7 @@ export default function Body() {
     />
   ));
 
+  
   return (
     <div className="body-container">
       {/* Para cuando estás logueado */}
@@ -57,7 +58,8 @@ export default function Body() {
        <Busqueda/>
       {/* Carrusel de categorías */}
       <div className="carousel-card">
-      <Carousel showDots={false} responsive={responsive} ssr={true} infinite={true} containerClass="carousel-container" >
+        <h2 style={{justifyContent:"center", color:"#273662", fontWeight:"500"}}>Categorias para elegir</h2>
+        <Carousel  showDots={false} responsive={responsive} ssr={true} infinite={true} containerClass="carousel-container" >
         {cats}
       </Carousel>
       </div>

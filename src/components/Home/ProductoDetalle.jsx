@@ -1,10 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Gallery from "../components/Gallery/Gallery";
+import Gallery from "../Gallery/Gallery";
 import detailStyles from "./Detail.module.css";
-import CounterButton from "../components/CounterButton/CounterButton";
-import DatePicker from "react-datepicker";
+import Picker from "./Picker";
 
 const Detail = () => {
   const { id } = useParams(); // Obtener el id del producto de la URL
@@ -37,8 +35,9 @@ const Detail = () => {
         <Gallery id={id} />
         <div className={detailStyles.detailInfoContainer}>
           <div className={detailStyles.detailInfo}>
+            <h4>{product.categoria.nombreCategoria}</h4>
             <h2>{product.nombreProducto}</h2>
-       
+
             <div className={detailStyles.stars}>
               <span className={detailStyles.star}>&#9733;</span>
               <span className={detailStyles.star}>&#9733;</span>
@@ -47,40 +46,47 @@ const Detail = () => {
               <span className={detailStyles.star}>&#9733;</span>
             </div>
             <div>
-              
-              <h5>Detalle producto</h5>
+              <h5>Descripción:</h5>
               <p>{product.descripcionProducto}</p>
             </div>
             <hr />
-            <h5>PRECIO CON IMPUESTO DESDE</h5>
+            <h5>Precio:</h5>
             <div className={detailStyles.detailPrice}>
-              <h3 className={detailStyles.h5}>{product.precioProducto}</h3>
+              <h3 className={detailStyles.h5}>${product.precioProducto}</h3>
             </div>
             <h7>(hasta 6 cuotas sin interés con tarjeta de Santander)</h7>
+
+            <div className={detailStyles.container}>
+              <div className={detailStyles.complejo}>
+                <h5>Características:</h5>
+                <div className={detailStyles["caracteristicas-container"]}>
+                  {product.caracteristicas.map((caracteristica) => {
+                    return (
+                      <div className={detailStyles["caracteristicas"]}>
+                        <img src={caracteristica.icono} />
+                        <span key={caracteristica.id}>
+                          {caracteristica.nombreCaracteristica}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
             <div className={detailStyles.init}>
-            <CounterButton/>
-            <button className={detailStyles.btn}>INICIAR RESERVA</button> </div>
+              <div className={detailStyles.wrapperCalendar}>
+                <div className={detailStyles.wrapperCalendarTitle}>
+                  <h2>Fechas disponibles</h2>
+                  <br />
+                  <br />
+                </div>
+                <Picker />
+              </div>
+              <button className={detailStyles.btn}>INICIAR RESERVA</button>{" "}
+            </div>
           </div>
         </div>
       </main>
-      <div className={detailStyles.container}>
-        
-              <h3 className={detailStyles.complejo}>
-                <div className={detailStyles["caracteristicas-container"]}>
-                {product.caracteristicas.map((caracteristica) => {
-                  return (
-                    <div className={detailStyles["caracteristicas"]}> 
-                    <img src={caracteristica.icono}/>
-                    <h3 key={caracteristica.id}>
-                      {caracteristica.nombreCaracteristica}
-                    </h3>
-
-                    </div>
-                  );
-                })}
-              </div></h3>
-              
-            </div>
     </div>
   );
 };

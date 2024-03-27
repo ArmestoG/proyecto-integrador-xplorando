@@ -2,26 +2,10 @@ import { useState, useEffect, useMemo } from "react";
 import DatePicker from "react-datepicker";
 import { FaSearch } from "react-icons/fa";
 import CarruselBuscador from "./Components/CarruselBuscador";
-import axios from "axios";
-import Slider from "react-slick";
-
-import "./Busqueda.css";
-
-import Carousel from "react-multi-carousel";
+import axios from "axios";import "./Busqueda.css";
 import "react-multi-carousel/lib/styles.css";
 
-const settings = {
-  className: "center",
-  infinite: true,
-  centerPadding: "60px",
-  slidesToShow: 3,
-  swipeToSlide: true,
-  afterChange: function (index) {
-    console.log(
-      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    );
-  },
-};
+
 export default function Search() {
   const [startDate, setStartDate] = useState(new Date());
   const [startDate1, setStartDate1] = useState(new Date());
@@ -33,9 +17,10 @@ export default function Search() {
   const productoFiltrados = useMemo(() => {
     const textoMinusculas = textoBusqueda.toLowerCase();
     return arrayBusqueda.filter((producto) =>
-      producto.nombreProducto.toLowerCase().includes(textoMinusculas)
+      producto.nombreProducto.toLowerCase().includes(textoMinusculas) ||
+      producto.ubicacion.toLowerCase().includes(textoMinusculas)
     );
-  }, [textoBusqueda, arrayBusqueda]);
+}, [textoBusqueda, arrayBusqueda]);
 
   useEffect(() => {
     const fetchProductos = async () => {

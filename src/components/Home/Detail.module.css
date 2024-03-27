@@ -1,8 +1,9 @@
 /* Mobil */
 .detail {
+  position: relative;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  margin-top: 56px;
   width: 100vw;
   justify-content: center;
   align-items: center;
@@ -10,6 +11,7 @@
 }
 
 .content {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -27,17 +29,24 @@
 h2 {
   margin-top: 0px;
   margin-bottom: 3px;
+  font-style: normal;
+  font-weight: 400;
 }
 
-.star {
-  color: #ffc700;
+
+.stars {
+  color: #ddd;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse; 
   font-size: 1.5rem;
   padding: 0 5px;
 }
 
 .star:hover,
 .star:hover ~ .star {
-  color: #ddd;
+  color: #ffc700;
+  
 }
 
 .btn {
@@ -57,7 +66,6 @@ h2 {
   .content {
     flex-direction: row;
     width: 90vw;
-    margin-top: 300px;
     
   }
 
@@ -65,7 +73,6 @@ h2 {
     flex: 1;
     padding: 3rem;
     max-width: none; /* Restaurar el ancho automático */
-    font-family: 'NeueHaasDisplay';
     color: #273662;
   }
 }
@@ -85,8 +92,8 @@ h2 {
 .caracteristicas-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 30px;
+    gap: auto;
+  margin-top: auto;
 }
 
 .caracteristicas {
@@ -119,16 +126,34 @@ h2 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: center;
+
 
 }
 .complejo {
-  font-family: 'NeueHaasDisplay';
   color: #273662;
   margin-top: 50px;
   font-size: 16.66px;
+  width: auto;
+  align-items: center;
+  
 }
 
-CounterButton {
 
+
+ /* CALENDAR STYLES */
+
+.wrapperCalendar {
+  display: flex;
+  padding-inline: 3%;
+  margin-top: 20px;
+  flex-direction: row;
+  flex-direction: column;
 }
+
+.wrapperCalendarTitle {
+  gap: 10px;
+  text-align: center;
+}
+
+

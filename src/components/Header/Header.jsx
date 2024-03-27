@@ -50,7 +50,7 @@ const Header = () => {
       <Navbar
         style={{
           backgroundColor: "#8799d8",
-          fontWeight: "700",
+          fontWeight: "700"
         }}
         expand="lg"
         fixed="top"
@@ -60,7 +60,7 @@ const Header = () => {
             <img
               src="/src/assets/logofinalexplorando/logoxplorandohorizontal/logoexplorandohorizontal.png"
               width="auto"
-              height="56px"
+              height="48px"
               className="d-inline-block align-top"
               alt="Logo Xplorando"
             />
