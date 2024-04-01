@@ -16,7 +16,7 @@ import "./Picker.css";
 function Picker() {
   const { id } = useParams();
   const idProduct = useContext(DateContext);
-  idProduct.setIdProduct(id);
+  
 
   const startDate = useContext(DateContext);
   const endDate = useContext(DateContext);

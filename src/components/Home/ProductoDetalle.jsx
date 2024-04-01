@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Gallery from "../Gallery/Gallery";
 import detailStyles from "./Detail.module.css";
 import Picker from "./Picker";
 
 const Detail = () => {
-  const { id } = useParams(); // Obtener el id del producto de la URL
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8080/productos/${id}`)
@@ -22,13 +23,31 @@ const Detail = () => {
       );
   }, [id]);
 
+  useEffect(() => {
+    // Verificar si hay un token de acceso almacenado en sessionStorage
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleReserveClick = () => {
+    if (isLoggedIn) {
+      // Si el usuario está logueado, redirigir a la página de reserva
+      return `/booking/${id}`;
+    } else {
+      // Si el usuario no está logueado, almacenar la URL actual y redirigir a la página de login
+      localStorage.setItem("redirectUrl", `/producto/${id}`);
+      return "/login";
+    }
+  };
+
   if (!product) {
     return <div>Cargando...</div>;
   }
 
-  console.log(product);
-
-  console.log("AAAA" + product.caracteristicas[0].nombreCaracteristica);
   return (
     <div className={detailStyles.detail}>
       <main className={detailStyles.content}>
@@ -37,7 +56,6 @@ const Detail = () => {
           <div className={detailStyles.detailInfo}>
             <h4>{product.categoria.nombreCategoria}</h4>
             <h2>{product.nombreProducto}</h2>
-
             <div className={detailStyles.stars}>
               <span className={detailStyles.star}>&#9733;</span>
               <span className={detailStyles.star}>&#9733;</span>
@@ -55,18 +73,15 @@ const Detail = () => {
               <h3 className={detailStyles.h5}>${product.precioProducto}</h3>
             </div>
             <h7>(hasta 6 cuotas sin interés con tarjeta de Santander)</h7>
-
             <div className={detailStyles.container}>
               <div className={detailStyles.complejo}>
                 <h5>Características:</h5>
                 <div className={detailStyles["caracteristicas-container"]}>
                   {product.caracteristicas.map((caracteristica) => {
                     return (
-                      <div className={detailStyles["caracteristicas"]}>
-                        <img src={caracteristica.icono} />
-                        <span key={caracteristica.id}>
-                          {caracteristica.nombreCaracteristica}
-                        </span>
+                      <div className={detailStyles["caracteristicas"]} key={caracteristica.id}>
+                        <img src={caracteristica.icono} alt={caracteristica.nombreCaracteristica} />
+                        <span>{caracteristica.nombreCaracteristica}</span>
                       </div>
                     );
                   })}
@@ -82,7 +97,9 @@ const Detail = () => {
                 </div>
                 <Picker />
               </div>
-              <button className={detailStyles.btn}>INICIAR RESERVA</button>{" "}
+              <Link to={handleReserveClick()} className={detailStyles.btn}>
+                {isLoggedIn ? "INICIAR RESERVA" : "INICIAR SESIÓN PARA RESERVAR"}
+              </Link>
             </div>
           </div>
         </div>

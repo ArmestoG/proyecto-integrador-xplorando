@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { loginUser, getUser } from "../Utils/ApiFunctions";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 import styles from "./Login.module.css";
-
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -14,8 +13,9 @@ const Login = () => {
 
   const navigate = useNavigate();
   const auth = useAuth();
-  const location = useLocation();
-  const redirectUrl = location.state?.path || "/";
+
+  const redirectUrl = localStorage.getItem("redirectUrl") || "/";
+  console.log("URL recuperada del localStorage:", redirectUrl);
 
   const handleInputChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
@@ -24,7 +24,6 @@ const Login = () => {
   const getInfoUser = async (email, token) => {
     try {
       await getUser(email, token);
-      
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +42,7 @@ const Login = () => {
       const token = success.token;
       auth.handleLogin(token);
       const user = await getInfoUser(login.email, token);
-      navigate(redirectUrl, {state: "isLogin"});
+      navigate(redirectUrl, { state: "isLogin" });
     } else {
       setErrorMessage(
         "Usuario o contraseña inválida. Porfavor, intente de nuevo."
@@ -94,7 +93,11 @@ const Login = () => {
               Iniciar sesión
             </button>
             <span>
-              Aún no estás registrado?<Link to={"/registro"} className={styles.registroLink}> Registro</Link>
+              Aún no estás registrado?
+              <Link to={"/registro"} className={styles.registroLink}>
+                {" "}
+                Registro
+              </Link>
             </span>
           </div>
         </form>

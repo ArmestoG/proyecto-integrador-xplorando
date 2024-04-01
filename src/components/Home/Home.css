@@ -70,8 +70,10 @@ input {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 400px;
   margin: auto 1rem;
-  text-align: start;
-  font-family: arial; 
+  text-align: end;
+  font-family: arial;
+  justify-content: space-between;
+
 }
 
 .carousel-card {
