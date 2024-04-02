@@ -129,7 +129,7 @@ const Header = () => {
                         Administración
                       </NavDropdown.Item>
                     )}
-                    {!isAdmin && <Nav.Link disabled>Mis reservas </Nav.Link>}
+                    {!isAdmin && <Nav.Link as={Link} to="/reservations">Mis reservas </Nav.Link>}
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={handleLogout}>
                       Cerrar Sesión

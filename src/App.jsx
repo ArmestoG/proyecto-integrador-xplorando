@@ -12,6 +12,7 @@ import AgregarProducto from "./Routes/Admin/AgregarProducto";
 import Categoria from "./Routes/Categoria";
 import ProductoDetalle from "./components/Home/ProductoDetalle";
 import Booking from "./components/Booking/Booking";
+import Reservations from "./components/Reservations/Reservations";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "react-datepicker/dist/react-datepicker.css";
 const App = () => {
@@ -26,12 +27,14 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/profile" element={<Profile />} />
+        
       
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/categorias/:categoria" element={<Categoria />} />
         <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route path="/booking/:id" element={<Booking />}/>
+        <Route path="/reservations" element={<Reservations />} />
         <Route path="/producto/undefined" element={<Categoria />} /> 
       </Routes>
     </Router>
