@@ -5,12 +5,13 @@
 .check-in h1,
 .booking-details h1 {
   color: var(--color-2);
+  font-size: 36px;
+  font-weight: 600;
+  color: #1b2e4e;
 }
 
 .form .title-form {
-  background-color: rgba(243, 241, 237, 0.415);
-  padding: 40px 0px 16px 40px;
-  color: var(--color-2);
+  padding: 40px 0px 16px 0px;
 }
 
 .booking-information {
@@ -38,6 +39,13 @@
 
 .form .title-form h1 {
   padding-bottom: 1rem;
+  margin-top: 56px;
+}
+
+.title-booking-details {
+  padding: 40px 0px 16px 0px;
+  margin-bottom: .5rem;
+
 }
 
 .form .form-inputs {
@@ -121,6 +129,7 @@
 .check-in .card-booking .title-check-in,
 .check-in .card-booking .subtitle-check-in {
   display: flex;
+  flex-direction: column;
   align-items: center;
   color: var(--color-2);
   margin-bottom: 18px;
@@ -182,18 +191,27 @@
 }
 
 .booking-details button {
-  margin-top: 27px;
-  color: var(--blanco);
-  background-color: var(--color-principal);
-  border: 1px solid var(--color-principal);
-  padding: 15px;
-  font-family: "Roboto", cursive;
-  font-size: 16px;
-  font-weight: 600;
+  background-color: #f38164;
   width: 100%;
-  border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  height: fit-content;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  font-weight: 700;
+  font-style: normal;
 }
+
+.booking-details button:hover {
+  background-color: #fff;
+  color: #1b2e4e ;
+  transition: background-color 0.3s;
+}
+
+
 
 /* Estilos para .booking-alternative y .booking-success-container */
 .booking-alternative {
@@ -262,6 +280,29 @@
   border-radius: 8px;
 }
 
+.boton-enviar button input[type="submit"] {
+  background-color: #f38164;
+  width: 100%;
+  height: fit-content;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.boton-enviar input[type="submit"]:hover {
+  background-color: #fff;
+  color: #1b2e4e ;
+  transition: background-color 0.3s;
+}
+
+
+
 /* Estilos para dispositivos con ancho de pantalla entre 480px y 768px */
 @media screen and (min-width: 480px) and (max-width: 768px) {
   .booking-information {
@@ -279,7 +320,7 @@
   }
 
   .booking-details .bottom-booking-details,
-  .booking-details .title-booking-details {
+  .booking-details {
     padding: 14px;
     width: 45%;
   }
