@@ -1,7 +1,7 @@
 import { DateContext } from "../../components/Context/DateContext";
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Stack } from 'react-bootstrap';
+import { Stack } from "react-bootstrap";
 import { MdLocationOn } from "react-icons/md";
 import Calendar from "../Booking/Calendar";
 import success from "./success-icon.png";
@@ -46,6 +46,47 @@ function Booking() {
       );
   }, [id]);
 
+
+
+  
+  const confirmarReserva = async () => {
+    try {
+      const reservaData = {
+        productoId: id,
+        userId: user.userId,
+        fechaInicio: startDate,
+        fechaFinal: endDate,
+        // Otros datos de la reserva, como comentarios adicionales, podrían agregarse aquí
+      };
+  
+      const response = await fetch("http://localhost:8080/reservas/crear", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reservaData),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Error al confirmar la reserva");
+      }
+  
+      setBookingOk(true); // Marcar la reserva como confirmada
+  
+      // Mostrar alerta de reserva exitosa
+      alert("¡Reserva realizada con éxito!");
+  
+      // Mostrar los datos de la reserva en la consola
+      console.log("Datos de la reserva:", reservaData);
+    } catch (error) {
+      console.error("Error al confirmar la reserva:", error);
+    // Mostrar el error en la consola
+    console.error("Código de error:", error.message);
+    // Manejar el error, por ejemplo, mostrando un mensaje al usuario
+    }
+  };
+
+
   if (loading) {
     // Mostrar un indicador de carga mientras se obtienen los datos
     return <p>Cargando...</p>;
@@ -53,105 +94,104 @@ function Booking() {
   if (!bookingOk) {
     return (
       <>
-           return (
-      <Stack direction="horizontal" gap={1}>
-        <div className="booking">
-          
-          <div className="booking-information">
-            
-            <div className="form">
-            <h1 className="title-form">Datos del usuario</h1>
-              <section className="form-inputs">
-                <div className="card-booking">
-             
-                  <div className="inputs-div">
-                    <div className="user-details">
-                      <p>Nombre: {user.firstName}</p>
-                      <p>Apellido: {user.lastName}</p>
-                      <p>Email: {user.userId}</p>
-                    </div>
-                  </div>
-                  <div className="inputs-div"></div>
-                </div>
-              </section>
-
-              <section className="check-in">              
-                <section className="booking-date">
-                  <h1>Selecciona tu fecha de reserva</h1>
+        return (
+        <Stack direction="horizontal" gap={1}>
+          <div className="booking">
+            <div className="booking-information">
+              <div className="form">
+                <h1 className="title-form">Datos del usuario</h1>
+                <section className="form-inputs">
                   <div className="card-booking">
-                    <Calendar />
+                    <div className="inputs-div">
+                      <div className="user-details">
+                        <p>Nombre: {user.firstName}</p>
+                        <p>Apellido: {user.lastName}</p>
+                        <p>Email: {user.userId}</p>
+                      </div>
+                    </div>
+                    <div className="inputs-div"></div>
                   </div>
                 </section>
+
+                <section className="check-in">
+                  <section className="booking-date">
+                    <h1>Selecciona tu fecha de reserva</h1>
+                    <div className="card-booking">
+                      <Calendar />
+                    </div>
+                  </section>
+                </section>
+              </div>
+
+              <section className="booking-details">
+                <h1 className="title-booking-details">Resumen</h1>
+                <div className="card-booking">
+                  <div className="content-booking-details">
+                    <div className="image-container">
+                      <div
+                        className="image"
+                        style={{
+                          backgroundImage: `url(${product.imagenSalidaDtoList[0].urlImagen})`,
+                          backgroundSize: "cover",
+                          height: "300px",
+                          borderTopLeftRadius: "8px",
+                          borderTopRightRadius: "8px",
+                        }}
+                      ></div>
+                    </div>
+
+                    <div className="bottom-booking-details">
+                      <h4 className="category-title">
+                        {product.categoria.nombreCategoria}
+                      </h4>
+                      <h1>{product.nombreProducto}</h1>
+
+                      <div className="location-booking-details">
+                        <div className="direccion">
+                          <h4 style={{ marginTop: "-4px", marginLeft: "4px" }}>
+                            <MdLocationOn /> {product.ubicacion}
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="check-in-booking-details">
+                    <hr className="hr-booking" />
+                    <div className="check-in-check-out">
+                      <h4>Fecha de Inicio </h4>
+                      <h4 className="datesBooking">
+                        {dateFormat(startDate.startDate, "yyyy/mm/dd")}
+                      </h4>
+                    </div>
+                    <hr className="hr-booking" />
+                    <div className="check-in-check-out">
+                      <h4>Fecha de Término </h4>
+                      <h4 className="datesBooking">
+                        {dateFormat(endDate.endDate, "yyyy/mm/dd")}
+                      </h4>
+                    </div>
+                    <hr className="hr-booking" />
+                    <div className="textarea-booking">
+                      <textarea
+                        name="datosExtra"
+                        placeholder="Comentarios adicionales"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="boton-enviar"
+                      onClick={confirmarReserva}
+                    >
+                      Confirmar reserva
+                    </button>
+                  </div>
+                </div>
               </section>
             </div>
-
-            <section className="booking-details">
-            <h1 className="title-booking-details">Resumen</h1>
-              <div className="card-booking">
-                <div className="content-booking-details">
-                  <div className="image-container">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage: `url(${product.imagenSalidaDtoList[0].urlImagen})`,
-                        backgroundSize: "cover",
-                        height: "300px",
-                        borderTopLeftRadius:"8px",
-                        borderTopRightRadius:"8px"
-                      }}
-                    ></div>
-                  </div>
-
-                  <div className="bottom-booking-details">
-                    <h4 className="category-title">
-                      {product.categoria.nombreCategoria}
-                    </h4>
-                    <h1>{product.nombreProducto}</h1>
-
-                    <div className="location-booking-details">
-                      <div className="direccion">
-                        <h4 style={{ marginTop: "-4px", marginLeft: "4px" }}>
-                          <MdLocationOn /> {product.ubicacion}
-                        </h4>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div className="check-in-booking-details">
-                      <hr className="hr-booking" />
-                      <div className="check-in-check-out">
-                        <h4>Fecha de Inicio </h4>
-                        <h4 className="datesBooking">
-                          {dateFormat(startDate.startDate, "yyyy/mm/dd")}
-                        </h4>
-                      </div>
-                      <hr className="hr-booking" />
-                      <div className="check-in-check-out">
-                        <h4>Fecha de Término </h4>
-                        <h4 className="datesBooking">
-                          {dateFormat(endDate.endDate, "yyyy/mm/dd")}
-                        </h4>
-                      </div>
-                      <hr className="hr-booking" />
-                      <div className="textarea-booking">
-                        <textarea
-                          name="datosExtra"
-                          placeholder="Comentarios adicionales"
-                        />
-                      </div>
-                      <button type="submit" className="boton-enviar">
-                        Confirmar reserva
-                      </button>
-                    </div>
-                  </div>
-                
-              
-            </section>
+            <p className="success-submit"></p>
           </div>
-          <p className="success-submit"></p>
-        </div>
-      </Stack>
-    );
+        </Stack>
+        );
       </>
     );
   } else {

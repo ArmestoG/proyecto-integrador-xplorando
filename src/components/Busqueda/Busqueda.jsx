@@ -4,30 +4,16 @@ import CarruselBuscador from "./Components/CarruselBuscador";
 import axios from "axios";
 import "./Busqueda.css";
 import "react-multi-carousel/lib/styles.css";
+import { addDays } from "date-fns";
 
 export default function Search() {
   const [startDate, setStartDate] = useState(new Date());
-  const [startDate1, setStartDate1] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [arrayBusqueda, setArrayBusqueda] = useState([]);
   const [elUsuarioAFiltrado, setelUsuarioAFiltrado] = useState(false);
 
-  const productoFiltrados = useMemo(() => {
-    const textoMinusculas = textoBusqueda.toLowerCase();
-    return arrayBusqueda.filter(
-      (producto) =>
-        producto.nombreProducto.toLowerCase().includes(textoMinusculas) ||
-        producto.ubicacion.toLowerCase().includes(textoMinusculas)
-    );
-  }, [textoBusqueda, arrayBusqueda]);
-
-  const ubicacionesUnicas = useMemo(() => {
-    const ubicacionesSet = new Set();
-    arrayBusqueda.forEach((producto) => {
-      ubicacionesSet.add(producto.ubicacion);
-    });
-    return Array.from(ubicacionesSet);
-  }, [arrayBusqueda]);
+  
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -53,6 +39,44 @@ export default function Search() {
     setelUsuarioAFiltrado(true);
   };
 
+
+  const productoFiltrados = useMemo(() => {
+    const textoMinusculas = textoBusqueda.toLowerCase();
+    const fechaInicio = startDate;
+    const fechaFin = endDate;
+  
+    return arrayBusqueda.filter((producto) => {
+      const nombreProductoEnMinusculas = producto.nombreProducto.toLowerCase();
+      const ubicacionEnMinusculas = producto.ubicacion.toLowerCase();
+      const fechasReservadas = producto.fechasReservadas || [];
+  
+      // Filtrar por texto de búsqueda
+      const cumpleConTextoBusqueda =
+        nombreProductoEnMinusculas.includes(textoMinusculas) ||
+        ubicacionEnMinusculas.includes(textoMinusculas);
+  
+      // Si el producto no tiene fechas reservadas, se considera disponible
+      const estaDisponibleEnFecha =
+        fechasReservadas.length === 0 ||
+        fechasReservadas.every((fechaReservada) => {
+          const fechaReservadaFormato = new Date(fechaReservada);
+          return (
+            fechaReservadaFormato < fechaInicio || fechaReservadaFormato > fechaFin
+          );
+        });
+  
+      return cumpleConTextoBusqueda && estaDisponibleEnFecha;
+    });
+  }, [textoBusqueda, arrayBusqueda, startDate, endDate]);
+
+  const ubicacionesUnicas = useMemo(() => {
+    const ubicacionesSet = new Set();
+    arrayBusqueda.forEach((producto) => {
+      ubicacionesSet.add(producto.ubicacion);
+    });
+    return Array.from(ubicacionesSet);
+  }, [arrayBusqueda]);
+
   return (
     <div>
       <div className="search">
@@ -76,18 +100,25 @@ export default function Search() {
             </datalist>
           )}
         </div>
-        <div className="init-date">
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
-        </div>
-        <div className="done-date">
-          <DatePicker
-            selected={startDate1}
-            onChange={(date) => setStartDate1(date)}
-          />
-        </div>
+        <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        selectsStart
+        minDate={(new Date())}
+        startDate={startDate}
+        endDate={endDate}
+        dateFormat="dd/MM/yyyy"
+
+      />
+      <DatePicker
+        selected={endDate}
+        onChange={(date) => setEndDate(date)}
+        selectsEnd
+        startDate={startDate}
+        endDate={endDate}
+        minDate={addDays(startDate, 3)}
+        dateFormat="dd/MM/yyyy"
+      />
       </div>
       <div className="divSearch-btn">
         <button className="btn-search" onClick={onFilterSubmit}>

@@ -1,15 +1,11 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik} from "formik";
 import { DateContext } from "../../components/Context/DateContext";
 import React, { useContext, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
-import { BsCheck2Circle } from "react-icons/bs";
-import { MdLocationOn } from "react-icons/md";
+import { useParams } from "react-router-dom";
+
 import Calendar from "../Booking/Calendar";
 import dateFormat from "dateformat";
-import Select from "react-select";
-import axios from "axios";
-import swal from 'sweetalert';
+
 
 import "./Picker.css";
 
