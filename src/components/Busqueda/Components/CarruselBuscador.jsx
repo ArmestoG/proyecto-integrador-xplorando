@@ -1,5 +1,6 @@
 import React from "react";
 import "../../Busqueda/Components/CarruselBuscador.css";
+import { Link } from "react-router-dom";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -50,7 +51,11 @@ export default function Search({ arrayBusqueda }) {
                   </div>
 
                   <div className="divbutBusqueda">
-                    <button className="butBusqueda">Reservar estadía</button>
+                    <Link to={`/producto/${resultadoBusqueda.id}`}>
+                      <button className="butBusqueda" onClick={() => {}}>
+                        Reservar estadía
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
