@@ -6,7 +6,6 @@ import "react-multi-carousel/lib/styles.css";
 import { addDays, format } from "date-fns"; // Importar la función format de date-fns
 import "react-datepicker/dist/react-datepicker.css"; // Importar el archivo CSS de react-datepicker
 import "./Busqueda.css";
-import moment from "moment";
 
 export default function Search() {
   const [startDate, setStartDate] = useState(new Date());

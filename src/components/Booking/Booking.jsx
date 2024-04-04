@@ -19,15 +19,32 @@ function Booking() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Obtener los datos del usuario del sessionStorage
-    const userData = {
-      userRole: sessionStorage.getItem("userRole"),
-      lastName: sessionStorage.getItem("lastName"),
-      userId: sessionStorage.getItem("userId"),
-      token: sessionStorage.getItem("token"),
-      firstName: sessionStorage.getItem("firstName"),
-    };
-    setUser(userData);
+    // Obtener el email del usuario del sessionStorage
+    const userEmail = sessionStorage.getItem("userId");
+    const token = sessionStorage.getItem("token");
+    if (!userEmail) {
+      console.error("No se encontró el email del usuario en el sessionStorage");
+      return;
+    }
+
+    // Llamar al endpoint para obtener los datos del usuario utilizando el email
+    fetch(`http://localhost:8080/users/profile/${userEmail}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del usuario");
+        }
+        return response.json();
+      })
+      .then((userData) => {
+        setUser(userData);
+      })
+      .catch((error) =>
+        console.error("Error fetching user data:", error)
+      );
 
     // Fetch del producto
     fetch(`http://localhost:8080/productos/${id}`)
@@ -46,19 +63,19 @@ function Booking() {
       );
   }, [id]);
 
-
-
-  
   const confirmarReserva = async () => {
     try {
+      // Formatear las fechas a strings en formato ISO
+      const fechaInicioFormatted = startDate.startDate.toISOString().split('T')[0];
+      const fechaFinalFormatted = endDate.endDate.toISOString().split('T')[0];
+  
       const reservaData = {
         productoId: id,
-        userId: user.userId,
-        fechaInicio: startDate,
-        fechaFinal: endDate,
-        // Otros datos de la reserva, como comentarios adicionales, podrían agregarse aquí
+        userId: user.id,
+        fechaInicio: fechaInicioFormatted,
+        fechaFinal: fechaFinalFormatted,
       };
-  
+      console.log(reservaData)
       const response = await fetch("http://localhost:8080/reservas/crear", {
         method: "POST",
         headers: {
@@ -80,12 +97,11 @@ function Booking() {
       console.log("Datos de la reserva:", reservaData);
     } catch (error) {
       console.error("Error al confirmar la reserva:", error);
-    // Mostrar el error en la consola
-    console.error("Código de error:", error.message);
-    // Manejar el error, por ejemplo, mostrando un mensaje al usuario
+      // Mostrar el error en la consola
+      console.error("Código de error:", error.message);
+      // Manejar el error, por ejemplo, mostrando un mensaje al usuario
     }
   };
-
 
   if (loading) {
     // Mostrar un indicador de carga mientras se obtienen los datos
@@ -94,7 +110,6 @@ function Booking() {
   if (!bookingOk) {
     return (
       <>
-        return (
         <Stack direction="horizontal" gap={1}>
           <div className="booking">
             <div className="booking-information">
@@ -104,9 +119,10 @@ function Booking() {
                   <div className="card-booking">
                     <div className="inputs-div">
                       <div className="user-details">
-                        <p>Nombre: {user.firstName}</p>
+                      <p>Nombre: {user.firstName}</p>
                         <p>Apellido: {user.lastName}</p>
-                        <p>Email: {user.userId}</p>
+                        <p>Email: {user.email}</p>
+                        <p>ID: {user.id}</p>
                       </div>
                     </div>
                     <div className="inputs-div"></div>
@@ -191,7 +207,6 @@ function Booking() {
             <p className="success-submit"></p>
           </div>
         </Stack>
-        );
       </>
     );
   } else {
