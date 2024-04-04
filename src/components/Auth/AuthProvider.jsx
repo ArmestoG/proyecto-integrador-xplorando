@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = (token) => {
     const decodedUser = jwt_decode(token);
+    console.log(decodedUser);
     sessionStorage.setItem("userId", decodedUser.sub);
     sessionStorage.setItem("userRole", decodedUser.roles);
     sessionStorage.setItem("token", token);

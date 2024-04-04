@@ -12,8 +12,6 @@ import Busqueda from "../Busqueda/Busqueda";
 
 export default function Body() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [startDate1, setStartDate1] = useState(new Date());
   const [categorias, setCategorias] = useState([]);
 
 

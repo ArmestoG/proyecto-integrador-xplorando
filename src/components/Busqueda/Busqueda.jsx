@@ -1,19 +1,21 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import CarruselBuscador from "./Components/CarruselBuscador";
 import axios from "axios";
-import "./Busqueda.css";
 import "react-multi-carousel/lib/styles.css";
-import { addDays } from "date-fns";
+import { addDays, format } from "date-fns"; // Importar la función format de date-fns
+import "react-datepicker/dist/react-datepicker.css"; // Importar el archivo CSS de react-datepicker
+import "./Busqueda.css";
+import moment from "moment";
 
 export default function Search() {
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(addDays(new Date(), 3)); // Inicializar endDate con la fecha actual más 3 días
   const [textoBusqueda, setTextoBusqueda] = useState("");
-  const [arrayBusqueda, setArrayBusqueda] = useState([]);
-  const [elUsuarioAFiltrado, setelUsuarioAFiltrado] = useState(false);
-
-  
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
+  const [elUsuarioAFiltrado, setElUsuarioAFiltrado] = useState(false);
+  const [ubicacionP, setUbicacionP] = useState(""); // Estado para almacenar la ubicación seleccionada
+  const [ubicaciones, setUbicaciones] = useState([]);
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -22,7 +24,13 @@ export default function Search() {
           "http://localhost:8080/productos/listar"
         );
         console.log("Productos obtenidos:", response.data);
-        setArrayBusqueda(response.data);
+        setProductosFiltrados(response.data);
+
+        // Extraer ubicaciones únicas de los productos y guardarlas en el estado
+        const ubicacionesUnicas = [
+          ...new Set(response.data.map((producto) => producto.ubicacion)),
+        ];
+        setUbicaciones(ubicacionesUnicas);
       } catch (error) {
         console.error("Error al obtener productos:", error);
       }
@@ -31,110 +39,84 @@ export default function Search() {
     fetchProductos();
   }, []);
 
+  const ubicacionesFiltradas = ubicaciones.filter(
+    (ubicacion) =>
+      ubicacion.toLowerCase().includes(textoBusqueda.toLowerCase()) &&
+      textoBusqueda.length >= 3
+  );
+
   const handleChange = (e) => {
     setTextoBusqueda(e.target.value);
   };
 
-  const onFilterSubmit = () => {
-    setelUsuarioAFiltrado(true);
+  const onFilterSubmit = async () => {
+    try {
+      setUbicacionP(textoBusqueda);
+      console.log(ubicacionP);
+      const response = await axios.post(
+        "http://localhost:8080/productos/buscarProductoDisponible",
+        {
+          ubicacionP: ubicacionP, // Pasar la ubicación seleccionada al endpoint
+          fechaInicio: format(startDate, "yyyy-MM-dd"), // Formatear la fecha de inicio
+          fechaFinal: format(endDate, "yyyy-MM-dd"), // Formatear la fecha final
+        }
+      );
+      console.log("Productos filtrados:", response.data);
+      setProductosFiltrados(response.data);
+    } catch (error) {
+      console.error("Error al filtrar productos:", error);
+    }
+    setElUsuarioAFiltrado(true);
   };
-
-
-  const productoFiltrados = useMemo(() => {
-    const textoMinusculas = textoBusqueda.toLowerCase();
-    const fechaInicio = startDate;
-    const fechaFin = endDate;
-  
-    return arrayBusqueda.filter((producto) => {
-      const nombreProductoEnMinusculas = producto.nombreProducto.toLowerCase();
-      const ubicacionEnMinusculas = producto.ubicacion.toLowerCase();
-      const fechasReservadas = producto.fechasReservadas || [];
-  
-      // Filtrar por texto de búsqueda
-      const cumpleConTextoBusqueda =
-        nombreProductoEnMinusculas.includes(textoMinusculas) ||
-        ubicacionEnMinusculas.includes(textoMinusculas);
-  
-      // Si el producto no tiene fechas reservadas, se considera disponible
-      const estaDisponibleEnFecha =
-        fechasReservadas.length === 0 ||
-        fechasReservadas.every((fechaReservada) => {
-          const fechaReservadaFormato = new Date(fechaReservada);
-          return (
-            fechaReservadaFormato < fechaInicio || fechaReservadaFormato > fechaFin
-          );
-        });
-  
-      return cumpleConTextoBusqueda && estaDisponibleEnFecha;
-    });
-  }, [textoBusqueda, arrayBusqueda, startDate, endDate]);
-
-  const ubicacionesUnicas = useMemo(() => {
-    const ubicacionesSet = new Set();
-    arrayBusqueda.forEach((producto) => {
-      ubicacionesSet.add(producto.ubicacion);
-    });
-    return Array.from(ubicacionesSet);
-  }, [arrayBusqueda]);
 
   return (
     <div>
       <div className="search">
-        <div>
-          <input
-            className="search-bar"
-            type="text"
-            placeholder="Buscar productos..."
-            list="opciones"
-            value={textoBusqueda}
-            onChange={handleChange}
-          />
-          {productoFiltrados.length > 0 && textoBusqueda.length > 0 && (
-            <datalist id="opciones">
-              {productoFiltrados.map((producto, index) => (
-                <option key={index} value={producto.nombreProducto}></option>
-              ))}
-              {ubicacionesUnicas.map((ubicacion, index) => (
-                <option key={index} value={ubicacion}></option>
-              ))}
-            </datalist>
-          )}
-        </div>
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="¿Que provincia quieres visitar?"
+          value={textoBusqueda}
+          onChange={handleChange}
+          list="ubicaciones-list" // Utilizar lista de sugerencias
+        />
+        <datalist id="ubicaciones-list">
+          {/* Mapear las ubicaciones para generar opciones de sugerencia */}
+          {ubicacionesFiltradas.map((ubicacion, index) => (
+            <option key={index} value={ubicacion} />
+          ))}
+        </datalist>
         <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        selectsStart
-        minDate={(new Date())}
-        startDate={startDate}
-        endDate={endDate}
-        dateFormat="dd/MM/yyyy"
-
-      />
-      <DatePicker
-        selected={endDate}
-        onChange={(date) => setEndDate(date)}
-        selectsEnd
-        startDate={startDate}
-        endDate={endDate}
-        minDate={addDays(startDate, 3)}
-        dateFormat="dd/MM/yyyy"
-      />
-      </div>
-      <div className="divSearch-btn">
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          selectsStart
+          minDate={new Date()}
+          startDate={startDate}
+          endDate={endDate}
+          dateFormat="dd/MM/yyyy"
+        />
+        <DatePicker
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={addDays(startDate, 3)}
+          dateFormat="dd/MM/yyyy"
+        />
         <button className="btn-search" onClick={onFilterSubmit}>
           REALIZAR BUSQUEDA
-        </button>{" "}
+        </button>
       </div>
       <div className="resultados-obtenidos">
         <h2>Resultados de la búsqueda</h2>
       </div>
       {elUsuarioAFiltrado ? (
-        productoFiltrados.length ? (
-          <CarruselBuscador arrayBusqueda={productoFiltrados} />
+        productosFiltrados.length ? (
+          <CarruselBuscador arrayBusqueda={productosFiltrados} />
         ) : (
           <div>
-            {" "}
-            <img src="public/Images/imgError.png"></img>{" "}
+            <img src="public/Images/imgError.png" alt="Error" />
           </div>
         )
       ) : null}

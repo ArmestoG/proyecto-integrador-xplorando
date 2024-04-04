@@ -22,6 +22,7 @@ const Detail = () => {
         console.error("Error fetching product details:", error)
       );
   }, [id]);
+  console.log(product)
 
   useEffect(() => {
     // Verificar si hay un token de acceso almacenado en sessionStorage
