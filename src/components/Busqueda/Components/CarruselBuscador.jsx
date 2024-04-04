@@ -29,8 +29,8 @@ export default function Search({ arrayBusqueda }) {
     >
       {arrayBusqueda.map((resultadoBusqueda, index) => {
         return (
-          <div className="carrousel-card">
-            <div className="rBusqueda" key={index}>
+          <div className="carrousel-card" key={index}>
+            <div className="rBusqueda">
               <div className="div-img">
                 <img
                   src={resultadoBusqueda.imagenSalidaDtoList[0].urlImagen}
@@ -45,7 +45,7 @@ export default function Search({ arrayBusqueda }) {
                       {resultadoBusqueda.precioProducto}
                     </div>
                     <div className="h7Busqueda">
-                      <h7>{resultadoBusqueda.descripcionProducto}</h7>
+                      <span>{resultadoBusqueda.descripcionProducto}</span>
                     </div>
                   </div>
 
