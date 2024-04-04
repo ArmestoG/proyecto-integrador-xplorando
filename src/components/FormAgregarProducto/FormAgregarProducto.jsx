@@ -26,7 +26,6 @@ const AgregarProducto = () => {
     }
   }, []);
 
-
   const handleCodigoChange = (event) => {
     setCodigo(event.target.value);
   };
@@ -75,7 +74,6 @@ const AgregarProducto = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     crearProducto();
-    console.log(crearProducto)
   };
 
   const crearProducto = async () => {
@@ -310,23 +308,28 @@ const AgregarProducto = () => {
         </div>
 
         <div className="caracteristica">
-  <label>Características:</label>
-  <div className="checkbox-container">
-    {Array.isArray(caracteristicas) && caracteristicas.map((caracteristica, index) => (
-      <div className="checkbox-group" key={index}>
-        <input
-          type="checkbox"
-          id={`caracteristica-${caracteristica.id}`}
-          name={`caracteristica-${caracteristica.nombreCaracteristica}`}
-          value={caracteristica.nombreCaracteristica}
-          checked={caracteristicaSeleccionada.includes(caracteristica.nombreCaracteristica)}
-          onChange={handleCaracteristicaChange}
-        />
-        <label htmlFor={`caracteristica-${caracteristica.id}`}>{caracteristica.nombreCaracteristica}</label>
-      </div>
-    ))}
-  </div>
-</div>
+          <label>Características:</label>
+          <div className="checkbox-container">
+            {Array.isArray(caracteristicas) &&
+              caracteristicas.map((caracteristica, index) => (
+                <div className="checkbox-group" key={index}>
+                  <input
+                    type="checkbox"
+                    id={`caracteristica-${caracteristica.id}`}
+                    name={`caracteristica-${caracteristica.nombreCaracteristica}`}
+                    value={caracteristica.nombreCaracteristica}
+                    checked={caracteristicaSeleccionada.includes(
+                      caracteristica.nombreCaracteristica
+                    )}
+                    onChange={handleCaracteristicaChange}
+                  />
+                  <label htmlFor={`caracteristica-${caracteristica.id}`}>
+                    {caracteristica.nombreCaracteristica}
+                  </label>
+                </div>
+              ))}
+          </div>
+        </div>
         <div className="fila-formulario boton-enviar">
           <div className="datos-entrada" style={{ marginLeft: "auto" }}>
             <input type="submit" value="Registrar Paquete" />

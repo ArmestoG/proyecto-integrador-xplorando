@@ -16,10 +16,6 @@ export default function Body() {
   const [startDate1, setStartDate1] = useState(new Date());
   const [categorias, setCategorias] = useState([]);
 
-
-
- 
-
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
