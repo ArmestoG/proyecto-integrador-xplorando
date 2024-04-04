@@ -165,4 +165,49 @@ h2 {
   text-align: center;
 }
 
+.datepicker-mobile {
+  display: none;
+}
+
+/*MOBILE STYLES*/
+
+@media (max-width: 520px) {
+  .datepicker-desktop {
+      display: none;
+
+  }
+
+  .datepicker-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-direction: column;
+  }
+
+  .react-datepicker-card {
+      width: 100%;
+      margin-top: 30px;
+
+  }
+
+  .react-datepicker-card__body {
+      width: 80%;
+      height: initial;
+      background-color: transparent;
+      display: flex;
+      flex-direction: column;
+      border-radius: unset;
+      align-items: center;
+      box-shadow: unset;
+  }
+
+  .wrapper-calendar-button {
+      margin-top: 20px;
+  }
+
+}
+
+
+
 

@@ -6,7 +6,7 @@ import { MdLocationOn } from "react-icons/md";
 import Calendar from "../Booking/Calendar";
 import success from "./success-icon.png";
 import dateFormat from "dateformat";
-import "./Booking.css";
+import "./Booking.scss";
 
 function Booking() {
   const { id } = useParams();
@@ -100,12 +100,16 @@ function Booking() {
       // Mostrar el error en la consola
       console.error("Código de error:", error.message);
       // Manejar el error, por ejemplo, mostrando un mensaje al usuario
+      window.alert("No se pudo confirmar la reserva. Por favor, elija otra fecha.")
     }
   };
 
   if (loading) {
     // Mostrar un indicador de carga mientras se obtienen los datos
     return <p>Cargando...</p>;
+  }
+  if (!user) { // Verificar si el usuario aún no se ha cargado
+    return <p>Obteniendo datos del usuario...</p>;
   }
   if (!bookingOk) {
     return (
@@ -122,7 +126,6 @@ function Booking() {
                       <p>Nombre: {user.firstName}</p>
                         <p>Apellido: {user.lastName}</p>
                         <p>Email: {user.email}</p>
-                        <p>ID: {user.id}</p>
                       </div>
                     </div>
                     <div className="inputs-div"></div>

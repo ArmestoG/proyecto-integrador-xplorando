@@ -99,3 +99,53 @@
     color: #f38134;
     text-decoration: none;
 }
+
+
+/* Para tablets */
+@media (max-width: 1024px) {
+    .registerContainer {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .imageContainerRegister {
+      height: 400px;
+    }
+  
+    .imageTextRegister {
+      font-size: 50px;
+      text-align: center;
+    }
+  
+    .formContainerRegister {
+      padding: 40px;
+    }
+  }
+  
+  /* Para dispositivos móviles */
+  @media (max-width: 767px) {
+    .imageContainerRegister {
+      height: 300px;
+    }
+  
+    .imageTextRegister {
+      font-size: 40px;
+    }
+  
+    .formContainerRegister {
+      padding: 20px;
+    }
+  
+    .inputWrapperRegister {
+      margin-bottom: 15px;
+    }
+  
+    .buttonWrapper {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .primaryButtonRegistro {
+      margin-bottom: 10px;
+    }
+  }

@@ -4,7 +4,6 @@ import { DateContext } from "../../components/Context/DateContext";
 import DatePicker, { registerLocale } from "react-datepicker";
 import eachDayOfInterval from "date-fns/eachDayOfInterval";
 import "react-datepicker/dist/react-datepicker.css";
-import dateFormat from "dateformat";
 import swal from "sweetalert";
 import es from "date-fns/locale/es";
 
@@ -83,6 +82,24 @@ const Calendar = () => {
               minDate={new Date()}
             />
           </div>
+        </div>
+      </div>
+      <div className="datepicker-mobile">
+        <div className="react-datepicker-wrapper__picker">
+          <DatePicker
+            selected={null}
+            onChange={onChange}
+            startDate={dateRange.startDate}
+            endDate={dateRange.endDate}
+            // monthsShown={2}
+            selectsRange
+            locale={es}
+            inline
+            dateFormat="dd-MM-yyyy"
+            className="react-datepicker-wrapper__picker-input"
+            excludeDates={exclutions}
+            minDate={new Date()}
+          />
         </div>
       </div>
     </>

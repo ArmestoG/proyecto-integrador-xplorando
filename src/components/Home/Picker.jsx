@@ -37,11 +37,7 @@ function Picker() {
     }),
   };
 
-  const producto = product && product.product;
-  const gallery =
-    product.product.imagenes &&
-    product.product.imagenes.sort((a, b) => a.id - b.id);
-
+ 
   return (
     <>
       <div className="booking">
