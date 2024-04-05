@@ -11,7 +11,7 @@ export default function Category(props) {
         const response = await axios.get(
           "http://localhost:8080/categorias/listar"
         );
-        console.log("Categorias obtenidas:", response.data);
+       // console.log("Categorias obtenidas:", response.data);
         setCategoria(response.data);
       } catch (error) {
         console.error("Error al obtener categorias:", error);

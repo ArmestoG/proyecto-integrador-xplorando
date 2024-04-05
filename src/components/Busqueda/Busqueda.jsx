@@ -16,31 +16,10 @@ export default function Search() {
   const [ubicacionP, setUbicacionP] = useState(""); // Estado para almacenar la ubicación seleccionada
   const [ubicaciones, setUbicaciones] = useState([]);
 
-  useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/productos/listar"
-        );
-        console.log("Productos obtenidos:", response.data);
-        setProductosFiltrados(response.data);
-
-        // Extraer ubicaciones únicas de los productos y guardarlas en el estado
-        const ubicacionesUnicas = [
-          ...new Set(response.data.map((producto) => producto.ubicacion)),
-        ];
-        setUbicaciones(ubicacionesUnicas);
-      } catch (error) {
-        console.error("Error al obtener productos:", error);
-      }
-    };
-
-    fetchProductos();
-  }, []);
 
   const ubicacionesFiltradas = ubicaciones.filter(
-    (ubicacion) =>
-      ubicacion.toLowerCase().includes(textoBusqueda.toLowerCase()) &&
+    (ubicacionP) =>
+      ubicacionP.toLowerCase().includes(textoBusqueda.toLowerCase()) &&
       textoBusqueda.length >= 3
   );
 
@@ -51,7 +30,7 @@ export default function Search() {
   const onFilterSubmit = async () => {
     try {
       setUbicacionP(textoBusqueda);
-      console.log(ubicacionP);
+      console.log("la ubicacion del prod es : " + ubicacionP);
       const response = await axios.post(
         "http://localhost:8080/productos/buscarProductoDisponible",
         {
@@ -77,12 +56,12 @@ export default function Search() {
           placeholder="¿Que provincia quieres visitar?"
           value={textoBusqueda}
           onChange={handleChange}
-          list="ubicaciones-list" // Utilizar lista de sugerencias
+         // Utilizar lista de sugerencias
         />
-        <datalist id="ubicaciones-list">
+        <datalist>
           {/* Mapear las ubicaciones para generar opciones de sugerencia */}
           {ubicacionesFiltradas.map((ubicacion, index) => (
-            <option key={index} value={ubicacion} />
+            <option key={index} value={ubicacionP} />
           ))}
         </datalist>
         <DatePicker

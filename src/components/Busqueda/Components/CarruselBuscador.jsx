@@ -2,9 +2,11 @@ import React from "react";
 import "../../Busqueda/Components/CarruselBuscador.css";
 import { Link } from "react-router-dom";
 
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 export default function Search({ arrayBusqueda }) {
+  
   return (
     <Carousel
       responsive={{
@@ -40,9 +42,6 @@ export default function Search({ arrayBusqueda }) {
                   <div>
                     <div className="resultadoBusqueda-nombre">
                       {resultadoBusqueda.nombreProducto}
-                    </div>
-                    <div className="resultadoBusqueda-precio">
-                      {resultadoBusqueda.precioProducto}
                     </div>
                     <div className="h7Busqueda">
                       <span>{resultadoBusqueda.descripcionProducto}</span>
